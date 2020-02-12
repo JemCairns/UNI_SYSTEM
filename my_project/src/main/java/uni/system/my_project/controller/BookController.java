@@ -37,8 +37,10 @@ public class BookController {
     @GetMapping("/books/{id}")
     public String getNoteById(@PathVariable(value = "id") Long bookId, @RequestParam(name="name", required=false, defaultValue = "Book_Name") String name, Model model) throws BookNotFoundException {
 //        Optional<Book> book = ;
-        model.addAttribute("name", bookRepository.getOne(bookId).getBook_name());
-        model.addAttribute("author", bookRepository.getOne(bookId).getAuthor_name());
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+        model.addAttribute("name", book.getBook_name());
+        model.addAttribute("author", book.getAuthor_name());
         return "books";
     }
 
