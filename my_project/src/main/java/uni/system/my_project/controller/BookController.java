@@ -1,16 +1,18 @@
 package uni.system.my_project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import uni.system.my_project.exception.BookNotFoundException;
 import uni.system.my_project.model.Book;
 import uni.system.my_project.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 public class BookController {
 
     @Autowired
@@ -18,7 +20,10 @@ public class BookController {
 
     // Get All Notes
     @GetMapping("/books")
-    public List<Book> getAllNotes() {
+//    public List<Book> getAllNotes() {
+    public List<Book> getAllNotes(@RequestParam(name="name", required=false, defaultValue = "Book_Name") String name, Model model) {
+        model.addAttribute("name", name);
+//        return bookRepository.findAll();
         return bookRepository.findAll();
     }
 
@@ -30,9 +35,11 @@ public class BookController {
 
     // Get a Single Note
     @GetMapping("/books/{id}")
-    public Book getNoteById(@PathVariable(value = "id") Long bookId) throws BookNotFoundException {
-        return bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException(bookId));
+    public String getNoteById(@PathVariable(value = "id") Long bookId, @RequestParam(name="name", required=false, defaultValue = "Book_Name") String name, Model model) throws BookNotFoundException {
+//        Optional<Book> book = ;
+        model.addAttribute("name", bookRepository.getOne(bookId).getBook_name());
+        model.addAttribute("author", bookRepository.getOne(bookId).getAuthor_name());
+        return "books";
     }
 
     // Update a Note
