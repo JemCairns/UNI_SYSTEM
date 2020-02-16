@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     @Autowired
-    LoginDetailsRepository loginDetailsRepository;
+    StudentRepository studentRepository;
 
-    public boolean validateUser(String user, String pass) {
-        if(loginDetailsRepository.existsById(user)) {
-            return loginDetailsRepository.getOne(user).getPassword().equals(pass);
+    public boolean validateUser(String ID, String pass) {
+        if(studentRepository.existsById(ID)) {
+            return studentRepository.getOne(ID).getPassword().equals(pass);
         }
         return false;
     }
