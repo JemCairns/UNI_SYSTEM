@@ -1,4 +1,4 @@
-package uni.system.login_stuff;
+package uni.system.webapp.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

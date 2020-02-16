@@ -1,4 +1,4 @@
-package uni.system.login_stuff;
+package uni.system.webapp.tables;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

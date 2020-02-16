@@ -1,7 +1,8 @@
-package uni.system.login_stuff;
+package uni.system.webapp.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uni.system.webapp.repositories.StudentRepository;
 
 @Service
 public class LoginService {
