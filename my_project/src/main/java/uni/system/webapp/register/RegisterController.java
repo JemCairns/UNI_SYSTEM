@@ -14,7 +14,7 @@ public class RegisterController {
     RegisterService service;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showLoginPage(ModelMap model) {
+    public String showRegisterPage(ModelMap model) {
         return "register";
     }
 

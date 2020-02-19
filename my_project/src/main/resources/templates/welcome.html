@@ -1,8 +1,43 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>First Web Application</title>
+    <link type="text/css" rel="stylesheet" href="css/welcome.css">
 </head>
 <body>
+
+<ul>
+    <li><a class="active" href="welcome.html">Home</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="stats.html">Statistics</a></li>
+</ul>
+
 <p th:text="${ID}"></p>
+<h2>Modules</h2>
+
+<div th:each="module: ${mod}">
+    <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}"></button>
+    <div class="content">
+        <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+        <br>
+        <p th:text="${module.description}"></p>
+    </div>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
 </body>
 </html>

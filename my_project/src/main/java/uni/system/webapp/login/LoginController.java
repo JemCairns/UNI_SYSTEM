@@ -6,6 +6,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uni.system.webapp.tables.Module;
+
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -30,7 +33,8 @@ public class LoginController {
 
         model.addAttribute("ID", ID);
         model.addAttribute("password", password);
-
+        List<Module> modules = service.getAllModules();
+        model.addAttribute("mod", modules);
         return "welcome";
     }
 
