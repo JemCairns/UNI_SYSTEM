@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.ModuleRepository;
 import uni.system.webapp.repositories.StudentRepository;
+import uni.system.webapp.repositories.TopicRepository;
 import uni.system.webapp.tables.Module;
+import uni.system.webapp.tables.Topic;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ public class LoginService {
     @Autowired
     ModuleRepository moduleRepository;
 
+    @Autowired
+    TopicRepository topicRepository;
+
     public boolean validateUser(String ID, String pass) {
         if(studentRepository.existsById(ID)) {
             return studentRepository.getOne(ID).getPassword().equals(pass);
@@ -27,4 +32,5 @@ public class LoginService {
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
     }
+    public List<Topic> getAllTopics() { return topicRepository.findAll(); }
 }

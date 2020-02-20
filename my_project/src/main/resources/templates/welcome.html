@@ -19,7 +19,13 @@
     <div class="content">
         <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
         <br>
-        <p th:text="${module.description}"></p>
+        <div th:each="topic: ${top}">
+            <p th:text="${topic.title}"></p>
+                <button type="button" class="collapsible" th:text="${topic.title}"></button>
+                <div class="content">
+                    <p th:text="${topic.description}"></p>
+                </div>
+        </div>
     </div>
 </div>
 

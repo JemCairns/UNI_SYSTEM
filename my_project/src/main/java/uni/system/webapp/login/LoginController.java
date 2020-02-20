@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Module;
+import uni.system.webapp.tables.Topic;
 
 import java.util.List;
 
@@ -33,8 +34,16 @@ public class LoginController {
 
         model.addAttribute("ID", ID);
         model.addAttribute("password", password);
+
         List<Module> modules = service.getAllModules();
         model.addAttribute("mod", modules);
+
+        List<Topic> topics = service.getAllTopics();
+        model.addAttribute("top", topics);
+        for(Topic t: topics) {
+            System.out.println(t.getTitle());
+        }
+
         return "welcome";
     }
 
