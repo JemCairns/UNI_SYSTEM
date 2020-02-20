@@ -20,10 +20,14 @@
         <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
         <br>
         <div th:each="topic: ${top}">
-            <div th:if="${topic.module_ID == module.ID}">
-                <button type="button" class="collapsible" th:text="${topic.title}"></button>
-                <div class="content">
-                    <p th:text="${topic.description}"></p>
+            <div th:each="topic_reg: ${top_reg}">
+                <div th:if="${module.ID == topic_reg.module_ID}">
+                    <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
+                        <button type="button" class="collapsible" th:text="${topic.title}"></button>
+                        <div class="content">
+                            <p th:text="${topic.description}"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
