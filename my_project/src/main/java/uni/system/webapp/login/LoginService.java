@@ -30,7 +30,15 @@ public class LoginService {
     }
 
     public List<Module> getAllModules() {
+        for(Module m : moduleRepository.findAll()){
+            System.out.println(m.getID());
+        }
         return moduleRepository.findAll();
     }
-    public List<Topic> getAllTopics() { return topicRepository.findAll(); }
+    public List<Topic> getAllTopics() {
+        for(Topic t : topicRepository.findAll()){
+            System.out.println(t.getTitle());
+        }
+        return topicRepository.findAll();
+    }
 }

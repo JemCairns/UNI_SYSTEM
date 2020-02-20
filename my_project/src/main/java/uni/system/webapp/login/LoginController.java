@@ -40,9 +40,9 @@ public class LoginController {
 
         List<Topic> topics = service.getAllTopics();
         model.addAttribute("top", topics);
-        for(Topic t: topics) {
-            System.out.println(t.getTitle());
-        }
+//        for(Topic t: topics) {
+//            System.out.println(t.getTitle());
+//        }
 
         return "welcome";
     }

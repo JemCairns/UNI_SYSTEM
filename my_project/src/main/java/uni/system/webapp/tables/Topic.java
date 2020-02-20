@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Table(name = "topic")
 public class Topic implements Serializable {
     @Id
+    private int ID;
+    @NotBlank
     private String module_ID;
     @NotBlank
     private String title;
