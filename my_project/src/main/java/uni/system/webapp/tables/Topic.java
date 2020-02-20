@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "topic")
 public class Topic implements Serializable {
     @Id
-    private int ID;
+    private int topic_ID;
     @NotBlank
     private String module_ID;
     @NotBlank
@@ -22,11 +22,16 @@ public class Topic implements Serializable {
         super();
     }
 
-    public Topic(String module_ID, String title, String description) {
+    public Topic(int topic_ID, String module_ID, String title, String description) {
+        this.topic_ID = topic_ID;
         this.module_ID = module_ID;
         this.title = title;
         this.description = description;
     }
+
+    public int getTopic_ID() { return topic_ID; }
+
+    public void setTopic_ID(int topic_ID) {this.topic_ID = topic_ID;}
 
     public String getModule_ID() {
         return module_ID;
