@@ -7,15 +7,15 @@
 
 <div class="navbar">
     <ul class="leftList">
-        <li><a class="active" href="welcome.html">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
+        <li><a class="active">Home</a></li>
+        <li><a th:href="${'/profile/'+ID}">Profile</a></li>
         <li><a href="stats.html">Statistics</a></li>
     </ul>
     <div>
         <div class="dropdown">
             <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
             <div class="dropdown-content">
-                <a href="#">Module</a>
+                <a href="#">My Modules</a>
                 <a href="#">Log Out</a>
             </div>
         </div>

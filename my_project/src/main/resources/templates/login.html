@@ -7,6 +7,7 @@
         <form class="login" method="post">
             <h2>Please login</h2>
             <p th:text="${errorMessage}"></p>
+            <input type="hidden" name="playerId" value="${ID}"/>
             <input type="text" class="value" name="ID" placeholder="student/staff ID" />
             <input type="password" class="value" name="password" placeholder="password" />
             <br/>
