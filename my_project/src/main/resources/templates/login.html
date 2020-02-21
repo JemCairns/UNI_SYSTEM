@@ -1,12 +1,12 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>First Web Application</title>
         <link type="text/css" rel="stylesheet" href="css/login.css">
     </head>
     <body>
-        <form action="/welcome" class="login" method="post">
+        <form class="login" method="post">
             <h2>Please login</h2>
-            <br/>
+            <p th:text="${errorMessage}"></p>
             <input type="text" class="value" name="ID" placeholder="student/staff ID" />
             <input type="password" class="value" name="password" placeholder="password" />
             <br/>

@@ -6,11 +6,6 @@ import uni.system.webapp.repositories.ModuleRepository;
 import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.repositories.TopicRegistrationRepository;
 import uni.system.webapp.repositories.TopicRepository;
-import uni.system.webapp.tables.Module;
-import uni.system.webapp.tables.Topic;
-import uni.system.webapp.tables.TopicRegistration;
-
-import java.util.List;
 
 @Service
 public class LoginService {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Module;
-import uni.system.webapp.tables.Student;
 import uni.system.webapp.tables.Topic;
 import uni.system.webapp.tables.TopicRegistration;
 
@@ -20,7 +19,7 @@ public class WelcomeController {
     @Autowired
     WelcomeService service;
 
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    @RequestMapping(value = "/welcome", method = RequestMethod.POST)
     public String showWelcomePage(ModelMap model, @RequestParam String ID) {
 
         model.addAttribute("ID", ID);
