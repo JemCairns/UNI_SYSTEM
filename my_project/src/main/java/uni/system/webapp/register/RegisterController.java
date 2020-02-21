@@ -29,7 +29,7 @@ public class RegisterController {
                                   @RequestParam String email,
                                   @RequestParam String gender) {
 
-        boolean alreadyRegistered = service.registerUser(new_ID, new_password, first_name, last_name, address, phone_number, email, gender);
+        boolean alreadyRegistered = service.registerUser(new_ID+"STU", new_password, first_name, last_name, address, phone_number, email, gender);
 
         if(!alreadyRegistered) {
             model.addAttribute("errorMessage", "You have already registered.");

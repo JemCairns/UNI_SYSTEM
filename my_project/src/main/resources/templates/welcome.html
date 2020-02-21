@@ -5,27 +5,39 @@
 </head>
 <body>
 
-<ul>
-    <li><a class="active" href="welcome.html">Home</a></li>
-    <li><a href="profile.html">Profile</a></li>
-    <li><a href="stats.html">Statistics</a></li>
-</ul>
+<div class="navbar">
+    <ul class="leftList">
+        <li><a class="active" href="welcome.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="stats.html">Statistics</a></li>
+    </ul>
+    <div>
+        <div class="dropdown">
+            <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
+            <div class="dropdown-content">
+                <a href="#">Module</a>
+                <a href="#">Log Out</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<p th:text="${ID}"></p>
-<h2>Modules</h2>
+<div class="page">
+    <h2>Modules</h2>
 
-<div th:each="module: ${mod}">
-    <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}"></button>
-    <div class="content">
-        <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
-        <br>
-        <div th:each="topic: ${top}">
-            <div th:each="topic_reg: ${top_reg}">
-                <div th:if="${module.ID == topic_reg.module_ID}">
-                    <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
-                        <button type="button" class="collapsible" th:text="${topic.title}"></button>
-                        <div class="content">
-                            <p th:text="${topic.description}"></p>
+    <div th:each="module: ${mod}">
+        <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}"></button>
+        <div class="content">
+            <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+            <br>
+            <div th:each="topic: ${top}">
+                <div th:each="topic_reg: ${top_reg}">
+                    <div th:if="${module.ID == topic_reg.module_ID}">
+                        <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
+                            <button type="button" class="collapsible" th:text="${topic.title}"></button>
+                            <div class="content">
+                                <p th:text="${topic.description}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -33,7 +45,6 @@
         </div>
     </div>
 </div>
-
 <script>
     var coll = document.getElementsByClassName("collapsible");
     var i;

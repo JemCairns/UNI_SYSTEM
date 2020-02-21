@@ -28,30 +28,9 @@ public class LoginService {
     TopicRegistrationRepository topicRegistrationRepository;
 
     public boolean validateUser(String ID, String pass) {
-        if(studentRepository.existsById(ID)) {
-            return studentRepository.getOne(ID).getPassword().equals(pass);
+        if(studentRepository.existsById(ID+"STU")) {
+            return studentRepository.getOne(ID+"STU").getPassword().equals(pass);
         }
         return false;
-    }
-
-    public List<Module> getAllModules() {
-        for(Module m : moduleRepository.findAll()){
-            System.out.println(m.getID());
-        }
-        return moduleRepository.findAll();
-    }
-    public List<Topic> getAllTopics() {
-        for(Topic t : topicRepository.findAll()){
-            System.out.println(t.getTopic_ID());
-        }
-        return topicRepository.findAll();
-    }
-    public List<TopicRegistration> getAllTopicRegistrations() {
-        for(TopicRegistration tr : topicRegistrationRepository.findAll()){
-            System.out.println(tr.getReg_ID());
-            System.out.println(tr.getModule_ID());
-            System.out.println(tr.getTopic_ID());
-        }
-        return topicRegistrationRepository.findAll();
     }
 }
