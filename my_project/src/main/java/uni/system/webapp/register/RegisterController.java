@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class RegisterController {
 
@@ -27,17 +29,19 @@ public class RegisterController {
                                   @RequestParam String address,
                                   @RequestParam String phone_number,
                                   @RequestParam String email,
-                                  @RequestParam String gender) {
+                                  @RequestParam String gender,
+                                  HttpSession session) {
 
         boolean alreadyRegistered = service.registerUser(new_ID+"STU", new_password, first_name, last_name, address, phone_number, email, gender);
 
         if(!alreadyRegistered) {
             model.addAttribute("errorMessage", "You have already registered.");
-            return "login";
+            session.setAttribute("ID", new_ID);
+            return "redirect:login";
         }
         model.addAttribute("ID", new_ID);
-
-        return "welcome";
+        session.setAttribute("ID", new_ID);
+        return "redirect:welcome";
     }
 
 
