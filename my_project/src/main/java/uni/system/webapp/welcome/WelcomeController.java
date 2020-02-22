@@ -8,7 +8,9 @@ import uni.system.webapp.tables.Module;
 import uni.system.webapp.tables.Topic;
 import uni.system.webapp.tables.TopicRegistration;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,10 +22,8 @@ public class WelcomeController {
     WelcomeService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showWelcomePage(ModelMap model, @RequestParam String ID) {
-
-        model.addAttribute("ID", ID);
-
+    public String showWelcomePage(ModelMap model, HttpSession session) {
+        model.addAttribute("ID", session.getAttribute("ID"));
         List<Module> modules = service.getAllModules();
         model.addAttribute("mod", modules);
 
@@ -32,6 +32,7 @@ public class WelcomeController {
 
         List<TopicRegistration> topicRegistrations = service.getAllTopicRegistrations();
         model.addAttribute("top_reg", topicRegistrations);
+
         return "welcome";
     }
 }
