@@ -14,14 +14,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@RequestMapping("/welcome")
 @Controller
 public class WelcomeController {
 
     @Autowired
     WelcomeService service;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String showWelcomePage(ModelMap model, HttpSession session) {
         model.addAttribute("ID", session.getAttribute("ID"));
         List<Module> modules = service.getAllModules();
@@ -34,5 +33,10 @@ public class WelcomeController {
         model.addAttribute("top_reg", topicRegistrations);
 
         return "welcome";
+    }
+
+    @RequestMapping(name = "/welcome", method = RequestMethod.GET)
+    public String showProfilePage(ModelMap model) {
+        return "profile";
     }
 }

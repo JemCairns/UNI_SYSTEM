@@ -5,22 +5,28 @@
 </head>
 <body>
 
-<div class="navbar">
-    <ul class="leftList">
-        <li><a class="active">Home</a></li>
-        <li><a th:href="${'/profile/'+ID}">Profile</a></li>
-        <li><a href="stats.html">Statistics</a></li>
-    </ul>
-    <div>
-        <div class="dropdown">
-            <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
-            <div class="dropdown-content">
-                <a href="#">My Modules</a>
-                <a href="#">Log Out</a>
+<table class="header">
+    <tr>
+        <td>
+            <div class="navbar">
+                <ul class="leftList">
+                    <li><a href="/welcome">Home</a></li>
+                    <li><a class="active">Profile</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                </ul>
             </div>
-        </div>
-    </div>
-</div>
+        </td>
+        <td style="white-space: nowrap; width: 0.1%">
+            <div class="dropdown">
+                <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
+                <div class="dropdown-content">
+                    <a href="#">My Modules</a>
+                    <a href="#">Log Out</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
 
 <div class="page">
     <h2>Modules</h2>
