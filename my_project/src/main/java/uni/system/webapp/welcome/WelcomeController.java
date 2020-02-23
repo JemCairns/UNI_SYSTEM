@@ -22,7 +22,13 @@ public class WelcomeController {
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String showWelcomePage(ModelMap model, HttpSession session) {
-        model.addAttribute("ID", session.getAttribute("ID"));
+        String userID = (String) session.getAttribute("ID");
+
+        if(userID == null) {
+            return "redirect:login";
+        }
+
+        model.addAttribute("ID", userID);
         List<Module> modules = service.getAllModules();
         model.addAttribute("mod", modules);
 

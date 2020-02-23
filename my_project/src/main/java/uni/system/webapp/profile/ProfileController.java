@@ -25,7 +25,6 @@ public class ProfileController {
             return "redirect:login";
         }
         Student student = service.getProfile(userID);
-        System.out.println(userID);
 
         if(userID.length() == 7) {
             model.addAttribute("account", true);
