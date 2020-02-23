@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link type="text/css" rel="stylesheet" href="css/profile.css">
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+</head>
+<body>
+<table class="header">
+    <tr>
+        <td>
+            <div class="navbar">
+                <ul class="leftList">
+                    <li><a href="/welcome">Home</a></li>
+                    <li><a class="active">Profile</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                </ul>
+            </div>
+        </td>
+        <td style="white-space: nowrap; width: 0.1%">
+            <div class="dropdown">
+                <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
+                <div class="dropdown-content">
+                    <a href="#">My Modules</a>
+                    <a href="#">Log Out</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="page">
+    <h1><u>My Profile</u></h1>
+    <table>
+        <tr>
+            <th class="profile">Account</th>
+            <th class="profile" th:if="${account}">Student</th>
+            <th class="profile" th:unless="${account}">Staff</th>
+        </tr>
+        <tr>
+            <td class="profile">ID: </td>
+            <td class="profile" th:text="${ID}"></td>
+        </tr>
+
+        <tr>
+            <td class="profile">Name: </td>
+            <td class="profile" th:text="${fName+' '+lName}"></td>
+        </tr>
+
+        <tr>
+            <td class="profile">Email: </td>
+            <td class="profile" th:text="${email}"></td>
+        </tr>
+
+        <tr>
+            <td class="profile">Mobile: </td>
+            <td class="profile" th:text="${number}"></td>
+        </tr>
+
+        <tr>
+            <td class="profile">Address: </td>
+            <td class="profile" th:text="${address}"></td>
+        </tr>
+    </table>
+    <br>
+    <a href="/modules" class="button">My Modules</a>
+    <a href="/fees" class="button">My Fees</a>
+</div>
+</body>
+</html>
