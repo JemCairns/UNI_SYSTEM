@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 public class ProfileController {
