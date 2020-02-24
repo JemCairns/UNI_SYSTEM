@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Entity
 @Table(name = "student")
@@ -29,13 +30,17 @@ public class Student {
     private int fees_paid;
     @NotNull
     private int fees_due;
+    @NotBlank
+    private Date date_of_birth;
+    @NotNull
+    private String stage;
 
     public Student() {
         super();
     }
 
     public Student(String ID, String password, String first_name, String last_name, String address,
-                   String phone_number, String email, String gender, int fees_due, int fees_paid) {
+                   String phone_number, String email, String gender, int fees_due, int fees_paid, Date date_of_birth, String stage) {
         this.ID = ID;
         this.password = password;
         this.first_name = first_name;
@@ -46,6 +51,8 @@ public class Student {
         this.gender = gender;
         this.fees_paid = fees_paid;
         this.fees_due = fees_due;
+        this.date_of_birth = date_of_birth;
+        this.stage = stage;
     }
 
     public String getID() {
@@ -88,12 +95,12 @@ public class Student {
         this.address = address;
     }
 
-    public String getPhone_numer() {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_numer(String phone_numer) {
-        this.phone_number = phone_numer;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public String getEmail() {
@@ -126,5 +133,21 @@ public class Student {
 
     public void setFees_due(int fees_due) {
         this.fees_due = fees_due;
+    }
+
+    public Date getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Date date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getStage() {
+        return stage;
+    }
+
+    public void setStage(String stage) {
+        this.stage = stage;
     }
 }

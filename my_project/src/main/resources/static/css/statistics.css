@@ -149,20 +149,23 @@ h1 {
 .split {
     width: 50%;
     height: 40%;
-    position: fixed;
-    /*z-index: 1;*/
-    /*top: 0;*/
-    overflow-x: hidden;
+    /*position: fixed;*/
+    /*overflow-x: hidden;*/
     padding-top: 20px;
-    margin: 16px;
 }
 
 .left {
-    left: 0;
+    /*left: 0;*/
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
     /*background-color: #111;*/
 }
 .right {
-    right: 0;
+    /*right: 0;*/
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
     /*background-color: red;*/
 }
 h2 {

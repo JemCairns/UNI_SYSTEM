@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import java.applet.*;
+import java.util.TreeMap;
 
 @Controller
 public class StatisticsController {
@@ -22,27 +23,38 @@ public class StatisticsController {
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public String showProfilePage(ModelMap model, HttpSession session) {
 
-        model.addAttribute("ID", session.getAttribute("ID"));
+        String userID = (String) session.getAttribute("ID");
+        if(userID == null) {
+            return "redirect:login";
+        }
 
-        int[] numGenders = new int[3];
-        numGenders[0] = service.getNumGender("Male");
-        numGenders[1] = service.getNumGender("Female");
-        numGenders[2] = service.getNumGender("Other");
-        model.addAttribute("num_genders", numGenders);
+        model.addAttribute("ID", userID);
+
+        TreeMap<String, Integer> studentGenderMap = service.getStudentGendersAndCounts();
+        TreeMap<String, Integer> staffGenderMap = service.getStaffGendersAndCounts();
+        model.addAttribute("student_gender_categories", studentGenderMap.keySet());
+        model.addAttribute("student_gender_counts", studentGenderMap.values());
+        model.addAttribute("staff_gender_categories", staffGenderMap.keySet());
+        model.addAttribute("staff_gender_counts", staffGenderMap.values());
 
         model.addAttribute("num_students", service.getNumStudents());
         model.addAttribute("num_staff", service.getNumStaff());
 
+        TreeMap<Integer, Integer> studentIndexedAges = service.getStudentIndexedAges();
+        TreeMap<Integer, Integer> staffIndexedAges = service.getStaffIndexedAges();
+        model.addAttribute("student_age_categories", studentIndexedAges.keySet());
+        model.addAttribute("student_age_counts", studentIndexedAges.values());
+        model.addAttribute("staff_age_categories", staffIndexedAges.keySet());
+        model.addAttribute("staff_age_counts", staffIndexedAges.values());
+
+        TreeMap<String, Integer> studentStagesAndCounts = service.getStudentStagesAndCounts();
+        model.addAttribute("student_stage_categories", studentStagesAndCounts.keySet());
+        model.addAttribute("student_stage_counts", studentStagesAndCounts.values());
+
         return "statistics";
     }
 
-    public int[] getGenders(){
-        int[] numGenders = new int[3];
-        numGenders[0] = service.getNumGender("Male");
-        numGenders[1] = service.getNumGender("Female");
-        numGenders[2] = service.getNumGender("Other");
-        return numGenders;
-    }
+
 
 
 

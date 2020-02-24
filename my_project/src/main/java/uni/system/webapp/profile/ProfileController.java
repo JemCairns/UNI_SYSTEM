@@ -36,7 +36,7 @@ public class ProfileController {
         model.addAttribute("fName", student.getFirst_name());
         model.addAttribute("lName", student.getLast_name());
         model.addAttribute("email", student.getEmail());
-        model.addAttribute("number", student.getPhone_numer());
+        model.addAttribute("number", student.getPhone_number());
         model.addAttribute("address", student.getAddress());
 
         return "profile";

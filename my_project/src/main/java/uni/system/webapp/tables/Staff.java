@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 
 @Entity
 @Table(name = "staff")
@@ -19,17 +20,23 @@ public class Staff {
     private String last_name;
     @NotBlank
     private String prefix;
+    @NotNull
+    private Date date_of_birth;
+    @NotBlank
+    private String gender;
 
     public Staff() {
         super();
     }
 
-    public Staff(String ID, String password, String first_name, String last_name, String prefix) {
+    public Staff(String ID, String password, String first_name, String last_name, String prefix, Date date_of_birth, String gender) {
         this.ID = ID;
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.prefix = prefix;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
     }
 
     public String getID() {
@@ -70,5 +77,21 @@ public class Staff {
 
     public void setPrefix(String prefix) {
         this.prefix = prefix;
+    }
+
+    public Date getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(Date date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

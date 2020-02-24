@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
-        <title>First Web Application</title>
+        <title>University of Springfield Web Portal</title>
         <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
         <link type="text/css" rel="stylesheet" href="css/statistics.css">
     </head>
@@ -29,45 +29,19 @@
         </table>
 
         <div class="page">
-            <h2>Statistics</h2>
+<!--            <h2>Statistics</h2>-->
 
             <div id="myDiv" class="split left"></div>
             <div id="myDiv1" class="split right"></div>
+            <div id="myDiv2" class="split left"></div>
+            <div id="myDiv3" class="split right"></div>
 
             <div id="displayArea"></div>
+
             <script th:inline="javascript">
                 /*<![CDATA[*/
 
-                var gender_arr = /*[[${num_genders}]]*/ [];
-                var data = [
-                    {
-                        x: ['Male', 'Female', 'Other'],
-                        // y: [20, 14, 23],
-                        y: gender_arr,
-                        type: 'bar',
-                        orientation: 'v'
-                    }
-                ];
-                var layout = {
-                    title: 'Gender Balance',
-                    titlefont:{
-                        family: 'Raleway, sans-serif',
-                        size: 18
-                    },
-                    font:{
-                        size: 12
-                    },
-                    showlegend: false,
-                    xaxis: {
-                        title: 'Genders',
-                        tickangle: 0
-                    },
-                    yaxis: {
-                        title: 'Count'
-                    }
-                };
-                Plotly.newPlot('myDiv', data, layout);
-
+                //plot 1
                 var numStudents = /*[[${num_students}]]*/ 0;
                 var numStaff = /*[[${num_staff}]]*/ 0;
                 var data1 = [
@@ -79,7 +53,7 @@
                     }
                 ];
                 var layout1 = {
-                    title: 'Students vs Staff Counts',
+                    title: 'Registered Students vs Staff Counts',
                     titlefont:{
                         family: 'Raleway, sans-serif',
                         size: 18
@@ -96,7 +70,118 @@
                         title: 'Count'
                     }
                 };
-                Plotly.newPlot('myDiv1', data1, layout1);
+                Plotly.newPlot('myDiv', data1, layout1, {displayModeBar: false});
+
+                //plot 1
+                var student_stage_categories = /*[[${student_stage_categories}]]*/ 0;
+                var student_stage_counts = /*[[${student_stage_counts}]]*/ 0;
+                var stageData = [
+                    {
+                        x: student_stage_categories,
+                        y: student_stage_counts,
+                        type: 'bar',
+                        orientation: 'v'
+                    }
+                ];
+                var stageLayout = {
+                    title: 'Student Stages Balance',
+                    titlefont:{
+                        family: 'Raleway, sans-serif',
+                        size: 18
+                    },
+                    font:{
+                        size: 12
+                    },
+                    showlegend: false,
+                    xaxis: {
+                        title: 'Stages',
+                        tickangle: 0
+                    },
+                    yaxis: {
+                        title: 'Count'
+                    }
+                };
+                Plotly.newPlot('myDiv1', stageData, stageLayout, {displayModeBar: false});
+
+                //plot 3
+                var gender_students_categories = /*[[${student_gender_categories}]]*/ [];
+                var gender_students_counts = /*[[${student_gender_counts}]]*/ [];
+                var gender_staff_categories = /*[[${staff_gender_categories}]]*/ [];
+                var gender_staff_counts = /*[[${staff_gender_counts}]]*/ [];
+
+                var gendersTrace1 = {
+                    x: gender_students_categories,
+                    y: gender_students_counts,
+                    name: 'Students',
+                    type: 'bar'
+                };
+                var gendersTrace2 = {
+                    x: gender_staff_categories,
+                    y: gender_staff_counts,
+                    name: 'Staff',
+                    type: 'bar'
+                };
+                var gendersData = [gendersTrace1, gendersTrace2];
+                var gendersLayout = {
+                    title: 'Gender Balance',
+                    titlefont:{
+                        family: 'Raleway, sans-serif',
+                        size: 18
+                    },
+                    font:{
+                        size: 12
+                    },
+                    showlegend: false,
+                    xaxis: {
+                        title: 'Genders',
+                        tickangle: 0
+                    },
+                    yaxis: {
+                        title: 'Count'
+                    },
+                    barmode: 'stack'
+                };
+                Plotly.newPlot('myDiv2', gendersData, gendersLayout, {displayModeBar: false});
+
+                //plot 4
+                var age_students_categories = /*[[${student_age_categories}]]*/ [];
+                var age_students_counts = /*[[${student_age_counts}]]*/ [];
+                var age_staff_categories = /*[[${staff_age_categories}]]*/ [];
+                var age_staff_counts = /*[[${staff_age_counts}]]*/ [];
+
+                var ageTrace1 = {
+                    x: age_students_categories,
+                    y: age_students_counts,
+                    name: 'Students',
+                    type: 'bar'
+                };
+                var ageTrace2 = {
+                    x: age_staff_categories,
+                    y: age_staff_counts,
+                    name: 'Staff',
+                    type: 'bar'
+                };
+                var ageData = [ageTrace1, ageTrace2];
+                var ageLayout = {
+                    title: 'Age Range',
+                    titlefont:{
+                        family: 'Raleway, sans-serif',
+                        size: 18
+                    },
+                    font:{
+                        size: 12
+                    },
+                    showlegend: false,
+                    xaxis: {
+                        title: 'Ages',
+                        tickangle: 0
+                    },
+                    yaxis: {
+                        title: 'Count'
+                    },
+                    barmode: 'stack'
+                };
+                Plotly.newPlot('myDiv3', ageData, ageLayout, {displayModeBar: false});
 
                 /*]]>*/
             </script>
