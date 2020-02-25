@@ -30,6 +30,7 @@
             </td>
         </tr>
     </table>
+
     <div class="page">
         <h1><u>My Modules</u></h1>
         <div th:if="${hasModules}">
@@ -44,7 +45,7 @@
                                 <div th:each="topic_reg: ${top_reg}">
                                     <div th:if="${module.ID == topic_reg.module_ID}">
                                         <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
-                                            <button type="button" class="collapsible" th:text="${topic.title}"></button>
+                                            <button type="button" class="collapsibleTopic" th:text="${topic.title}"></button>
                                             <div class="content">
                                                 <p th:text="${topic.description}"></p>
                                             </div>
@@ -62,46 +63,36 @@
         </div>
 
         <h1><u>Other Modules</u></h1>
-        <div th:if="${hasModules}">
-            <div th:if="${registeredToAll}">
-
-            </div>
-            <div th:unless="${registeredToAll}">
-    <!--            <div th:each="module: ${mod}">-->
-                    <div th:each="module: ${modNotRegs}">
-                        <div th:if="${module.status == 'available'}">
-    <!--                    <div th:if="${module.ID != moduleReg.module_ID or moduleReg.student_ID != ID and module.status == 'available'}">-->
-                            <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
-                            <div class="content">
-                                <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
-                                <br>
-                                <div th:each="topic: ${top}">
-                                    <div th:each="topic_reg: ${top_reg}">
-                                        <div th:if="${module.ID == topic_reg.module_ID}">
-                                            <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
-                                                <button type="button" class="collapsible" th:text="${topic.title}"></button>
-                                                <div class="content">
-                                                    <p th:text="${topic.description}"></p>
-                                                </div>
-                                            </div>
+        <div th:each="module: ${modNotRegs}">
+            <div th:if="${module.status == 'available'}">
+                <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
+                <div class="content">
+                    <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+                    <br>
+                    <div th:each="topic: ${top}">
+                        <div th:each="topic_reg: ${top_reg}">
+                            <div th:if="${module.ID == topic_reg.module_ID}">
+                                <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
+                                    <button type="button" class="collapsibleTopic" th:text="${topic.title}"></button>
+                                        <div class="content">
+                                            <p th:text="${topic.description}"></p>
                                         </div>
-                                    </div>
                                 </div>
-                                <br>
-                                <form class="enrollForm" name="moduleReg" method="post">
-                                    <input name="checkedModule" type="hidden" th:value="${module.ID}" >
-                                    <input type="checkbox" name="enroll">
-                                    <input type="submit">
-                                </form>
                             </div>
                         </div>
                     </div>
-    <!--            </div>-->
+                    <br>
+                    <form class="enrollForm" name="moduleReg" method="post">
+                        <input name="checkedModule" type="hidden" th:value="${module.ID}" >
+                        Enroll in Module?&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="enroll">
+                        <br><br>
+                        <input class="dropbtn" type="submit">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-
     </body>
     <script>
         var coll = document.getElementsByClassName("collapsible");
@@ -109,14 +100,27 @@
 
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
-                // for(j = 0; j < coll.length; j++) {
-                //     if(coll[j].classList.contains("active")) {
-                //         coll[j].classList.remove("active");
-                //         var con = coll[j].nextElementSibling;
-                //         con.style.display = "none";
-                //     }
-                // }
+                for(j = 0; j < coll.length; j++) {
+                    if(coll[j].classList.contains("active")) {
+                        coll[j].classList.remove("active");
+                        var con = coll[j].nextElementSibling;
+                        con.style.display = "none";
+                    }
+                }
 
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+
+        var topics = document.getElementsByClassName("collapsibleTopic");
+        for (i = 0; i < topics.length; i++) {
+            topics[i].addEventListener("click", function() {
                 this.classList.toggle("active");
                 var content = this.nextElementSibling;
                 if (content.style.display === "block") {
