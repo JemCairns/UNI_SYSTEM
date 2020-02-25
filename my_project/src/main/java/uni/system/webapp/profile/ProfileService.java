@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.Student;
 
+import java.util.List;
+
 @Service
 public class ProfileService {
 
@@ -15,4 +17,7 @@ public class ProfileService {
         Student student = studentRepository.getOne(ID+"STU");
         return student;
     }
+
+    public List<Student> getAllStudents() { return studentRepository.findAll(); }
+
 }

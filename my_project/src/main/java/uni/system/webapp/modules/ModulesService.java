@@ -28,10 +28,14 @@ public class ModulesService {
     @Autowired
     TopicRegistrationRepository topicRegistrationRepository;
 
+    @Autowired
+    StaffRepository staffRepository;
+
     public Student getStudent(String id) {
         return studentRepository.getOne(id);
     }
-
+    public List<Student> getAllStudents() { return studentRepository.findAll(); }
+    public List<Staff> getAllStaff() { return staffRepository.findAll(); }
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
     }

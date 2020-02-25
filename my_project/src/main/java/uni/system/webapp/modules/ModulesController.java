@@ -35,10 +35,17 @@ public class ModulesController {
         boolean hasModules = false;
 
         if(moduleRegs.size() > 0) {
+            System.out.println("HELLO");
             hasModules = true;
         }
 
-        model.addAttribute("ID", studentID);
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
+
+        List<Staff> staffList = service.getAllStaff();
+        model.addAttribute("st", staffList);
+
+        model.addAttribute("ID", studentID + "STU");
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);
@@ -71,7 +78,13 @@ public class ModulesController {
             hasModules = true;
         }
 
-        model.addAttribute("ID", studentID);
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
+
+        List<Staff> staffList = service.getAllStaff();
+        model.addAttribute("st", staffList);
+
+        model.addAttribute("ID", studentID+"STU");
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);

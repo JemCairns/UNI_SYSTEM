@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
-import uni.system.webapp.tables.Topic;
-import uni.system.webapp.tables.TopicRegistration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +27,15 @@ public class WelcomeController {
             return "redirect:login";
         }
 
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
+
+        List<Staff> staffList = service.getAllStaff();
+        model.addAttribute("st", staffList);
+
+        for(Staff staff : staffList) {
+            System.out.println(staff.getID());
+        }
         model.addAttribute("ID", userID);
         List<Module> modules = service.getAllModules();
         model.addAttribute("mod", modules);

@@ -2,6 +2,8 @@
 <head>
     <title>University of Springfield Web Portal</title>
     <link type="text/css" rel="stylesheet" href="css/welcome.css">
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+
 </head>
 <body>
 
@@ -18,10 +20,14 @@
         </td>
         <td style="white-space: nowrap; width: 0.1%">
             <div class="dropdown">
-                <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
-                <div class="dropdown-content">
-                    <a href="/modules">My Modules</a>
-                    <a href="#">Log Out</a>
+                <div th:each="student: ${studs}">
+                    <div th:if="${student.ID == ID+'STU'}">
+                        <button class="dropbtn" th:text="${'Hello, '+student.first_name}"></button>
+                        <div class="dropdown-content">
+                            <a href="/modules">My Modules</a>
+                            <a href="/logout">Log Out</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </td>
@@ -29,21 +35,21 @@
 </table>
 
 <div class="page">
-    <h2>Modules</h2>
+    <h1><u>Modules</u></h1>
 
     <div th:each="module: ${mod}">
         <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}"></button>
-        <div class="content">
-            <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+        <div class="content" th:each="staff: ${st}" th:if="${module.coordinator_ID == staff.ID}">
+            <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
             <br>
             <div th:each="topic: ${top}">
                 <div th:each="topic_reg: ${top_reg}">
                     <div th:if="${module.ID == topic_reg.module_ID}">
                         <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
                             <button type="button" class="collapsible" th:text="${topic.title}"></button>
-                            <div class="content">
-                                <p th:text="${topic.description}"></p>
-                            </div>
+                                <div class="content">
+                                    <p th:text="${topic.description}"></p>
+                                </div>
                         </div>
                     </div>
                 </div>
