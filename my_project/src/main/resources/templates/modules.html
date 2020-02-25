@@ -1,75 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link type="text/css" rel="stylesheet" href="css/modules.css">
-    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>University of Springfield Web Portal</title>
+        <link type="text/css" rel="stylesheet" href="css/modules.css">
+        <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+    </head>
+    <body>
 
-<table class="header">
-    <tr>
-        <td>
-            <div class="navbar">
-                <ul class="leftList">
-                    <li><a href="/welcome">Home</a></li>
-                    <li><a href="/profile">Profile</a></li>
-                    <li><a href="stats.html">Statistics</a></li>
-                </ul>
-            </div>
-        </td>
-        <td style="white-space: nowrap; width: 0.1%">
-            <div class="dropdown">
-                <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
-                <div class="dropdown-content">
-                    <a href="/modules">My Modules</a>
-                    <a href="#">Log Out</a>
+    <table class="header">
+        <tr>
+            <td>
+                <div class="navbar">
+                    <ul class="leftList">
+                        <li><a href="/welcome">Home</a></li>
+                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                    </ul>
                 </div>
-            </div>
-        </td>
-    </tr>
-</table>
-<div class="page">
-    <h1><u>My Modules</u></h1>
-    <div th:if="${hasModules}">
-        <div th:each="module: ${mod}">
-            <div th:each="moduleReg: ${modRegs}">
-                <div th:if="${moduleReg.module_ID == module.ID and moduleReg.student_ID == ID}">
-                    <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
-                    <div class="content">
-                        <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
-                        <br>
-                        <div th:each="topic: ${top}">
-                            <div th:each="topic_reg: ${top_reg}">
-                                <div th:if="${module.ID == topic_reg.module_ID}">
-                                    <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
-                                        <button type="button" class="collapsible" th:text="${topic.title}"></button>
-                                        <div class="content">
-                                            <p th:text="${topic.description}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            </td>
+            <td style="white-space: nowrap; width: 0.1%">
+                <div class="dropdown">
+                    <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
+                    <div class="dropdown-content">
+                        <a href="/modules">My Modules</a>
+                        <a href="#">Log Out</a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div th:unless="${hasModules}">
-        <p>You are not registered to any modules yet.</p>
-    </div>
-
-    <h1><u>Other Modules</u></h1>
-    <div th:if="${hasModules}">
-        <div th:if="${registeredToAll}">
-
-        </div>
-        <div th:unless="${registeredToAll}">
+            </td>
+        </tr>
+    </table>
+    <div class="page">
+        <h1><u>My Modules</u></h1>
+        <div th:if="${hasModules}">
             <div th:each="module: ${mod}">
                 <div th:each="moduleReg: ${modRegs}">
-                    <div th:if="${module.ID != moduleReg.module_ID or moduleReg.student_ID != ID and module.status == 'available'}">
+                    <div th:if="${moduleReg.module_ID == module.ID and moduleReg.student_ID == ID}">
                         <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
                         <div class="content">
                             <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
@@ -86,55 +52,90 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <form class="enrollForm" name="moduleReg" method="post">
-                                <input name="checkedModule" type="hidden" th:value="${module.ID}" >
-                                <input type="checkbox" name="enroll">
-                                <input type="submit">
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div th:unless="${hasModules}">
+            <p>You are not registered to any modules yet.</p>
+        </div>
+
+        <h1><u>Other Modules</u></h1>
+        <div th:if="${hasModules}">
+            <div th:if="${registeredToAll}">
+
+            </div>
+            <div th:unless="${registeredToAll}">
+    <!--            <div th:each="module: ${mod}">-->
+                    <div th:each="module: ${modNotRegs}">
+                        <div th:if="${module.status == 'available'}">
+    <!--                    <div th:if="${module.ID != moduleReg.module_ID or moduleReg.student_ID != ID and module.status == 'available'}">-->
+                            <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
+                            <div class="content">
+                                <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+                                <br>
+                                <div th:each="topic: ${top}">
+                                    <div th:each="topic_reg: ${top_reg}">
+                                        <div th:if="${module.ID == topic_reg.module_ID}">
+                                            <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
+                                                <button type="button" class="collapsible" th:text="${topic.title}"></button>
+                                                <div class="content">
+                                                    <p th:text="${topic.description}"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <form class="enrollForm" name="moduleReg" method="post">
+                                    <input name="checkedModule" type="hidden" th:value="${module.ID}" >
+                                    <input type="checkbox" name="enroll">
+                                    <input type="submit">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+    <!--            </div>-->
+            </div>
+        </div>
     </div>
-</div>
 
 
-</body>
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
+    </body>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
 
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            for(j = 0; j < coll.length; j++) {
-                if(coll[j].classList.contains("active")) {
-                    coll[j].classList.remove("active");
-                    var con = coll[j].nextElementSibling;
-                    con.style.display = "none";
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                // for(j = 0; j < coll.length; j++) {
+                //     if(coll[j].classList.contains("active")) {
+                //         coll[j].classList.remove("active");
+                //         var con = coll[j].nextElementSibling;
+                //         con.style.display = "none";
+                //     }
+                // }
+
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
                 }
-            }
-
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
-</script>
-
-<script>
-    function myFunc() {
-        var x = document.getElementsByClassName("enrollForm");
-        if(x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
+            });
         }
-    }
-</script>
+    </script>
+
+    <script>
+        function myFunc() {
+            var x = document.getElementsByClassName("enrollForm");
+            if(x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
 </html>

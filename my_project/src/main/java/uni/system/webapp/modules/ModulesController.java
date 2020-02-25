@@ -1,5 +1,6 @@
 package uni.system.webapp.modules;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,7 +29,20 @@ public class ModulesController {
 
         String studentID = service.getStudent(userID).getID();
         List<Module> modules = service.getAllModules();
+        for(Module module : modules){
+            System.out.println(module.getID());
+        }
+        System.out.println();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
+        for(ModuleRegistration moduleRegistration : moduleRegs){
+            System.out.println(moduleRegistration.getModule_ID());
+        }
+        System.out.println();
+        List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
+        for(Module module : moduleNotRegs){
+            System.out.println(module.getID());
+        }
+        System.out.println();
         List<Topic> topics = service.getAllTopics();
         List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
         boolean hasModules = false;
@@ -45,6 +59,7 @@ public class ModulesController {
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);
+        model.addAttribute("modNotRegs", moduleNotRegs);
         model.addAttribute("top", topics);
         model.addAttribute("top_reg", topicRegs);
         model.addAttribute("registeredToAll", registeredToAll);
@@ -61,6 +76,7 @@ public class ModulesController {
             return "redirect:login";
         }
 
+        System.out.println(checkedModule);
         service.addModuleRegistration(userID+"STU", checkedModule);
         String studentID = service.getStudent(userID).getID();
         List<Module> modules = service.getAllModules();

@@ -25,8 +25,8 @@ public class ModuleRegistration {
 
     public ModuleRegistration() { super(); }
 
-    public ModuleRegistration(int id,String student_ID, String module_ID, String letterGrade, double percentage) {
-        this.id = id;
+    public ModuleRegistration(String student_ID, String module_ID, String letterGrade, double percentage) {
+//        this.id = id;
         this.student_ID = student_ID;
         this.module_ID = module_ID;
         this.letterGrade = letterGrade;

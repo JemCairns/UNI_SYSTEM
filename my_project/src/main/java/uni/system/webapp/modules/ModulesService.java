@@ -41,11 +41,32 @@ public class ModulesService {
         List<ModuleRegistration> studentModules = new LinkedList<>();
 
         for(ModuleRegistration m : moduleRegs) {
+//            System.out.println(m.getStudent_ID());
             if(m.getStudent_ID().equals(id+"STU")) {
                 studentModules.add(m);
             }
         }
         return studentModules;
+    }
+
+    public List<Module> getAllModuleNotRegsForStudent(String id){
+        List<ModuleRegistration> studentRegs = getAllModuleRegsForStudent(id);
+        List<Module> allModules = getAllModules();
+        List<Module> studentNotRegs = new LinkedList<>();
+
+        for(Module module : allModules){
+            boolean included=false;
+            for(ModuleRegistration moduleRegistration : studentRegs){
+                if(module.getID().equals(moduleRegistration.getModule_ID())){
+                    included=true;
+                    break;
+                }
+            }
+            if(!included){
+                studentNotRegs.add(module);
+            }
+        }
+        return studentNotRegs;
     }
 
     public List<Topic> getAllTopics() {
@@ -56,7 +77,7 @@ public class ModulesService {
     }
 
     public void addModuleRegistration(String studentID, String moduleID) {
-        ModuleRegistration moduleRegistration = new ModuleRegistration(0, studentID, moduleID, "NA", 0.0);
+        ModuleRegistration moduleRegistration = new ModuleRegistration(studentID, moduleID, "NA", 0.0);
         moduleRegistrationRepository.save(moduleRegistration);
     }
 }
