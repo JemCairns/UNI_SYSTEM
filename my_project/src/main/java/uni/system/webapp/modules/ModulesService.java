@@ -76,8 +76,22 @@ public class ModulesService {
         return topicRegistrationRepository.findAll();
     }
 
-    public void addModuleRegistration(String studentID, String moduleID) {
+    public boolean addModuleRegistration(String studentID, String moduleID) {
         ModuleRegistration moduleRegistration = new ModuleRegistration(studentID, moduleID, "NA", 0.0);
-        moduleRegistrationRepository.save(moduleRegistration);
+        Module module = moduleRepository.getOne(moduleID);
+        List<ModuleRegistration> moduleRegistrationList = new LinkedList<>();
+
+        for(ModuleRegistration reg : moduleRegistrationRepository.findAll()) {
+            if(reg.getModule_ID().equals(moduleID)) {
+                moduleRegistrationList.add(reg);
+            }
+        }
+
+        if(moduleRegistrationList.size() + 1 > module.getMax_num_students()) {
+            return true;
+        } else {
+            moduleRegistrationRepository.save(moduleRegistration);
+            return false;
+        }
     }
 }
