@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>University of Springfield Web Portal</title>
+    <link type="text/css" rel="stylesheet" href="css/fees.css">
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+</head>
+<body>
+
+<table class="header">
+    <tr>
+        <td>
+            <div class="navbar">
+                <ul class="leftList">
+                    <li><a href="/welcome">Home</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/statistics">Statistics</a></li>
+                </ul>
+            </div>
+        </td>
+        <td style="white-space: nowrap; width: 0.1%">
+            <div class="dropdown">
+                <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
+                <div class="dropdown-content">
+                    <a href="/modules">My Modules</a>
+                    <a href="#">Log Out</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="page">
+    <h1><u>Fees</u></h1>
+    <div th:if="${error != 'ok'}">
+        <p style="color: red" th:text="${error}"></p>
+    </div>
+    <form method="post" style="padding-left: 10px">
+        <table style="border: solid black;">
+            <tr>
+                <td class="fees">Total Fees</td>
+                <td th:text="${feesTotal}"></td>
+            </tr>
+
+            <tr>
+                <td class="fees">Fees Paid</td>
+                <td th:text="${feesPaid}"></td>
+            </tr>
+
+            <tr>
+                <td class="fees">Fees Due</td>
+                <td th:text="${feesDue}"></td>
+            </tr>
+
+            <tr>
+                <td class="fees">Enter an amount ot pay</td>
+                <td><input type="number" name="amount"></td>
+            </tr>
+        </table>
+        <br>
+        <input class="button" type="submit">
+    </form>
+</div>
+</body>
+</html>
