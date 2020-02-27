@@ -30,6 +30,14 @@ public class ModulesController {
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
+        for(ModuleRegistration moduleRegistration : moduleRegs){
+            System.out.println(moduleRegistration.getModule_ID());
+        }
+        System.out.println();
+        for(Module module : moduleNotRegs){
+            System.out.println(module.getID());
+        }
+        System.out.println();
         List<Topic> topics = service.getAllTopics();
         List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
         boolean hasModules = false;
