@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 import java.applet.*;
@@ -29,6 +30,8 @@ public class StatisticsController {
         }
 
         model.addAttribute("ID", userID);
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
 
         TreeMap<String, Integer> studentGenderMap = service.getStudentGendersAndCounts();
         TreeMap<String, Integer> staffGenderMap = service.getStaffGendersAndCounts();

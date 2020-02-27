@@ -43,10 +43,17 @@ public class ModulesController {
         boolean hasModules = false;
 
         if(moduleRegs.size() > 0) {
+            System.out.println("HELLO");
             hasModules = true;
         }
 
-        model.addAttribute("ID", studentID+"STU");
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
+
+        List<Staff> staffList = service.getAllStaff();
+        model.addAttribute("st", staffList);
+
+        model.addAttribute("ID", studentID + "STU");
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);
@@ -66,8 +73,8 @@ public class ModulesController {
             return "redirect:login";
         }
 
-        service.addModuleRegistration(userID+"STU", checkedModule);
-        String studentID = service.getStudent(userID).getID();
+        System.out.println(userID);
+        String studentID = service.getStudent(userID+"STU").getID();
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
@@ -79,6 +86,12 @@ public class ModulesController {
             hasModules = true;
         }
 
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
+
+        List<Staff> staffList = service.getAllStaff();
+        model.addAttribute("st", staffList);
+
         model.addAttribute("ID", studentID+"STU");
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
@@ -86,6 +99,16 @@ public class ModulesController {
         model.addAttribute("modNotRegs", moduleNotRegs);
         model.addAttribute("top", topics);
         model.addAttribute("top_reg", topicRegs);
+
+        if(service.getStudent(userID+"STU").getFees_due() > 0) {
+            model.addAttribute("maxStudents", false);
+            model.addAttribute("feesDue", true);
+        } else {
+            boolean maxStudents = service.addModuleRegistration(userID+"STU", checkedModule);
+            model.addAttribute("maxStudents", maxStudents);
+            model.addAttribute("feesDue", false);
+
+        }
 
         return "modules";
     }

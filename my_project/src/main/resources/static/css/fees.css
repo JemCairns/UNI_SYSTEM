@@ -1,40 +1,3 @@
-.collapsible {
-    background-color: #eee;
-    color: #232323;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-}
-
-.collapsibleTopic {
-    background-color: #eee;
-    color: #232323;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover, .collapsibleTopic:hover {
-    background-color: #1989db;
-}
-/* Style the collapsible content. Note: hidden by default */
-.content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-}
-
-
 .page {
     width: 100%;
     float: left;
@@ -141,6 +104,10 @@ li a:hover:not(.active) {
     padding: 4px;
 }
 
+.fees {
+    font-family: 'Changa', serif;
+    font-size: 20px;
+}
 tr:nth-child(even){background-color: #f2f2f2;}
 
 th {

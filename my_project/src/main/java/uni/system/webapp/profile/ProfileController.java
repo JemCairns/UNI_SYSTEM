@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -31,6 +32,8 @@ public class ProfileController {
             model.addAttribute("account", false);
         }
 
+        List<Student> students = service.getAllStudents();
+        model.addAttribute("studs", students);
         model.addAttribute("ID", student.getID().substring(0, 7));
         model.addAttribute("fName", student.getFirst_name());
         model.addAttribute("lName", student.getLast_name());

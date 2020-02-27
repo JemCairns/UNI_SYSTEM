@@ -20,6 +20,8 @@ public class StatisticsService {
     @Autowired
     StaffRepository staffRepository;
 
+    public List<Student> getAllStudents() { return studentRepository.findAll(); }
+
     public TreeMap<String, Integer> getStudentGendersAndCounts() {
         TreeMap<String, Integer> studentGendersAndCounts = new TreeMap<>();
 

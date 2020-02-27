@@ -21,10 +21,14 @@
             </td>
             <td style="white-space: nowrap; width: 0.1%">
                 <div class="dropdown">
-                    <button class="dropbtn" th:text="${'Hello, '+ID}"></button>
-                    <div class="dropdown-content">
-                        <a href="/modules">My Modules</a>
-                        <a href="#">Log Out</a>
+                    <div th:each="student: ${studs}">
+                        <div th:if="${student.ID == ID}">
+                            <button class="dropbtn" th:text="${'Hello, '+student.first_name}"></button>
+                            <div class="dropdown-content">
+                                <a href="/modules">My Modules</a>
+                                <a href="/logout">Log Out</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -32,14 +36,21 @@
     </table>
 
     <div class="page">
+        <div th:if="${maxStudents}">
+            <p style="color: red">Selected module is at capacity!</p>
+        </div>
+        <div th:if="${feesDue}">
+            <p style="color: red">You cannot enroll in modules without fully paying your outstanding fees.</p>
+        </div>
         <h1><u>My Modules</u></h1>
         <div th:if="${hasModules}">
             <div th:each="module: ${mod}">
                 <div th:each="moduleReg: ${modRegs}">
                     <div th:if="${moduleReg.module_ID == module.ID and moduleReg.student_ID == ID}">
                         <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
-                        <div class="content">
-                            <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+                        <div class="content" th:each="staff: ${st}" th:if="${module.coordinator_ID == staff.ID}">
+                            <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+                            <p th:text="${'Grade: ' + moduleReg.letterGrade + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}"></p>
                             <br>
                             <div th:each="topic: ${top}">
                                 <div th:each="topic_reg: ${top_reg}">
@@ -66,17 +77,17 @@
         <div th:each="module: ${modNotRegs}">
             <div th:if="${module.status == 'available'}">
                 <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
-                <div class="content">
-                    <p th:text="${'Coordinator: ' + module.coordinator_ID + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+                <div class="content" th:each="staff: ${st}" th:if="${module.coordinator_ID == staff.ID}">
+                    <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
                     <br>
                     <div th:each="topic: ${top}">
                         <div th:each="topic_reg: ${top_reg}">
                             <div th:if="${module.ID == topic_reg.module_ID}">
                                 <div th:if="${topic.topic_ID == topic_reg.topic_ID}">
                                     <button type="button" class="collapsibleTopic" th:text="${topic.title}"></button>
-                                        <div class="content">
-                                            <p th:text="${topic.description}"></p>
-                                        </div>
+                                    <div class="content">
+                                        <p th:text="${topic.description}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -84,11 +95,9 @@
                     <br>
                     <form class="enrollForm" name="moduleReg" method="post">
                         <input name="checkedModule" type="hidden" th:value="${module.ID}" >
-                        Enroll in Module?&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" name="enroll">
-                        <br><br>
-                        <input class="dropbtn" type="submit">
+                        <input class="dropbtn" type="submit" value="Enroll">
                     </form>
+                    <br>
                 </div>
             </div>
         </div>

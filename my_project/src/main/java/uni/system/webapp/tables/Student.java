@@ -27,10 +27,10 @@ public class Student {
     @NotBlank
     private String gender;
     @NotNull
-    private int fees_paid;
+    private double fees_paid;
     @NotNull
-    private int fees_due;
-    @NotBlank
+    private double fees_due;
+    @NotNull
     private Date date_of_birth;
     @NotNull
     private String stage;
@@ -40,7 +40,7 @@ public class Student {
     }
 
     public Student(String ID, String password, String first_name, String last_name, String address,
-                   String phone_number, String email, String gender, int fees_due, int fees_paid, Date date_of_birth, String stage) {
+                   String phone_number, String email, String gender, double fees_due, double fees_paid, Date date_of_birth, String stage) {
         this.ID = ID;
         this.password = password;
         this.first_name = first_name;
@@ -119,19 +119,19 @@ public class Student {
         this.gender = gender;
     }
 
-    public int getFees_paid() {
+    public double getFees_paid() {
         return fees_paid;
     }
 
-    public void setFees_paid(int fees_paid) {
+    public void setFees_paid(double fees_paid) {
         this.fees_paid = fees_paid;
     }
 
-    public int getFees_due() {
+    public double getFees_due() {
         return fees_due;
     }
 
-    public void setFees_due(int fees_due) {
+    public void setFees_due(double fees_due) {
         this.fees_due = fees_due;
     }
 

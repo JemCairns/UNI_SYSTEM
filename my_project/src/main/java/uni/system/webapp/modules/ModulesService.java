@@ -28,10 +28,14 @@ public class ModulesService {
     @Autowired
     TopicRegistrationRepository topicRegistrationRepository;
 
+    @Autowired
+    StaffRepository staffRepository;
+
     public Student getStudent(String id) {
         return studentRepository.getOne(id);
     }
-
+    public List<Student> getAllStudents() { return studentRepository.findAll(); }
+    public List<Staff> getAllStaff() { return staffRepository.findAll(); }
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
     }
@@ -76,8 +80,22 @@ public class ModulesService {
         return topicRegistrationRepository.findAll();
     }
 
-    public void addModuleRegistration(String studentID, String moduleID) {
+    public boolean addModuleRegistration(String studentID, String moduleID) {
         ModuleRegistration moduleRegistration = new ModuleRegistration(studentID, moduleID, "NA", 0.0);
-        moduleRegistrationRepository.save(moduleRegistration);
+        Module module = moduleRepository.getOne(moduleID);
+        List<ModuleRegistration> moduleRegistrationList = new LinkedList<>();
+
+        for(ModuleRegistration reg : moduleRegistrationRepository.findAll()) {
+            if(reg.getModule_ID().equals(moduleID)) {
+                moduleRegistrationList.add(reg);
+            }
+        }
+
+        if(moduleRegistrationList.size() + 1 > module.getMax_num_students()) {
+            return true;
+        } else {
+            moduleRegistrationRepository.save(moduleRegistration);
+            return false;
+        }
     }
 }
