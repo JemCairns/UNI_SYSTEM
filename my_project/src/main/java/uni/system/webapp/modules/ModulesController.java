@@ -21,6 +21,7 @@ public class ModulesController {
     @RequestMapping(path = "/modules", method = RequestMethod.GET)
     public String showModulePage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
+        System.out.println("in get");
 
         if(userID == null) {
             return "redirect:login";
@@ -30,22 +31,9 @@ public class ModulesController {
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
-        for(ModuleRegistration moduleRegistration : moduleRegs){
-            System.out.println(moduleRegistration.getModule_ID());
-        }
-        System.out.println();
-        for(Module module : moduleNotRegs){
-            System.out.println(module.getID());
-        }
-        System.out.println();
         List<Topic> topics = service.getAllTopics();
         List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
-        boolean hasModules = false;
-
-        if(moduleRegs.size() > 0) {
-            System.out.println("HELLO");
-            hasModules = true;
-        }
+        boolean hasModules = service.hasModules(userID);
 
 //        List<Student> students = service.getAllStudents();
 //        model.addAttribute("studs", students);
@@ -70,23 +58,19 @@ public class ModulesController {
         String userID = (String) session.getAttribute("ID");
         System.out.println(userID);
 
+        System.out.println("inside post");
+
         if(userID == null) {
             return "redirect:login";
         }
 
-        System.out.println(userID);
         String studentID = service.getStudent(userID).getID();
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
         List<Topic> topics = service.getAllTopics();
         List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
-        boolean hasModules = false;
-
-        if(moduleRegs.size() > 0) {
-            hasModules = true;
-        }
-
+        boolean hasModules = service.hasModules(userID);
 
 //        List<Student> students = service.getAllStudents();
 //        model.addAttribute("studs", students);
@@ -103,16 +87,24 @@ public class ModulesController {
         model.addAttribute("top", topics);
         model.addAttribute("top_reg", topicRegs);
 
-        if(service.getStudent(userID).getFees_due() > 0) {
-            model.addAttribute("maxStudents", false);
-            model.addAttribute("feesDue", true);
-        } else {
-            boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
-            model.addAttribute("maxStudents", maxStudents);
-            model.addAttribute("feesDue", false);
+        if(userID.endsWith("STU")) {
 
+            if (service.getStudent(userID).getFees_due() > 0) {
+                model.addAttribute("maxStudents", false);
+                model.addAttribute("feesDue", true);
+            } else {
+                boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
+                model.addAttribute("maxStudents", maxStudents);
+                model.addAttribute("feesDue", false);
+            }
+
+            return "modules";
+        }
+        else{
+            session.setAttribute("editModuleID", checkedModule);
+            System.out.println("MC: "+checkedModule);
+            return "redirect:edit_module";
         }
 
-        return "modules";
     }
 }

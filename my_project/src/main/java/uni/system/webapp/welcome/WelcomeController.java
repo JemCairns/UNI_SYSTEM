@@ -23,6 +23,8 @@ public class WelcomeController {
     public String showWelcomePage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
 
+        System.out.println("entered get");
+
         if(userID == null) {
             return "redirect:login";
         }
@@ -50,8 +52,10 @@ public class WelcomeController {
         return "welcome";
     }
 
-    @RequestMapping(name = "/welcome", method = RequestMethod.GET)
-    public String showProfilePage(ModelMap model) {
-        return "profile";
-    }
+//    @RequestMapping(name = "/welcome", method = RequestMethod.GET)
+//    public String showProfilePage(ModelMap model) {
+//
+//        System.out.println("entered get2");
+//        return "profile";
+//    }
 }

@@ -53,6 +53,24 @@ public class ModulesService {
         return studentModules;
     }
 
+    public boolean hasModules(String ID){
+        if(ID.endsWith("STU")){
+            for(ModuleRegistration registration : moduleRegistrationRepository.findAll()){
+                if(registration.getStudent_ID().equals(ID)){
+                    return true;
+                }
+            }
+        }
+        else if(ID.endsWith("STA")){
+            for(Module module : moduleRepository.findAll()){
+                if(module.getCoordinator_ID().equals(ID)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String getUserName(String ID){
         if(ID.endsWith("STU")){
             return studentRepository.getOne(ID).getFirst_name();
