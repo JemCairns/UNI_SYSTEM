@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpSession;
@@ -24,22 +25,27 @@ public class ProfileController {
         if(userID == null) {
             return "redirect:login";
         }
-        Student student = service.getProfile(userID);
 
-        if(userID.length() == 7) {
-            model.addAttribute("account", true);
-        } else {
-            model.addAttribute("account", false);
+        if(userID.endsWith("STU")) {
+            Student student = service.getStudent(userID);
+            model.addAttribute("ID", userID);
+            model.addAttribute("user_name", student.getFirst_name());
+            model.addAttribute("fName", student.getFirst_name());
+            model.addAttribute("lName", student.getLast_name());
+            model.addAttribute("email", student.getEmail());
+            model.addAttribute("number", student.getPhone_number());
+            model.addAttribute("address", student.getAddress());
         }
-
-        List<Student> students = service.getAllStudents();
-        model.addAttribute("studs", students);
-        model.addAttribute("ID", student.getID().substring(0, 7));
-        model.addAttribute("fName", student.getFirst_name());
-        model.addAttribute("lName", student.getLast_name());
-        model.addAttribute("email", student.getEmail());
-        model.addAttribute("number", student.getPhone_number());
-        model.addAttribute("address", student.getAddress());
+        else{
+            Staff staff = service.getStaff(userID);
+            model.addAttribute("ID", userID);
+            model.addAttribute("user_name", staff.getFirst_name());
+            model.addAttribute("fName", staff.getFirst_name());
+            model.addAttribute("lName", staff.getLast_name());
+//            model.addAttribute("email", staff.getEmail());
+//            model.addAttribute("number", staff.getPhone_number());
+//            model.addAttribute("address", staff.getAddress());
+        }
 
         return "profile";
     }

@@ -47,13 +47,14 @@ public class ModulesController {
             hasModules = true;
         }
 
-        List<Student> students = service.getAllStudents();
-        model.addAttribute("studs", students);
+//        List<Student> students = service.getAllStudents();
+//        model.addAttribute("studs", students);
+        model.addAttribute("user_name", service.getUserName(userID));
 
         List<Staff> staffList = service.getAllStaff();
         model.addAttribute("st", staffList);
 
-        model.addAttribute("ID", studentID + "STU");
+        model.addAttribute("ID", studentID);
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);
@@ -74,7 +75,7 @@ public class ModulesController {
         }
 
         System.out.println(userID);
-        String studentID = service.getStudent(userID+"STU").getID();
+        String studentID = service.getStudent(userID).getID();
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
@@ -86,13 +87,15 @@ public class ModulesController {
             hasModules = true;
         }
 
-        List<Student> students = service.getAllStudents();
-        model.addAttribute("studs", students);
+
+//        List<Student> students = service.getAllStudents();
+//        model.addAttribute("studs", students);
+        model.addAttribute("user_name", service.getUserName(userID));
 
         List<Staff> staffList = service.getAllStaff();
         model.addAttribute("st", staffList);
 
-        model.addAttribute("ID", studentID+"STU");
+        model.addAttribute("ID", studentID);
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
         model.addAttribute("modRegs", moduleRegs);
@@ -100,11 +103,11 @@ public class ModulesController {
         model.addAttribute("top", topics);
         model.addAttribute("top_reg", topicRegs);
 
-        if(service.getStudent(userID+"STU").getFees_due() > 0) {
+        if(service.getStudent(userID).getFees_due() > 0) {
             model.addAttribute("maxStudents", false);
             model.addAttribute("feesDue", true);
         } else {
-            boolean maxStudents = service.addModuleRegistration(userID+"STU", checkedModule);
+            boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
             model.addAttribute("maxStudents", maxStudents);
             model.addAttribute("feesDue", false);
 

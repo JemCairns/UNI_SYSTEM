@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>University of Springfield Web Portal</title>
-    <link type="text/css" rel="stylesheet" href="css/profile.css">
-    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
-</head>
-<body>
-<table class="header">
-    <tr>
-        <td>
-            <div class="navbar">
-                <ul class="leftList">
-                    <li><a href="/welcome">Home</a></li>
-                    <li><a class="active" href="/profile">Profile</a></li>
-                    <li><a href="/statistics">Statistics</a></li>
-                </ul>
-            </div>
-        </td>
-        <td style="white-space: nowrap; width: 0.1%">
-            <div class="dropdown">
-                <div th:each="student: ${studs}">
-                    <div th:if="${student.ID == ID+'STU'}">
-                        <button class="dropbtn" th:text="${'Hello, '+student.first_name}"></button>
-                        <div class="dropdown-content">
-                            <a href="/modules">My Modules</a>
-                            <a href="/logout">Log Out</a>
-                        </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>University of Springfield Web Portal</title>
+        <link type="text/css" rel="stylesheet" href="css/profile.css">
+        <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+    </head>
+    <body>
+        <table class="header">
+            <tr>
+                <td>
+                    <div class="navbar">
+                        <ul class="leftList">
+                            <li><a href="/welcome">Home</a></li>
+                            <li><a class="active" href="/profile">Profile</a></li>
+                            <li><a href="/statistics">Statistics</a></li>
+                        </ul>
                     </div>
+                </td>
+                <td style="white-space: nowrap; width: 0.1%">
+                    <div class="dropdown">
+        <!--                <div th:each="student: ${studs}">-->
+        <!--                    <div th:if="${student.ID == ID}">-->
+                                <button class="dropbtn" th:text="${'Hello, '+user_name}"></button>
+                                <div class="dropdown-content">
+                                    <a href="/modules">My Modules</a>
+                                    <a href="/logout">Log Out</a>
+                                </div>
+        <!--                    </div>-->
+        <!--                </div>-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="page">
+            <h1><u>My Profile</u></h1>
+            <table>
+                <tr>
+                    <th class="profile">Account</th>
+                    <th class="profile" th:if="${#strings.endsWith(ID, 'STU')}">Student</th>
+                    <th class="profile" th:if="${#strings.endsWith(ID, 'STA')}">Staff</th>
+                </tr>
+
+                <tr>
+                    <td class="profile">ID: </td>
+                    <td class="profile" th:text="${#strings.substring(ID,0,7)}"></td>
+                </tr>
+
+                <tr>
+                    <td class="profile">Name: </td>
+                    <td class="profile" th:text="${fName+' '+lName}"></td>
+                </tr>
+
+                <div th:if="${#strings.endsWith(ID, 'STU')}">
+                    <tr>
+                        <td class="profile">Email: </td>
+                        <td class="profile" th:text="${email}"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="profile">Mobile: </td>
+                        <td class="profile" th:text="${number}"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="profile">Address: </td>
+                        <td class="profile" th:text="${address}"></td>
+                    </tr>
                 </div>
+            </table>
+            <br>
+            <div th:if="${#strings.endsWith(ID, 'STU')}">
+                <a href="/modules" class="button">My Modules</a>
+                <a href="/fees" class="button">My Fees</a>
             </div>
-        </td>
-    </tr>
-</table>
-
-<div class="page">
-    <h1><u>My Profile</u></h1>
-    <table>
-        <tr>
-            <th class="profile">Account</th>
-            <th class="profile" th:if="${account}">Student</th>
-            <th class="profile" th:unless="${account}">Staff</th>
-        </tr>
-        <tr>
-            <td class="profile">ID: </td>
-            <td class="profile" th:text="${ID}"></td>
-        </tr>
-
-        <tr>
-            <td class="profile">Name: </td>
-            <td class="profile" th:text="${fName+' '+lName}"></td>
-        </tr>
-
-        <tr>
-            <td class="profile">Email: </td>
-            <td class="profile" th:text="${email}"></td>
-        </tr>
-
-        <tr>
-            <td class="profile">Mobile: </td>
-            <td class="profile" th:text="${number}"></td>
-        </tr>
-
-        <tr>
-            <td class="profile">Address: </td>
-            <td class="profile" th:text="${address}"></td>
-        </tr>
-    </table>
-    <br>
-    <a href="/modules" class="button">My Modules</a>
-    <a href="/fees" class="button">My Fees</a>
-</div>
-</body>
+            <div th:if="${#strings.endsWith(ID, 'STA')}">
+                <a href="/modules" class="button">My Modules</a>
+            </div>
+        </div>
+    </body>
 </html>

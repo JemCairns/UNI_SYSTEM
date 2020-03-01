@@ -30,8 +30,10 @@ public class StatisticsController {
         }
 
         model.addAttribute("ID", userID);
-        List<Student> students = service.getAllStudents();
-        model.addAttribute("studs", students);
+
+//        List<Student> students = service.getAllStudents();
+//        model.addAttribute("studs", students);
+        model.addAttribute("user_name", service.getUserName(userID));
 
         TreeMap<String, Integer> studentGenderMap = service.getStudentGendersAndCounts();
         TreeMap<String, Integer> staffGenderMap = service.getStaffGendersAndCounts();

@@ -42,8 +42,9 @@ public class RegisterController {
             session.setAttribute("ID", new_ID);
             return "redirect:login";
         }
-        model.addAttribute("ID", new_ID);
-        session.setAttribute("ID", new_ID);
+//        model.addAttribute("ID", new_ID);
+
+        session.setAttribute("ID", new_ID+"STU");
         return "redirect:welcome";
     }
 

@@ -2,16 +2,16 @@ package uni.system.webapp.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uni.system.webapp.repositories.ModuleRepository;
-import uni.system.webapp.repositories.StudentRepository;
-import uni.system.webapp.repositories.TopicRegistrationRepository;
-import uni.system.webapp.repositories.TopicRepository;
+import uni.system.webapp.repositories.*;
 
 @Service
 public class LoginService {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Autowired
+    StaffRepository staffRepository;
 
     @Autowired
     ModuleRepository moduleRepository;
@@ -22,10 +22,17 @@ public class LoginService {
     @Autowired
     TopicRegistrationRepository topicRegistrationRepository;
 
-    public boolean validateUser(String ID, String pass) {
+    public String validateUser(String ID, String pass) {
         if(studentRepository.existsById(ID+"STU")) {
-            return studentRepository.getOne(ID+"STU").getPassword().equals(pass);
+            if(studentRepository.getOne(ID+"STU").getPassword().equals(pass)) {
+                return "STU";
+            }
         }
-        return false;
+        else if(staffRepository.existsById(ID+"STA")){
+            if(staffRepository.getOne(ID+"STA").getPassword().equals(pass)){
+                return "STA";
+            }
+        }
+        return "";
     }
 }

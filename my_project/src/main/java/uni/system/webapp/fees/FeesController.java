@@ -25,13 +25,14 @@ public class FeesController {
             return "redirect:login";
         }
 
-        Student student = service.getStudent(userID+"STU");
-        List<Student> students = service.getAllStudents();
+        Student student = service.getStudent(userID);
+//        List<Student> students = service.getAllStudents();
         double feesPaid = student.getFees_paid();
         double feesDue = student.getFees_due();
         double feesTotal = feesDue + feesPaid;
 
-        model.addAttribute("studs", students);
+//        model.addAttribute("studs", students);
+        model.addAttribute("user_name", student.getFirst_name());
         model.addAttribute("feesTotal", feesTotal);
         model.addAttribute("feesDue", feesDue);
         model.addAttribute("feesPaid", feesPaid);
@@ -47,17 +48,18 @@ public class FeesController {
             return "redirect:login";
         }
 
-        Student student = service.getStudent(userID+"STU");
+        Student student = service.getStudent(userID);
         String error = service.updateStudentFees(student, amount);
-        List<Student> students = service.getAllStudents();
+//        List<Student> students = service.getAllStudents();
         model.addAttribute("error", error);
         model.addAttribute("ID", userID);
 
         double feesPaid = student.getFees_paid();
         double feesDue = student.getFees_due();
         double feesTotal = feesDue + feesPaid;
-        model.addAttribute("studs", students);
+//        model.addAttribute("studs", students);
         model.addAttribute("feesTotal", feesTotal);
+        model.addAttribute("user_name", student.getFirst_name());
         model.addAttribute("feesDue", feesDue);
         model.addAttribute("feesPaid", feesPaid);
         return "fees";

@@ -46,11 +46,21 @@ public class ModulesService {
 
         for(ModuleRegistration m : moduleRegs) {
 //            System.out.println(m.getStudent_ID());
-            if(m.getStudent_ID().equals(id+"STU")) {
+            if(m.getStudent_ID().equals(id)) {
                 studentModules.add(m);
             }
         }
         return studentModules;
+    }
+
+    public String getUserName(String ID){
+        if(ID.endsWith("STU")){
+            return studentRepository.getOne(ID).getFirst_name();
+        }
+        else if(ID.endsWith("STA")){
+            return staffRepository.getOne(ID).getFirst_name();
+        }
+        return "";
     }
 
     public List<Module> getAllModuleNotRegsForStudent(String id){

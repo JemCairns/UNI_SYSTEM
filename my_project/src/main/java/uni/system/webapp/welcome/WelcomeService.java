@@ -33,6 +33,15 @@ public class WelcomeService {
         return moduleRepository.findAll();
     }
 
+    public String getUserName(String ID){
+        if(ID.endsWith("STU")){
+            return studentRepository.getOne(ID).getFirst_name();
+        }
+        else if(ID.endsWith("STA")){
+            return staffRepository.getOne(ID).getFirst_name();
+        }
+        return "";
+    }
     public List<Student> getAllStudents() { return studentRepository.findAll(); }
     public List<Staff> getAllStaff() { return staffRepository.findAll(); }
 

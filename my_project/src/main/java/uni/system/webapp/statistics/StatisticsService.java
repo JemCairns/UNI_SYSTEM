@@ -22,6 +22,16 @@ public class StatisticsService {
 
     public List<Student> getAllStudents() { return studentRepository.findAll(); }
 
+    public String getUserName(String ID){
+        if(ID.endsWith("STU")){
+            return studentRepository.getOne(ID).getFirst_name();
+        }
+        else if(ID.endsWith("STA")){
+            return staffRepository.getOne(ID).getFirst_name();
+        }
+        return "";
+    }
+
     public TreeMap<String, Integer> getStudentGendersAndCounts() {
         TreeMap<String, Integer> studentGendersAndCounts = new TreeMap<>();
 

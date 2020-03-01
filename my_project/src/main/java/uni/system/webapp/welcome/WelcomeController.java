@@ -27,8 +27,9 @@ public class WelcomeController {
             return "redirect:login";
         }
 
-        List<Student> students = service.getAllStudents();
-        model.addAttribute("studs", students);
+//        List<Student> students = service.getAllStudents();
+//        model.addAttribute("studs", students);
+        model.addAttribute("user_name", service.getUserName(userID));
 
         List<Staff> staffList = service.getAllStaff();
         model.addAttribute("st", staffList);

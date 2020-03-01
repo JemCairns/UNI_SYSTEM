@@ -23,17 +23,19 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String showWelcomePage(ModelMap model, @RequestParam String ID, @RequestParam String password, HttpSession session) {
 
-        boolean isValidUser = service.validateUser(ID, password);
-        System.out.println(isValidUser);
+        String userType = service.validateUser(ID, password);
+        boolean invalidUser = userType.equals("");
+        System.out.println(invalidUser);
 
-        if(!isValidUser) {
+        if(invalidUser) {
             model.addAttribute("errorMessage", "*Invalid credentials");
             return "login";
         }
 
-        model.addAttribute("ID", ID);
-        model.addAttribute("password", password);
-        session.setAttribute("ID", ID);
+//        model.addAttribute("ID", ID);
+//        model.addAttribute("password", password);
+
+        session.setAttribute("ID", ID+userType);
         return "redirect:welcome";
     }
 }
