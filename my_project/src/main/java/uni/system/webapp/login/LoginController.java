@@ -36,6 +36,7 @@ public class LoginController {
 //        model.addAttribute("password", password);
 
         session.setAttribute("ID", ID+userType);
+//        session.setAttribute("editModuleID", "COMP00001");
         return "redirect:welcome";
     }
 }

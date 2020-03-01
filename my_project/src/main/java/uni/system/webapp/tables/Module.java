@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -15,7 +16,7 @@ public class Module implements Serializable {
     private String name;
     @NotBlank
     private String coordinator_ID;
-    @NotBlank
+    @NotNull
     private int max_num_students;
     @NotBlank
     private String status;

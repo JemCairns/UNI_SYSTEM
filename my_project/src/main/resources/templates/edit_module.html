@@ -37,6 +37,7 @@
 
         <div class="page">
             <h1><u>Edit Module</u></h1>
+            <p th:text="${errorMessage}"></p>
             <form method="post">
                 <table border="1" cellpadding="5">
 <!--                    <caption>-->
@@ -46,43 +47,58 @@
 <!--                    </caption>-->
 <!--                    <input type="hidden" name="ID" value="<c:out value='${module.ID}' />"  />-->
 
+
+                    <input type="hidden" name="coordinator_ID" th:value="${module.coordinator_ID}"  />
                     <tr>
                         <th>Module Code: </th>
                         <td>
                             <input type="text" name="ID" size="45"
-                                value="<c:out value='${module.ID}' />" readonly
+                                th:value="${module.ID}" readonly
                             />
                         </td>
                     </tr>
                     <tr>
                         <th>Title: </th>
                         <td>
-                            <input type="text" name="book_name" size="45"
-                                   value="<c:out value='${module.name}' />" readonly
+                            <input type="text" name="name" size="45"
+                                   th:value="${module.name}" readonly
                             />
                         </td>
                     </tr>
                     <tr>
                         <th>Max no. Students: </th>
                         <td>
-                            <input type="text" name="isbn" size="45"
-                                   value="<c:out value='${module.max_num_students}' />"
+                            <input type="number" name="max_num_students" size="45"
+                                   th:value="${module.max_num_students}"
                             />
                         </td>
                     </tr>
                     <tr>
                         <th>Status : </th>
                         <td>
-                            <input type="text" name="isbn" size="45"
-                                   value="<c:out value='${module.status}' />"
-                            />
+<!--                            <input type="text" name="status" size="45"-->
+<!--                                   th:value="${module.status}"-->
+<!--                            />-->
+                            <select id="status_dd" name="status">
+                                <option value="available">Available</option>
+                                <option value="terminated">Terminated</option>
+                            </select>
                         </td>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+
+                            var element = document.getElementById('status_dd');
+                            element.value = /*[[${module.status}]]*/ 'blah';
+
+                            /*]]>*/
+                        </script>
                     </tr>
                     <tr>
                         <th>Description : </th>
                         <td>
-                            <input type="text" name="isbn" size="45"
-                                   value="<c:out value='${module.description}' />"
+                            <input type="text" name="description" size="45"
+                                   th:value="${module.description}"
                             />
                         </td>
                     </tr>

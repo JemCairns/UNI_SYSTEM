@@ -1,6 +1,7 @@
 package uni.system.webapp.edit_modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,12 +12,13 @@ import uni.system.webapp.tables.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@Controller
 public class EditModulesController {
 
     @Autowired
     EditModulesService service;
 
-    @RequestMapping(path = "/edit_module", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit_module", method = RequestMethod.GET)
     public String showEditModulePage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
         String editModuleID = (String) session.getAttribute("editModuleID");
@@ -31,7 +33,7 @@ public class EditModulesController {
         model.addAttribute("user_name", service.getUserName(userID));
 
         model.addAttribute("ID", userID);
-        System.out.println("module name: "+service.getModule(editModuleID).getName());
+        System.out.println("module max: "+service.getModule(editModuleID).getMax_num_students());
         model.addAttribute("module", service.getModule(editModuleID));
 
         return "edit_module";
@@ -42,16 +44,24 @@ public class EditModulesController {
 
 
     @RequestMapping(path = "/edit_module", method = RequestMethod.POST)
-    public String updateModule(ModelMap model, HttpSession session) {
+    public String updateModule(ModelMap model, Module module, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
         System.out.println(userID);
         System.out.println("in post EM");
+        System.out.println("max: " + module.getMax_num_students());
 
         if(userID == null) {
             return "redirect:login";
         }
 
-        return "edit_module";
+        if(module.getMax_num_students()<10 || module.getDescription().equals("")){
+            model.addAttribute("errorMessage", "*Invalid module details");
+            return "edit_module";
+        }
+
+        service.updateModule(module);
+
+        return "redirect:modules";
     }
 
 

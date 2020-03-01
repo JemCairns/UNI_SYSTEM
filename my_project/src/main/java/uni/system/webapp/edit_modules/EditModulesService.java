@@ -1,12 +1,14 @@
 package uni.system.webapp.edit_modules;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.ModuleRegistrationRepository;
 import uni.system.webapp.repositories.ModuleRepository;
 import uni.system.webapp.repositories.StaffRepository;
 import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.Module;
 
+@Service
 public class EditModulesService {
 
     @Autowired
@@ -24,6 +26,10 @@ public class EditModulesService {
 
     public Module getModule(String ID){
         return moduleRepository.getOne(ID);
+    }
+
+    public void updateModule(Module module){
+        moduleRepository.save(module);
     }
 
 
