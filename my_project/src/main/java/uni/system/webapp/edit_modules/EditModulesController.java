@@ -5,12 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import uni.system.webapp.modules.ModulesService;
-import uni.system.webapp.tables.*;
+import uni.system.webapp.tables.Module;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class EditModulesController {
@@ -60,6 +57,7 @@ public class EditModulesController {
         }
 
         service.updateModule(module);
+        model.addAttribute("ID", userID);
 
         return "redirect:modules";
     }

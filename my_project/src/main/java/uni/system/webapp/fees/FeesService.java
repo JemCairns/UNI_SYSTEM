@@ -23,7 +23,7 @@ public class FeesService {
             return "Please enter a valid number!";
         } else if(amount > s.getFees_due()) {
             return "Please enter a valid amount!";
-        } else if(s.getFees_due() == s.getFees_paid()) {
+        } else if(s.getFees_due() == 0) {
             return "You have paid all of your fess!";
         } else {
             s.setFees_due(s.getFees_due() - amount);

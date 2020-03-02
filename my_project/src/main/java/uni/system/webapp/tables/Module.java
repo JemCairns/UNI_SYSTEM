@@ -17,6 +17,8 @@ public class Module implements Serializable {
     @NotBlank
     private String coordinator_ID;
     @NotNull
+    private int curr_num_students;
+    @NotNull
     private int max_num_students;
     @NotBlank
     private String status;
@@ -27,10 +29,11 @@ public class Module implements Serializable {
         super();
     }
 
-    public Module(String ID, String name, String coordinator_ID, int max_num_students, String status, String description) {
+    public Module(String ID, String name, String coordinator_ID, int curr_num_students, int max_num_students, String status, String description) {
         this.ID = ID;
         this.name = name;
         this.coordinator_ID = coordinator_ID;
+        this.curr_num_students = curr_num_students;
         this.max_num_students = max_num_students;
         this.status = status;
         this.description = description;
@@ -59,6 +62,10 @@ public class Module implements Serializable {
     public void setCoordinator_ID(String coordinator_ID) {
         this.coordinator_ID = coordinator_ID;
     }
+
+    public int getCurr_num_students() { return this.curr_num_students; }
+
+    public void setCurr_num_students(int curr_num_students) { this.curr_num_students = curr_num_students; }
 
     public int getMax_num_students() {
         return max_num_students;

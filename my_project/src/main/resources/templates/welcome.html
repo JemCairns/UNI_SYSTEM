@@ -40,7 +40,7 @@
     <div th:each="module: ${mod}">
         <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}"></button>
         <div class="content" th:each="staff: ${st}" th:if="${module.coordinator_ID == staff.ID}">
-            <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
+            <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number of Students: ' + module.curr_num_students + '/' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
             <br>
             <div th:each="topic: ${top}">
                 <div th:each="topic_reg: ${top_reg}">

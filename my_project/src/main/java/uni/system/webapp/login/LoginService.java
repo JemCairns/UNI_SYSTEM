@@ -22,15 +22,18 @@ public class LoginService {
     @Autowired
     TopicRegistrationRepository topicRegistrationRepository;
 
-    public String validateUser(String ID, String pass) {
-        if(studentRepository.existsById(ID+"STU")) {
-            if(studentRepository.getOne(ID+"STU").getPassword().equals(pass)) {
-                return "STU";
+    public String validateUser(String ID, String pass, String user) {
+        if(user.equals("student")) {
+            if(studentRepository.existsById(ID+"STU")) {
+                if(studentRepository.getOne(ID+"STU").getPassword().equals(pass)) {
+                    return "STU";
+                }
             }
-        }
-        else if(staffRepository.existsById(ID+"STA")){
-            if(staffRepository.getOne(ID+"STA").getPassword().equals(pass)){
-                return "STA";
+        } else {
+            if(staffRepository.existsById(ID+"STA")){
+                if(staffRepository.getOne(ID+"STA").getPassword().equals(pass)){
+                    return "STA";
+                }
             }
         }
         return "";
