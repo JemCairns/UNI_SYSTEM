@@ -122,6 +122,8 @@ public class ModulesService {
         if(moduleRegistrationList.size() + 1 > module.getMax_num_students()) {
             return true;
         } else {
+            module.setCurr_num_students(module.getCurr_num_students() + 1);
+            moduleRepository.save(module);
             moduleRegistrationRepository.save(moduleRegistration);
             return false;
         }
