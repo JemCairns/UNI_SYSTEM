@@ -64,44 +64,61 @@ public class ModulesController {
             return "redirect:login";
         }
 
-        String studentID = service.getStudent(userID).getID();
-        List<Module> modules = service.getAllModules();
-        List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
-        List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
-        List<Topic> topics = service.getAllTopics();
-        List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
-        boolean hasModules = service.hasModules(userID);
-
-//        List<Student> students = service.getAllStudents();
-//        model.addAttribute("studs", students);
-        model.addAttribute("user_name", service.getUserName(userID));
-
-        List<Staff> staffList = service.getAllStaff();
-        model.addAttribute("st", staffList);
-
-        model.addAttribute("ID", studentID);
-        model.addAttribute("mod", modules);
-        model.addAttribute("hasModules", hasModules);
-        model.addAttribute("modRegs", moduleRegs);
-        model.addAttribute("modNotRegs", moduleNotRegs);
-        model.addAttribute("top", topics);
-        model.addAttribute("top_reg", topicRegs);
-
         if(userID.endsWith("STU")) {
 
             if (service.getStudent(userID).getFees_due() > 0) {
                 model.addAttribute("maxStudents", false);
                 model.addAttribute("feesDue", true);
-                return "modules";
             } else {
-                boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
-                model.addAttribute("maxStudents", maxStudents);
-                model.addAttribute("feesDue", false);
-                return "redirect:modules";
+
+                if(formType.equals("dropout")) {
+                    service.removeModuleRegiatration(userID, checkedModule);
+                    model.addAttribute("maxStudents", false);
+                    model.addAttribute("feesDue", false);
+                } else {
+                    boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
+                    model.addAttribute("maxStudents", maxStudents);
+                    model.addAttribute("feesDue", false);
+                }
             }
 
+            String studentID = service.getStudent(userID).getID();
+            List<Module> modules = service.getAllModules();
+            List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
+            List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
+            List<Topic> topics = service.getAllTopics();
+            List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
+            boolean hasModules = service.hasModules(userID);
+            model.addAttribute("user_name", service.getUserName(userID));
+            List<Staff> staffList = service.getAllStaff();
+            model.addAttribute("st", staffList);
+            model.addAttribute("ID", studentID);
+            model.addAttribute("mod", modules);
+            model.addAttribute("hasModules", hasModules);
+            model.addAttribute("modRegs", moduleRegs);
+            model.addAttribute("modNotRegs", moduleNotRegs);
+            model.addAttribute("top", topics);
+            model.addAttribute("top_reg", topicRegs);
+            return "redirect:modules";
         }
         else{
+            String studentID = service.getStudent(userID).getID();
+            List<Module> modules = service.getAllModules();
+            List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
+            List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
+            List<Topic> topics = service.getAllTopics();
+            List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
+            boolean hasModules = service.hasModules(userID);
+            model.addAttribute("user_name", service.getUserName(userID));
+            List<Staff> staffList = service.getAllStaff();
+            model.addAttribute("st", staffList);
+            model.addAttribute("ID", studentID);
+            model.addAttribute("mod", modules);
+            model.addAttribute("hasModules", hasModules);
+            model.addAttribute("modRegs", moduleRegs);
+            model.addAttribute("modNotRegs", moduleNotRegs);
+            model.addAttribute("top", topics);
+            model.addAttribute("top_reg", topicRegs);
             session.setAttribute("editModuleID", checkedModule);
             System.out.println("MC: "+checkedModule);
 

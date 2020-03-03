@@ -37,7 +37,7 @@
 
 <div class="page">
     <div th:if="${error}">
-        <p style="color: red">Selected module is at capacity!</p>
+        <p style="color: red">Invalid Input!</p>
     </div>
     <h1><u th:text="${'Grades for ' + moduleID}"></u></h1>
     <form action="/grades" method="post">

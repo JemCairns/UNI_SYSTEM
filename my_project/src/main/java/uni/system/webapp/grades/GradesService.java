@@ -59,8 +59,13 @@ public class GradesService {
         int i = 0;
         for(ModuleRegistration m : moduleRegistrations) {
             if(m.getModule_ID().equals(moduleID)) {
-                System.out.println();
-                if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validGradesMap.get(grades[i])) && Double.parseDouble(percents[i]) >= validGradesMap.get(validGrades[validGradesList.indexOf(grades[i]) + 1])) {
+
+                if(validGradesList.contains(grades[i]) && grades[i].equals("NG") && (Double.parseDouble(percents[i]) < validGradesMap.get(grades[i]))) {
+                    m.setLetterGrade(grades[i]);
+                    m.setPercentage(Double.parseDouble(percents[i]));
+                    moduleRegistrationRepository.save(m);
+                    i++;
+                } else if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validGradesMap.get(grades[i])) && Double.parseDouble(percents[i]) >= validGradesMap.get(validGrades[validGradesList.indexOf(grades[i]) - 1])) {
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));
                     moduleRegistrationRepository.save(m);
