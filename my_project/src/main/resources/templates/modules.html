@@ -38,7 +38,7 @@
     <div class="page">
         <div th:if="${#strings.endsWith(ID, 'STU')}">
             <div th:if="${maxStudents}">
-                <p style="color: red">Selected module is at capacity!</p>
+                <p style="color: red">Invalid Input</p>
             </div>
             <div th:if="${feesDue}">
                 <p style="color: red">You cannot enroll in modules without fully paying your outstanding fees.</p>
@@ -132,10 +132,18 @@
                                     </div>
                                 </div>
                                 <br>
-                                <form class="enrollForm" name="moduleEdit" method="post">
-                                    <input name="checkedModule" type="hidden" th:value="${module.ID}" >
-                                    <input class="dropbtn" type="submit" value="Edit">
-                                </form>
+                                <div>
+                                    <form style="float: left; padding-right: 10px" class="enrollForm" name="moduleEdit" method="post">
+                                        <input name="checkedModule" type="hidden" th:value="${module.ID}" >
+                                        <input name="formType" type="hidden" th:value="edit" >
+                                        <input class="dropbtn" type="submit" value="Edit">
+                                    </form>
+                                    <form style="float: left" class="enrollForm" name="assignGrades" method="post">
+                                        <input name="checkedModule" type="hidden" th:value="${module.ID}" >
+                                        <input name="formType" type="hidden" th:value="grades" >
+                                        <input class="dropbtn" type="submit" value="Grades">
+                                    </form>
+                                </div>
                             </div>
                         </div>
 <!--                    </div>-->

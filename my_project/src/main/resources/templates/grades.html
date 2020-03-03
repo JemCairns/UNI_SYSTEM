@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>University of Springfield Web Portal</title>
+    <link type="text/css" rel="stylesheet" href="css/grades.css">
+    <link href='https://fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
+</head>
+<body>
+
+<table class="header">
+    <tr>
+        <td>
+            <div class="navbar">
+                <ul class="leftList">
+                    <li><a href="/welcome">Home</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/statistics">Statistics</a></li>
+                </ul>
+            </div>
+        </td>
+        <td style="white-space: nowrap; width: 0.1%">
+            <div class="dropdown">
+                <!--                    <div th:each="student: ${studs}">-->
+                <!--                        <div th:if="${student.ID == ID}">-->
+                <button class="dropbtn" th:text="${'Hello, '+user_name}"></button>
+                <div class="dropdown-content">
+                    <a href="/modules">My Modules</a>
+                    <a href="/logout">Log Out</a>
+                </div>
+                <!--                        </div>-->
+                <!--                    </div>-->
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="page">
+    <div th:if="${error}">
+        <p style="color: red">Selected module is at capacity!</p>
+    </div>
+    <h1><u th:text="${'Grades for ' + moduleID}"></u></h1>
+    <form action="/grades" method="post">
+        <table>
+        <tr>
+            <th>Student Number</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Percentage</th>
+        </tr>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.ID}"></td>
+            <td th:text="${student.first_name + ' ' + student.last_name}"></td>
+            <td th:each="reg: ${mod_regs}" th:if="${student.ID == reg.student_ID and moduleID == reg.module_ID}" ><input style="text-align: center" name="grades" type="text" th:value="${reg.letterGrade}"></td>
+            <td th:each="reg: ${mod_regs}" th:if="${student.ID == reg.student_ID and moduleID == reg.module_ID}" ><input style="text-align: center" name="percents" type="text" th:value="${reg.percentage}"></td>
+        </tr>
+        </table>
+        <br>
+        <input class="dropbtn" type="submit">
+    </form>
+</div>
+</body>
+</html>
