@@ -102,7 +102,7 @@ public class ModulesController {
         }
         else{
             session.setAttribute("editModuleID", checkedModule);
-            System.out.println("MC: "+checkedModule);
+            System.out.println("MC: " + checkedModule);
             return "redirect:edit_module";
         }
 

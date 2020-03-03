@@ -40,29 +40,37 @@
             <p th:text="${errorMessage}"></p>
             <form method="post">
                 <table border="1" cellpadding="5">
-<!--                    <caption>-->
-<!--                        <h2>-->
-<!--                            Edit Book-->
-<!--                        </h2>-->
-<!--                    </caption>-->
-<!--                    <input type="hidden" name="ID" value="<c:out value='${module.ID}' />"  />-->
 
 
                     <input type="hidden" name="coordinator_ID" th:value="${module.coordinator_ID}"  />
                     <tr>
                         <th>Module Code: </th>
                         <td>
-                            <input type="text" name="ID" size="45"
-                                th:value="${module.ID}" readonly
-                            />
+                            <div th:if="${new_mod}">
+                                <input type="text" name="ID" size="45"
+                                       th:value="${module.ID}"
+                                />
+                            </div>
+                            <div th:unless="${new_mod}">
+                                <input type="text" name="ID" size="45"
+                                       th:value="${module.ID}" readonly
+                                />
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Title: </th>
                         <td>
-                            <input type="text" name="name" size="45"
-                                   th:value="${module.name}" readonly
-                            />
+                            <div th:if="${new_mod}">
+                                <input type="text" name="name" size="45"
+                                       th:value="${module.name}"
+                                />
+                            </div>
+                            <div th:if="${new_mod}">
+                                <input type="text" name="name" size="45"
+                                       th:value="${module.name}" readonly
+                                />
+                            </div>
                         </td>
                     </tr>
                     <tr>

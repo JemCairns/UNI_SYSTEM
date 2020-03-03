@@ -32,5 +32,19 @@ public class EditModulesService {
         moduleRepository.save(module);
     }
 
+    public boolean saveModule(Module newModule){
+        boolean alreadyExists=false;
+        for(Module module : moduleRepository.findAll()) {
+            if(module.getID().equals(newModule.getID())){
+                alreadyExists=true;
+            }
+        }
+        if(!alreadyExists){
+            moduleRepository.save(newModule);
+        }
+
+        return alreadyExists;
+    }
+
 
 }
