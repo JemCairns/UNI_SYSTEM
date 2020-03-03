@@ -1,27 +1,30 @@
 package uni.system.webapp.tables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "topic_registration")
 public class TopicRegistration implements Serializable {
     @Id
+    @GeneratedValue
     private int reg_ID;
     @NotBlank
     private String module_ID;
-    @NotBlank
+    @NotNull
     private int topic_ID;
 
     public TopicRegistration() {
         super();
     }
 
-    public TopicRegistration(int reg_ID, String module_ID, int topic_ID) {
-        this.reg_ID = reg_ID;
+    public TopicRegistration(String module_ID, int topic_ID) {
+//        this.reg_ID = reg_ID;
         this.module_ID = module_ID;
         this.topic_ID = topic_ID;
     }
