@@ -152,6 +152,11 @@
             <div th:unless="${hasModules}">
                 <p>You are not registered to any modules yet.</p>
             </div>
+
+            <form class="enrollForm" name="moduleEdit" method="post">
+                <input name="checkedModule" type="hidden" value="new_module" >
+                <input class="dropbtn" type="submit" value="New Module">
+            </form>
         </div>
     </div>
     </body>

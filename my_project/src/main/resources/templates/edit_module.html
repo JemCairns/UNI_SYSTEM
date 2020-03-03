@@ -40,29 +40,37 @@
             <p th:text="${errorMessage}"></p>
             <form method="post">
                 <table border="1" cellpadding="5">
-<!--                    <caption>-->
-<!--                        <h2>-->
-<!--                            Edit Book-->
-<!--                        </h2>-->
-<!--                    </caption>-->
-<!--                    <input type="hidden" name="ID" value="<c:out value='${module.ID}' />"  />-->
 
 
                     <input type="hidden" name="coordinator_ID" th:value="${module.coordinator_ID}"  />
                     <tr>
                         <th>Module Code: </th>
                         <td>
-                            <input type="text" name="ID" size="45"
-                                th:value="${module.ID}" readonly
-                            />
+                            <div th:if="${new_mod}">
+                                <input type="text" name="ID" size="45"
+                                       th:value="${module.ID}"
+                                />
+                            </div>
+                            <div th:unless="${new_mod}">
+                                <input type="text" name="ID" size="45"
+                                       th:value="${module.ID}" readonly
+                                />
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>Title: </th>
                         <td>
-                            <input type="text" name="name" size="45"
-                                   th:value="${module.name}" readonly
-                            />
+                            <div th:if="${new_mod}">
+                                <input type="text" name="name" size="45"
+                                       th:value="${module.name}"
+                                />
+                            </div>
+                            <div th:unless="${new_mod}">
+                                <input type="text" name="name" size="45"
+                                       th:value="${module.name}" readonly
+                                />
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +97,7 @@
                             /*<![CDATA[*/
 
                             var element = document.getElementById('status_dd');
-                            element.value = /*[[${module.status}]]*/ 'blah';
+                            element.value = /*[[${module.status}]]*/ 'available';
 
                             /*]]>*/
                         </script>
@@ -100,6 +108,19 @@
                             <input type="text" name="description" size="45"
                                    th:value="${module.description}"
                             />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Topics : </th>
+                        <td>
+                            <div th:each="topic: ${registered_topics}">
+                                <input type="checkbox" name="prev_topics" th:value="${topic.topic_ID}" checked />
+                                <label th:text="${topic.title}"></label><br>
+                            </div>
+                            <div th:each="topic: ${not_registered_topics}">
+                                <input type="checkbox" name="new_topics" th:value="${topic.topic_ID}" />
+                                <label th:text="${topic.title}"></label><br>
+                            </div>
                         </td>
                     </tr>
                     <tr>
