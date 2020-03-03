@@ -98,7 +98,7 @@ public class ModulesController {
                 model.addAttribute("feesDue", false);
             }
 
-            return "modules";
+            return "redirect:modules";
         }
         else{
             session.setAttribute("editModuleID", checkedModule);
