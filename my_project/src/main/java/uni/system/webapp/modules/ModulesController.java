@@ -54,7 +54,7 @@ public class ModulesController {
     }
 
     @RequestMapping(path = "/modules", method = RequestMethod.POST)
-    public String registerForModule(ModelMap model, HttpSession session, @RequestParam String checkedModule) {
+    public String registerForModule(ModelMap model, HttpSession session, @RequestParam String checkedModule, @RequestParam String formType) {
         String userID = (String) session.getAttribute("ID");
         System.out.println(userID);
 
@@ -103,8 +103,13 @@ public class ModulesController {
         }
         else{
             session.setAttribute("editModuleID", checkedModule);
-            System.out.println("MC: " + checkedModule);
-            return "redirect:edit_module";
+            System.out.println("MC: "+checkedModule);
+
+            if(formType.equals("edit")) {
+                return "redirect:edit_module";
+            } else {
+                return "redirect:grades";
+            }
         }
 
     }
