@@ -18,7 +18,7 @@ public class RegisterService {
             return false;
         }
         else{
-            Student student = new Student(ID, password, first_name, last_name, address, phone_number, email, gender, 3000, 3000, date_of_birth, stage);
+            Student student = new Student(ID, password, first_name, last_name, address, phone_number, email, gender, 3000, 0, date_of_birth, stage);
             studentRepository.save(student);
         }
         return true;

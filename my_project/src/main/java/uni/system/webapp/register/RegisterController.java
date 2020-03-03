@@ -31,16 +31,33 @@ public class RegisterController {
                                   @RequestParam String phone_number,
                                   @RequestParam String email,
                                   @RequestParam String gender,
+//                                  @RequestParam(value = "date_of_birth", required = false) String date_of_birth,
                                   @RequestParam Date date_of_birth,
                                   @RequestParam String stage,
                                   HttpSession session) {
 
+        if(     new_ID.length()<7 ||
+                new_password.equals("") ||
+                first_name.equals("") ||
+                last_name.equals("") ||
+                address.equals("") ||
+                phone_number.equals("") ||
+                email.equals("") ||
+                gender.equals("") ||
+                date_of_birth == null ||
+                stage.equals("")){
+            model.addAttribute("errorMessage", "*Invalid registration details.");
+            System.out.println("added");
+            session.setAttribute("ID", new_ID);
+            return "register";
+        }
+
         boolean alreadyRegistered = service.registerUser(new_ID+"STU", new_password, first_name, last_name, address, phone_number, email, gender, date_of_birth, stage);
 
         if(!alreadyRegistered) {
-            model.addAttribute("errorMessage", "You have already registered.");
+            model.addAttribute("errorMessage", "*You have already registered.");
             session.setAttribute("ID", new_ID);
-            return "redirect:login";
+            return "register";
         }
 //        model.addAttribute("ID", new_ID);
 

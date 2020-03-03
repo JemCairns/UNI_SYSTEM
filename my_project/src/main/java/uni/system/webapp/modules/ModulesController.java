@@ -92,13 +92,14 @@ public class ModulesController {
             if (service.getStudent(userID).getFees_due() > 0) {
                 model.addAttribute("maxStudents", false);
                 model.addAttribute("feesDue", true);
+                return "modules";
             } else {
                 boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
                 model.addAttribute("maxStudents", maxStudents);
                 model.addAttribute("feesDue", false);
+                return "redirect:modules";
             }
 
-            return "redirect:modules";
         }
         else{
             session.setAttribute("editModuleID", checkedModule);
