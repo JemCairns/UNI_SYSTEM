@@ -66,13 +66,15 @@ public class ModulesController {
 
         if(userID.endsWith("STU")) {
 
+            boolean feesDue=false;
             if (service.getStudent(userID).getFees_due() > 0) {
                 model.addAttribute("maxStudents", false);
                 model.addAttribute("feesDue", true);
+                feesDue=true;
             } else {
 
                 if(formType.equals("dropout")) {
-                    service.removeModuleRegiatration(userID, checkedModule);
+                    service.removeModuleRegisatration(userID, checkedModule);
                     model.addAttribute("maxStudents", false);
                     model.addAttribute("feesDue", false);
                 } else {
@@ -99,6 +101,9 @@ public class ModulesController {
             model.addAttribute("modNotRegs", moduleNotRegs);
             model.addAttribute("top", topics);
             model.addAttribute("top_reg", topicRegs);
+            if(feesDue){
+                return "modules";
+            }
             return "redirect:modules";
         }
         else{

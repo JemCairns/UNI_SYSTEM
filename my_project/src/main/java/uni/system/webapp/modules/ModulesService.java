@@ -129,11 +129,12 @@ public class ModulesService {
         }
     }
 
-    public void removeModuleRegiatration(String id, String module) {
+    public void removeModuleRegisatration(String id, String module) {
         List<ModuleRegistration> moduleRegistrations = moduleRegistrationRepository.findAll();
 
         for(ModuleRegistration m : moduleRegistrations) {
-            if(m.getModule_ID().equals(module) && m.getStudent_ID().equals(id)) {
+            System.out.println(m.getModule_ID() + ", " + m.getStudent_ID());
+            if(m.getModule_ID().equals(module) && m.getStudent_ID().equals(id+"STU")) {
                 moduleRegistrationRepository.delete(m);
                 break;
             }
