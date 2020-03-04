@@ -39,7 +39,7 @@
         <div th:if="${#strings.endsWith(ID, 'STU')}">
             <p th:if="${dropOut}" style="color: red">You cannot drop out of a module that is terminated.</p>
             <p th:if="${maxStudents}" style="color: red">Selected module is at capacity.</p>
-            <p th:if="${feesDue}" style="color: red">You cannot enroll in modules without fully paying your outstanding fees.</p>
+            <p th:if="${feesDue}" style="color: red">You cannot edit your modules without fully paying your outstanding fees.</p>
             <h1><u>My Modules</u></h1>
             <div th:if="${hasModules}">
                 <div th:each="module: ${mod}">
