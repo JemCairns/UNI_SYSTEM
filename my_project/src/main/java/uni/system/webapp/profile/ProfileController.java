@@ -49,4 +49,17 @@ public class ProfileController {
 
         return "profile";
     }
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public String unRegister(ModelMap model, HttpSession session) {
+        String userID = (String) session.getAttribute("ID");
+
+        if(userID == null) {
+            return "redirect:login";
+        }
+
+        service.deleteStudent(userID);
+
+        return "redirect:login";
+    }
 }

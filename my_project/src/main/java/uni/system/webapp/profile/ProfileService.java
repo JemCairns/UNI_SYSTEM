@@ -2,8 +2,10 @@ package uni.system.webapp.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uni.system.webapp.repositories.ModuleRegistrationRepository;
 import uni.system.webapp.repositories.StaffRepository;
 import uni.system.webapp.repositories.StudentRepository;
+import uni.system.webapp.tables.ModuleRegistration;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
 
@@ -17,6 +19,9 @@ public class ProfileService {
 
     @Autowired
     StaffRepository staffRepository;
+
+    @Autowired
+    ModuleRegistrationRepository moduleRegistrationRepository;
 
     public Student getStudent(String ID) {
         return studentRepository.getOne(ID);
@@ -36,5 +41,15 @@ public class ProfileService {
     }
 
     public List<Student> getAllStudents() { return studentRepository.findAll(); }
+
+    public void deleteStudent(String id){
+        for(ModuleRegistration moduleRegistration : moduleRegistrationRepository.findAll()){
+            if(moduleRegistration.getStudent_ID().equals(id)){
+                moduleRegistrationRepository.delete(moduleRegistration);
+            }
+        }
+        Student student = getStudent(id);
+        studentRepository.delete(student);
+    }
 
 }
