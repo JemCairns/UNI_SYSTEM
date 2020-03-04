@@ -64,7 +64,8 @@ public class EditModulesController {
     @RequestMapping(path = "/edit_module", method = RequestMethod.POST)
     public String updateModule(ModelMap model, Module module, HttpSession session,
                                @RequestParam(value = "prev_topics", required = false) int[] prevIDs,
-                               @RequestParam(value = "new_topics", required = false) int[] newIDs) {
+                               @RequestParam(value = "new_topics", required = false) int[] newIDs,
+                               @RequestParam("modID") String modID) {
         String userID = (String) session.getAttribute("ID");
         String editModuleID = (String) session.getAttribute("editModuleID");
         System.out.println(userID);
@@ -77,9 +78,18 @@ public class EditModulesController {
 
 
         if(newModule){
+            model.addAttribute("user_name", service.getUserName(userID));
+            System.out.println(modID);
+            module.setID(modID);
             if(module.getID().length()!=9 || module.getName().equals("") || module.getDescription().equals("")
                     || module.getMax_num_students()<10){
                 model.addAttribute("errorMessage", "*Invalid module details");
+                model.addAttribute("new_mod", true);
+                Module moduleNew = new Module("", "", userID, 0, 120, "available", "");
+
+                model.addAttribute("module", moduleNew);
+                model.addAttribute("registered_topics", new ArrayList<>());
+                model.addAttribute("not_registered_topics", service.getAllTopics());
                 return "edit_module";
             }
             boolean added = service.saveModule(module);
@@ -90,11 +100,10 @@ public class EditModulesController {
 
             if(newIDs != null) {
                 for (int newID : newIDs) {
-                    service.registerModuleForTopic(editModuleID, newID);
+                    service.registerModuleForTopic(modID, newID);
                 }
             }
 
-            model.addAttribute("ID", userID);
             return "redirect:modules";
 
         }

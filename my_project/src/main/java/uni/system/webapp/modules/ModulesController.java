@@ -72,7 +72,12 @@ public class ModulesController {
             } else {
 
                 if(formType.equals("dropout")) {
-                    service.removeModuleRegiatration(userID, checkedModule);
+                    boolean moduleTerminated = service.removeModuleRegiatration(userID, checkedModule);
+
+                    System.out.println("HELLO " + moduleTerminated);
+                    if(!moduleTerminated) {
+                        model.addAttribute("dropOut", true);
+                    }
                     model.addAttribute("maxStudents", false);
                     model.addAttribute("feesDue", false);
                 } else {

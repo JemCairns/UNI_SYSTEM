@@ -23,7 +23,7 @@ public class GradesService {
     ModuleRegistrationRepository moduleRegistrationRepository;
 
     private String[] validGrades = {"NG", "F", "E", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+"};
-    private Map<String, Integer> validGradesMap = Map.ofEntries(Map.entry("NG", 10), Map.entry("F", 25), Map.entry("E", 40), Map.entry("D-", 45), Map.entry("D", 50), Map.entry("D+", 55), Map.entry("C-", 60), Map.entry("C", 65), Map.entry("C+", 70), Map.entry("B-", 75), Map.entry("B", 80), Map.entry("B+", 85), Map.entry("A-", 90), Map.entry("A", 95), Map.entry("A+", 101));
+    private Integer[] validPercents = {10, 25,  40,   45,  50,   55,   60,  65,   70,   75,  80,  85 ,   90,  95,  101};
 
     public String getUserName(String ID){
         if(ID.endsWith("STU")){
@@ -56,16 +56,18 @@ public class GradesService {
         List<ModuleRegistration> moduleRegistrations = getAllModuleRegistrations();
 
         List<String> validGradesList = Arrays.asList(validGrades);
+        List<Integer> validPercentsList = Arrays.asList(validPercents);
         int i = 0;
         for(ModuleRegistration m : moduleRegistrations) {
             if(m.getModule_ID().equals(moduleID)) {
 
-                if(validGradesList.contains(grades[i]) && grades[i].equals("NG") && (Double.parseDouble(percents[i]) < validGradesMap.get(grades[i]))) {
+                System.out.println((Double.parseDouble(percents[i]) +"<"+ validPercentsList.get(validGradesList.indexOf(grades[i])) +"&&"+ Double.parseDouble(percents[i]) +">="+ validPercentsList.get(validGradesList.indexOf(grades[i])-1)));
+                if(validGradesList.contains(grades[i]) && grades[i].equals("NG") && Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i]))) {
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));
                     moduleRegistrationRepository.save(m);
                     i++;
-                } else if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validGradesMap.get(grades[i])) && Double.parseDouble(percents[i]) >= validGradesMap.get(validGrades[validGradesList.indexOf(grades[i]) - 1])) {
+                } else if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i])) && Double.parseDouble(percents[i]) >= validPercentsList.get(validGradesList.indexOf(grades[i])-1))) {
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));
                     moduleRegistrationRepository.save(m);

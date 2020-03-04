@@ -51,7 +51,7 @@ public class GradesController {
         System.out.println("STOP");
         boolean validInput = service.updateGrades(moduleID, grades, percents);
 
-        if(!validInput) {
+        if(!validInput && grades[0] != null) {
             model.addAttribute("error", true);
         }
 

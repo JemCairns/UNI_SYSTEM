@@ -129,14 +129,21 @@ public class ModulesService {
         }
     }
 
-    public void removeModuleRegiatration(String id, String module) {
+    public boolean removeModuleRegiatration(String id, String module) {
         List<ModuleRegistration> moduleRegistrations = moduleRegistrationRepository.findAll();
 
         for(ModuleRegistration m : moduleRegistrations) {
             if(m.getModule_ID().equals(module) && m.getStudent_ID().equals(id)) {
-                moduleRegistrationRepository.delete(m);
-                break;
+                Module mod = moduleRepository.getOne(module);
+                if(mod.getStatus().equals("terminated")) {
+                    return false;
+                } else {
+                    moduleRegistrationRepository.delete(m);
+                    break;
+                }
             }
         }
+
+        return true;
     }
 }
