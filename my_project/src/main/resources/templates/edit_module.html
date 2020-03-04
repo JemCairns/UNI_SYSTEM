@@ -47,12 +47,12 @@
                         <th>Module Code: </th>
                         <td>
                             <div th:if="${new_mod}">
-                                <input type="text" name="modID" size="45"
+                                <input type="text" name="ID" size="45"
                                        th:value="${module.ID}"
                                 />
                             </div>
                             <div th:unless="${new_mod}">
-                                <input type="text" name="modID" size="45"
+                                <input type="text" name="ID" size="45"
                                        th:value="${module.ID}" readonly
                                 />
                             </div>

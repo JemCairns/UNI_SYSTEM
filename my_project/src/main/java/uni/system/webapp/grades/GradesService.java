@@ -61,7 +61,6 @@ public class GradesService {
         for(ModuleRegistration m : moduleRegistrations) {
             if(m.getModule_ID().equals(moduleID)) {
 
-                System.out.println((Double.parseDouble(percents[i]) +"<"+ validPercentsList.get(validGradesList.indexOf(grades[i])) +"&&"+ Double.parseDouble(percents[i]) +">="+ validPercentsList.get(validGradesList.indexOf(grades[i])-1)));
                 if(validGradesList.contains(grades[i]) && grades[i].equals("NG") && Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i]))) {
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));

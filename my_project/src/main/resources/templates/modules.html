@@ -101,7 +101,7 @@
                         <form class="enrollForm"method="post">
                             <input name="formType" type="hidden" th:value="enroll" >
                             <input name="checkedModule" type="hidden" th:value="${module.ID}" >
-                            <input class="dropbtn" type="submit" value="unRegister">
+                            <input class="dropbtn" type="submit" value="Enroll">
                         </form>
                         <br>
                     </div>
@@ -118,11 +118,7 @@
                         <div th:if="${module.coordinator_ID == ID}">
                             <button type="button" class="collapsible" th:text="${module.ID + ': ' + module.name}" onclick="myFunc()"></button>
                             <div class="content" th:each="staff: ${st}" th:if="${module.coordinator_ID == staff.ID}">
-                                <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name +
-                                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max Number of Students: ' +
-                                module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: '
-                                + module.status}"></p>
-<!--                                <p th:text="${'Grade: ' + moduleReg.letterGrade + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}"></p>-->
+                                <p th:text="${'Coordinator: ' + staff.prefix + ' ' + staff.first_name + ' ' + staff.last_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Number of Students: ' + module.curr_num_students + '/' + module.max_num_students + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status: ' + module.status}"></p>
                                 <br>
                                 <div th:each="topic: ${top}">
                                     <div th:each="topic_reg: ${top_reg}">
@@ -155,7 +151,7 @@
                 </div>
             </div>
             <div th:unless="${hasModules}">
-                <p>You are not registered to any modules yet.</p>
+                <p>You have not created any modules yet.</p>
             </div>
             <br>
             <form class="enrollForm" name="moduleEdit" method="post">
