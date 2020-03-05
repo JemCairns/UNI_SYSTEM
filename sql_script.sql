@@ -20,7 +20,7 @@ create table uni_schema.module
         unique (name)
 );
 
-alter table module
+alter table uni_schema.module
     add primary key (ID);
 
 create table uni_schema.module_registration
