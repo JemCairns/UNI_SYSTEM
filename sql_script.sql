@@ -1,9 +1,11 @@
-create table hibernate_sequence
+create schema uni_schema;
+
+create table uni_schema.hibernate_sequence
 (
     next_val bigint not null
 );
 
-create table module
+create table uni_schema.module
 (
     ID                varchar(10)     not null,
     name              varchar(35)     not null,
@@ -21,7 +23,7 @@ create table module
 alter table module
     add primary key (ID);
 
-create table module_registration
+create table uni_schema.module_registration
 (
     id           int auto_increment
         primary key,
@@ -31,7 +33,7 @@ create table module_registration
     letter_grade varchar(255) null
 );
 
-create table staff
+create table uni_schema.staff
 (
     ID            varchar(10) not null,
     password      varchar(35) not null,
@@ -44,10 +46,10 @@ create table staff
         unique (ID)
 );
 
-alter table staff
+alter table uni_schema.staff
     add primary key (ID);
 
-create table student
+create table uni_schema.student
 (
     ID            varchar(10)   not null,
     first_name    varchar(35)   not null,
@@ -65,10 +67,10 @@ create table student
         unique (ID)
 );
 
-alter table student
+alter table uni_schema.student
     add primary key (ID);
 
-create table topic
+create table uni_schema.topic
 (
     topic_ID    int auto_increment
         primary key,
@@ -76,7 +78,7 @@ create table topic
     description varchar(60) null
 );
 
-create table topic_registration
+create table uni_schema.topic_registration
 (
     reg_ID    int auto_increment
         primary key,
@@ -91,6 +93,8 @@ create table topic_registration
 
 
 
+
+INSERT INTO uni_schema.hibernate_sequence (next_val) VALUES (0);
 
 INSERT INTO uni_schema.module (ID, name, coordinator_ID, max_num_students, status, description, curr_num_students) VALUES ('COMP00001', 'Intro to CompSci', '0000001STA', 150, 'terminated', 'This is an introductory module for computer science.', 2);
 INSERT INTO uni_schema.module (ID, name, coordinator_ID, max_num_students, status, description, curr_num_students) VALUES ('COMP00002', 'Android Programming', '0000001STA', 125, 'available', 'In this module you will develop an android app about the weather.', 1);
