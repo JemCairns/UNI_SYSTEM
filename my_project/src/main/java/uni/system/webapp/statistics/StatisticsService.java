@@ -7,9 +7,6 @@ import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -19,8 +16,6 @@ public class StatisticsService {
     StudentRepository studentRepository;
     @Autowired
     StaffRepository staffRepository;
-
-    public List<Student> getAllStudents() { return studentRepository.findAll(); }
 
     public String getUserName(String ID){
         if(ID.endsWith("STU")){

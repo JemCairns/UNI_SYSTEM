@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.*;
 import uni.system.webapp.tables.Module;
-import uni.system.webapp.tables.ModuleRegistration;
 import uni.system.webapp.tables.Topic;
 import uni.system.webapp.tables.TopicRegistration;
 
@@ -45,8 +44,9 @@ public class EditModulesService {
     public boolean saveModule(Module newModule){
         boolean alreadyExists=false;
         for(Module module : moduleRepository.findAll()) {
-            if(module.getID().equals(newModule.getID())){
-                alreadyExists=true;
+            if (module.getID().equals(newModule.getID())) {
+                alreadyExists = true;
+                break;
             }
         }
         if(!alreadyExists){
@@ -94,11 +94,9 @@ public class EditModulesService {
 
 
     public void registerModuleForTopic(String moduleID, int topicID){
-//        TopicRegistration topicRegistration = new TopicRegistration();
-//        topicRegistration.setModule_ID(moduleID);
-//        topicRegistration.setTopic_ID(topicID);
         topicRegistrationRepository.save(new TopicRegistration(moduleID, topicID));
     }
+
     public void unregisterModuleFromTopic(String moduleID, int topicID){
         for(TopicRegistration topicRegistration : topicRegistrationRepository.findAll()){
             if(topicRegistration.getModule_ID().equals(moduleID) && topicRegistration.getTopic_ID()==topicID){
@@ -107,6 +105,4 @@ public class EditModulesService {
             }
         }
     }
-
-
 }

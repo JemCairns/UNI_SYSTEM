@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Module;
 import uni.system.webapp.tables.Topic;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class EditModulesController {
@@ -26,14 +24,14 @@ public class EditModulesController {
         String userID = (String) session.getAttribute("ID");
         String editModuleID = (String) session.getAttribute("editModuleID");
 
-        System.out.println("module id: "+editModuleID);
-
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
         model.addAttribute("user_name", service.getUserName(userID));
 
+        // Create a new module
         if(editModuleID.equals("new_module")){
             newModule=true;
             model.addAttribute("new_mod", true);
@@ -43,12 +41,10 @@ public class EditModulesController {
             model.addAttribute("registered_topics", new ArrayList<>());
             model.addAttribute("not_registered_topics", service.getAllTopics());
         }
+        // Edit an existing module
         else{
             newModule=false;
             model.addAttribute("new_mod", false);
-
-//            model.addAttribute("ID", userID);
-//            System.out.println("module max: "+service.getModule(editModuleID).getMax_num_students());
             model.addAttribute("module", service.getModule(editModuleID));
             model.addAttribute("registered_topics", service.getRegisteredTopics(editModuleID));
             model.addAttribute("not_registered_topics", service.getNotRegisteredTopics(editModuleID));
@@ -57,20 +53,14 @@ public class EditModulesController {
         return "edit_module";
     }
 
-
-
-
-
     @RequestMapping(path = "/edit_module", method = RequestMethod.POST)
     public String updateModule(ModelMap model, Module module, HttpSession session,
                                @RequestParam(value = "prev_topics", required = false) int[] prevIDs,
                                @RequestParam(value = "new_topics", required = false) int[] newIDs) {
         String userID = (String) session.getAttribute("ID");
         String editModuleID = (String) session.getAttribute("editModuleID");
-        System.out.println(userID);
-        System.out.println("in post EM");
-        System.out.println("max: " + module.getMax_num_students());
 
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
@@ -78,21 +68,16 @@ public class EditModulesController {
 
         if(newModule){
             model.addAttribute("user_name", service.getUserName(userID));
-//            System.out.println(modID);
-//            module.setID(modID);
-            if(module.getID().length()!=9 || module.getName().equals("") || module.getDescription().equals("")
-                    || module.getMax_num_students()<10){
+
+            //Check all values are correct
+            if(module.getID().length()!=9 || module.getName().equals("") || module.getDescription().equals("") || module.getMax_num_students()<10){
                 model.addAttribute("errorMessage", "*Invalid module details");
                 model.addAttribute("new_mod", true);
-
-//                Module moduleNew = new Module("", "", userID, 0, 120, "available", "");
-
-//                model.addAttribute("module", moduleNew);
                 model.addAttribute("registered_topics", new ArrayList<>());
                 model.addAttribute("not_registered_topics", service.getAllTopics());
                 return "edit_module";
             }
-//            boolean added = service.saveModule(module);
+
             if(service.saveModule(module)){
                 model.addAttribute("errorMessage", "*Course code is not unique");
                 return "edit_module";
@@ -103,8 +88,6 @@ public class EditModulesController {
                     service.registerModuleForTopic(module.getID(), newID);
                 }
             }
-
-            return "redirect:modules";
 
         }
         else {
@@ -133,15 +116,10 @@ public class EditModulesController {
                 }
             }
 
-            System.out.println("mod id: "+module.getID());
             service.updateModule(module);
             model.addAttribute("ID", userID);
 
-            return "redirect:modules";
         }
-
+        return "redirect:modules";
     }
-
-
-
 }

@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
-
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -22,10 +20,12 @@ public class ProfileController {
     public String showProfilePage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
 
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
+        //Student
         if(userID.endsWith("STU")) {
             Student student = service.getStudent(userID);
             model.addAttribute("ID", userID);
@@ -36,15 +36,13 @@ public class ProfileController {
             model.addAttribute("number", student.getPhone_number());
             model.addAttribute("address", student.getAddress());
         }
+        //Staff
         else{
             Staff staff = service.getStaff(userID);
             model.addAttribute("ID", userID);
             model.addAttribute("user_name", staff.getFirst_name());
             model.addAttribute("fName", staff.getFirst_name());
             model.addAttribute("lName", staff.getLast_name());
-//            model.addAttribute("email", staff.getEmail());
-//            model.addAttribute("number", staff.getPhone_number());
-//            model.addAttribute("address", staff.getAddress());
         }
 
         return "profile";
@@ -54,6 +52,7 @@ public class ProfileController {
     public String unRegister(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
 
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }

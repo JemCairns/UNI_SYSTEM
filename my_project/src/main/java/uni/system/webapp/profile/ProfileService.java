@@ -8,7 +8,6 @@ import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.ModuleRegistration;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
-
 import java.util.List;
 
 @Service
@@ -39,8 +38,6 @@ public class ProfileService {
         }
         return "";
     }
-
-    public List<Student> getAllStudents() { return studentRepository.findAll(); }
 
     public void deleteStudent(String id){
         for(ModuleRegistration moduleRegistration : moduleRegistrationRepository.findAll()){

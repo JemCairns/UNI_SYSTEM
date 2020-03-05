@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.*;
 import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
-
 import java.util.List;
 
 @Service
@@ -27,9 +26,6 @@ public class WelcomeService {
     StaffRepository staffRepository;
 
     public List<Module> getAllModules() {
-//        for(Module m : moduleRepository.findAll()){
-//            System.out.println(m.getID());
-//        }
         return moduleRepository.findAll();
     }
 
@@ -42,21 +38,12 @@ public class WelcomeService {
         }
         return "";
     }
-    public List<Student> getAllStudents() { return studentRepository.findAll(); }
     public List<Staff> getAllStaff() { return staffRepository.findAll(); }
 
     public List<Topic> getAllTopics() {
-//        for(Topic t : topicRepository.findAll()){
-//            System.out.println(t.getTopic_ID());
-//        }
         return topicRepository.findAll();
     }
     public List<TopicRegistration> getAllTopicRegistrations() {
-//        for(TopicRegistration tr : topicRegistrationRepository.findAll()){
-//            System.out.println(tr.getReg_ID());
-//            System.out.println(tr.getModule_ID());
-//            System.out.println(tr.getTopic_ID());
-//        }
         return topicRegistrationRepository.findAll();
     }
 }

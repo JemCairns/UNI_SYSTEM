@@ -6,7 +6,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 
@@ -17,7 +16,7 @@ public class RegisterController {
     RegisterService service;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegisterPage(ModelMap model) {
+    public String showRegisterPage() {
         return "register";
     }
 
@@ -31,7 +30,6 @@ public class RegisterController {
                                   @RequestParam String phone_number,
                                   @RequestParam String email,
                                   @RequestParam String gender,
-//                                  @RequestParam(value = "date_of_birth", required = false) String date_of_birth,
                                   @RequestParam Date date_of_birth,
                                   @RequestParam String stage,
                                   HttpSession session) {
@@ -54,16 +52,14 @@ public class RegisterController {
 
         boolean alreadyRegistered = service.registerUser(new_ID+"STU", new_password, first_name, last_name, address, phone_number, email, gender, date_of_birth, stage);
 
+        //Check if the student is already registered
         if(!alreadyRegistered) {
             model.addAttribute("errorMessage", "*You have already registered.");
             session.setAttribute("ID", new_ID);
             return "register";
         }
-//        model.addAttribute("ID", new_ID);
 
         session.setAttribute("ID", new_ID+"STU");
         return "redirect:welcome";
     }
-
-
 }

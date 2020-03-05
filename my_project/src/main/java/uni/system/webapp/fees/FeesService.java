@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.Student;
 
-import java.util.List;
-
 @Service
 public class FeesService {
 
@@ -16,7 +14,6 @@ public class FeesService {
     public Student getStudent(String id) {
         return studentRepository.getOne(id);
     }
-    public List<Student> getAllStudents() { return studentRepository.findAll(); }
 
     public String updateStudentFees(Student s, double amount) {
         if(amount < 0) {

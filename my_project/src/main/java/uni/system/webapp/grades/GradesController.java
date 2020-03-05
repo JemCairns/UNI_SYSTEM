@@ -1,7 +1,6 @@
 package uni.system.webapp.grades;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +22,17 @@ public class GradesController {
     public String showGradesPage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
         String moduleID = (String) session.getAttribute("editModuleID");
+
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
+        return getString(model, userID, moduleID);
+    }
+
+    // Extracting common actions from each method
+    private String getString(ModelMap model, String userID, String moduleID) {
         List<ModuleRegistration> moduleRegistrations = service.getAllModuleRegistrations();
         List<Student> students = service.getAllStudentsRegisteredToModule(moduleID);
         model.addAttribute("mod_regs", moduleRegistrations);
@@ -41,28 +47,19 @@ public class GradesController {
     public String updateGrades(ModelMap model, HttpSession session, @RequestParam("grades") String[] grades, @RequestParam("percents") String[] percents) {
         String userID = (String) session.getAttribute("ID");
         String moduleID = (String) session.getAttribute("editModuleID");
+
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
-        for(String g : grades) {
-            System.out.println(g);
-        }
-        System.out.println("STOP");
         boolean validInput = service.updateGrades(moduleID, grades, percents);
 
+        //Check if the grade & percentage is valid
         if(!validInput && grades[0] != null) {
             model.addAttribute("error", true);
         }
 
-        List<ModuleRegistration> moduleRegistrations = service.getAllModuleRegistrations();
-        List<Student> students = service.getAllStudentsRegisteredToModule(moduleID);
-
-        model.addAttribute("mod_regs", moduleRegistrations);
-        model.addAttribute("moduleID", moduleID);
-        model.addAttribute("user_name", service.getUserName(userID));
-        model.addAttribute("students", students);
-        model.addAttribute("ID", userID);
-        return "grades";
+        return getString(model, userID, moduleID);
     }
 }

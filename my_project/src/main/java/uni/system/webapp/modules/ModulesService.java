@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.*;
 import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
-
-import javax.persistence.GeneratedValue;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +32,6 @@ public class ModulesService {
     public Student getStudent(String id) {
         return studentRepository.getOne(id);
     }
-    public List<Student> getAllStudents() { return studentRepository.findAll(); }
     public List<Staff> getAllStaff() { return staffRepository.findAll(); }
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
@@ -45,7 +42,6 @@ public class ModulesService {
         List<ModuleRegistration> studentModules = new LinkedList<>();
 
         for(ModuleRegistration m : moduleRegs) {
-//            System.out.println(m.getStudent_ID());
             if(m.getStudent_ID().equals(id)) {
                 studentModules.add(m);
             }

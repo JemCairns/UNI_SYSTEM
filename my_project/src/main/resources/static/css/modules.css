@@ -140,10 +140,6 @@ li a:hover:not(.active) {
     padding: 4px;
 }
 
-.fees {
-    font-family: 'Changa', serif;
-    font-size: 20px;
-}
 tr:nth-child(even){background-color: #f2f2f2;}
 
 th {
@@ -153,10 +149,6 @@ th {
 
 h1 {
     font-family: 'Changa', serif;
-}
-
-.lastChild {
-    float: right;
 }
 
 .header {

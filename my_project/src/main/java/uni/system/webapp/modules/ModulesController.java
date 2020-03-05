@@ -21,27 +21,28 @@ public class ModulesController {
     @RequestMapping(path = "/modules", method = RequestMethod.GET)
     public String showModulePage(ModelMap model, HttpSession session) {
         String userID = (String) session.getAttribute("ID");
-        System.out.println("in get");
 
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
+        return getString(model, userID);
+    }
+
+    //Extracted common actions from each method
+    private String getString(ModelMap model, String userID) {
         String studentID = service.getStudent(userID).getID();
         List<Module> modules = service.getAllModules();
         List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
         List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
         List<Topic> topics = service.getAllTopics();
         List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
+        List<Staff> staffList = service.getAllStaff();
         boolean hasModules = service.hasModules(userID);
 
-//        List<Student> students = service.getAllStudents();
-//        model.addAttribute("studs", students);
         model.addAttribute("user_name", service.getUserName(userID));
-
-        List<Staff> staffList = service.getAllStaff();
         model.addAttribute("st", staffList);
-
         model.addAttribute("ID", studentID);
         model.addAttribute("mod", modules);
         model.addAttribute("hasModules", hasModules);
@@ -56,25 +57,21 @@ public class ModulesController {
     @RequestMapping(path = "/modules", method = RequestMethod.POST)
     public String registerForModule(ModelMap model, HttpSession session, @RequestParam String checkedModule, @RequestParam String formType) {
         String userID = (String) session.getAttribute("ID");
-        System.out.println(userID);
-
-        System.out.println("inside post");
 
         if(userID == null) {
             return "redirect:login";
         }
 
+        //Student
         if(userID.endsWith("STU")) {
 
             if (service.getStudent(userID).getFees_due() > 0) {
                 model.addAttribute("maxStudents", false);
                 model.addAttribute("feesDue", true);
             } else {
-
                 if(formType.equals("dropout")) {
                     boolean moduleTerminated = service.removeModuleRegiatration(userID, checkedModule);
 
-                    System.out.println("HELLO " + moduleTerminated);
                     if(!moduleTerminated) {
                         model.addAttribute("dropOut", true);
                     }
@@ -87,45 +84,12 @@ public class ModulesController {
                 }
             }
 
-            String studentID = service.getStudent(userID).getID();
-            List<Module> modules = service.getAllModules();
-            List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
-            List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
-            List<Topic> topics = service.getAllTopics();
-            List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
-            boolean hasModules = service.hasModules(userID);
-            model.addAttribute("user_name", service.getUserName(userID));
-            List<Staff> staffList = service.getAllStaff();
-            model.addAttribute("st", staffList);
-            model.addAttribute("ID", studentID);
-            model.addAttribute("mod", modules);
-            model.addAttribute("hasModules", hasModules);
-            model.addAttribute("modRegs", moduleRegs);
-            model.addAttribute("modNotRegs", moduleNotRegs);
-            model.addAttribute("top", topics);
-            model.addAttribute("top_reg", topicRegs);
-            return "modules";
+            return getString(model, userID);
         }
+        //Staff
         else{
-            String studentID = service.getStudent(userID).getID();
-            List<Module> modules = service.getAllModules();
-            List<ModuleRegistration> moduleRegs = service.getAllModuleRegsForStudent(userID);
-            List<Module> moduleNotRegs = service.getAllModuleNotRegsForStudent(userID);
-            List<Topic> topics = service.getAllTopics();
-            List<TopicRegistration> topicRegs = service.getAllTopicRegistrations();
-            boolean hasModules = service.hasModules(userID);
-            model.addAttribute("user_name", service.getUserName(userID));
-            List<Staff> staffList = service.getAllStaff();
-            model.addAttribute("st", staffList);
-            model.addAttribute("ID", studentID);
-            model.addAttribute("mod", modules);
-            model.addAttribute("hasModules", hasModules);
-            model.addAttribute("modRegs", moduleRegs);
-            model.addAttribute("modNotRegs", moduleNotRegs);
-            model.addAttribute("top", topics);
-            model.addAttribute("top_reg", topicRegs);
+            getString(model, userID);
             session.setAttribute("editModuleID", checkedModule);
-            System.out.println("MC: "+checkedModule);
 
             if(formType.equals("edit")) {
                 return "redirect:edit_module";

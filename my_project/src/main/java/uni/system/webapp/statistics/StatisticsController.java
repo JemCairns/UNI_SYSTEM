@@ -5,13 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import uni.system.webapp.tables.Student;
-
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Optional;
-
-import java.applet.*;
 import java.util.TreeMap;
 
 @Controller
@@ -23,16 +17,14 @@ public class StatisticsController {
 
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public String showProfilePage(ModelMap model, HttpSession session) {
-
         String userID = (String) session.getAttribute("ID");
+
+        //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
         }
 
         model.addAttribute("ID", userID);
-
-//        List<Student> students = service.getAllStudents();
-//        model.addAttribute("studs", students);
         model.addAttribute("user_name", service.getUserName(userID));
 
         TreeMap<String, Integer> studentGenderMap = service.getStudentGendersAndCounts();
@@ -58,9 +50,4 @@ public class StatisticsController {
 
         return "statistics";
     }
-
-
-
-
-
 }
