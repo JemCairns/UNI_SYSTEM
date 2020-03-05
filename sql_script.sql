@@ -1,6 +1,6 @@
 create table hibernate_sequence
 (
-    next_val bigint null
+    next_val bigint not null
 );
 
 create table module
