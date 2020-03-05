@@ -74,8 +74,8 @@
             <div th:if="${#strings.endsWith(ID, 'STU')}">
                 <a href="/modules" class="button">My Modules</a>
                 <a href="/fees" class="button">My Fees</a>
-                <form class="unRegisterForm" name="unRegister" method="post">
-                    <input class="button" type="submit" value="UnRegister">
+                <form style="display: inline-block" class="unRegisterForm" name="unRegister" method="post">
+                    <input class="button" type="submit" value="Unregister">
                 </form>
             </div>
             <div th:if="${#strings.endsWith(ID, 'STA')}">

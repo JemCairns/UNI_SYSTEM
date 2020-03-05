@@ -80,6 +80,7 @@ li a:hover:not(.active) {
 .dropdown:hover .dropbtn {background-color: #1989db;}
 
 .button {
+    font-family: 'Helvetica', serif;
     background-color: #3498DB;
     border: none;
     color: white;
