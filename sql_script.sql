@@ -94,7 +94,7 @@ create table uni_schema.topic_registration
 
 
 
-INSERT INTO uni_schema.hibernate_sequence (next_val) VALUES (0);
+INSERT INTO uni_schema.hibernate_sequence (next_val) VALUES (40);
 
 INSERT INTO uni_schema.module (ID, name, coordinator_ID, max_num_students, status, description, curr_num_students) VALUES ('COMP00001', 'Intro to CompSci', '0000001STA', 150, 'terminated', 'This is an introductory module for computer science.', 2);
 INSERT INTO uni_schema.module (ID, name, coordinator_ID, max_num_students, status, description, curr_num_students) VALUES ('COMP00002', 'Android Programming', '0000001STA', 125, 'available', 'In this module you will develop an android app about the weather.', 1);
