@@ -8,7 +8,6 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ContextAnnotationAutowireCandidateResolver;
 
 @Configuration
 public class ServerConfig {
@@ -28,16 +27,16 @@ public class ServerConfig {
             }
         };
 
-        tomcat.addAdditionalTomcatConnectors(getHttpConector());
+        tomcat.addAdditionalTomcatConnectors(getHttpConnector());
         return tomcat;
     }
 
-    private Connector getHttpConector() {
+    private Connector getHttpConnector() {
         Connector connector = new Connector((TomcatServletWebServerFactory.DEFAULT_PROTOCOL));
         connector.setScheme("http");
         connector.setPort(8080);
         connector.setSecure(false);
-        connector.setRedirectPort(1337);
+        connector.setRedirectPort(8443);
         return connector;
     }
 }
