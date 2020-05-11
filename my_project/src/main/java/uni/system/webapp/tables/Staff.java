@@ -24,12 +24,15 @@ public class Staff {
     private Date date_of_birth;
     @NotBlank
     private String gender;
+    @NotBlank
+    private String salt;
 
     public Staff() {
         super();
     }
 
-    public Staff(String ID, String password, String first_name, String last_name, String prefix, Date date_of_birth, String gender) {
+    public Staff(String ID, String password, String first_name, String last_name, String prefix,
+                 Date date_of_birth, String gender, String salt) {
         this.ID = ID;
         this.password = password;
         this.first_name = first_name;
@@ -37,6 +40,7 @@ public class Staff {
         this.prefix = prefix;
         this.date_of_birth = date_of_birth;
         this.gender = gender;
+        this.salt = salt;
     }
 
     public String getID() {
@@ -93,5 +97,13 @@ public class Staff {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }
