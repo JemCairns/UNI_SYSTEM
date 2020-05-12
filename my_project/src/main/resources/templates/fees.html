@@ -59,12 +59,31 @@
 
             <tr>
                 <td class="fees">Enter an amount to pay</td>
-                <td><input type="number" name="amount"></td>
+                <td><input type="number" id="fees_amount" name="amount" onkeypress='validate(event)'></td>
             </tr>
         </table>
         <br>
         <input class="button" type="submit">
     </form>
+    <script type="text/javascript">
+        function validate(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+                // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /[0-9]|\./;
+            if( !regex.test(key) ) {
+                theEvent.returnValue = false;
+                if(theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

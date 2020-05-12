@@ -38,8 +38,13 @@ public class FeesController {
     }
 
     @RequestMapping(path = "/fees", method = RequestMethod.POST)
-    public String updateFees(ModelMap model, HttpSession session, @RequestParam double amount) {
+    public String updateFees(ModelMap model, HttpSession session, @RequestParam String amount) {
         String userID = (String) session.getAttribute("ID");
+
+        double fees_amount=0;
+        if(amount.length()!=0){
+            fees_amount = Double.parseDouble(amount);
+        }
 
         //If no user ID in session, ask user to log back in
         if(userID == null) {
@@ -47,7 +52,7 @@ public class FeesController {
         }
 
         Student student = service.getStudent(userID);
-        String error = service.updateStudentFees(student, amount);
+        String error = service.updateStudentFees(student, fees_amount);
         model.addAttribute("error", error);
         model.addAttribute("ID", userID);
 

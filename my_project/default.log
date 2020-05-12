@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-12T13:23:35</date>
+  <millis>1589286215616</millis>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>SEVERE</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>49</thread>
+  <message>severe message</message>
+</record>
+<record>
+  <date>2020-05-12T13:23:35</date>
+  <millis>1589286215617</millis>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>49</thread>
+  <message>warning message</message>
+</record>
+<record>
+  <date>2020-05-12T13:23:35</date>
+  <millis>1589286215618</millis>
+  <sequence>6</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>49</thread>
+  <message>info message</message>
+</record>
