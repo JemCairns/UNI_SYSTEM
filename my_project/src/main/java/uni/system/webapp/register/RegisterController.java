@@ -34,7 +34,7 @@ public class RegisterController {
                                   @RequestParam String stage,
                                   HttpSession session) {
 
-        if(     new_ID.length()<7 ||
+        if(     new_ID.length()!=7 ||
                 new_password.equals("") ||
                 first_name.equals("") ||
                 last_name.equals("") ||

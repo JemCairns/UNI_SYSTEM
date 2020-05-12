@@ -53,7 +53,17 @@ public class GradesController {
             return "redirect:login";
         }
 
-        boolean validInput = service.updateGrades(moduleID, grades, percents);
+        boolean validInput = true;
+        for(int i=0; i<grades.length; i++){
+            if(grades[i].length()==0 || percents[i].length()==0){
+                model.addAttribute("error", true);
+                validInput = false;
+                break;
+            }
+        }
+        if(validInput) {
+            validInput = service.updateGrades(moduleID, grades, percents);
+        }
 
         //Check if the grade & percentage is valid
         if(!validInput && grades[0] != null) {
