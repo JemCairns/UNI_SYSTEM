@@ -2,6 +2,7 @@ package uni.system.webapp.fees;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uni.system.webapp.logger.Logging;
 import uni.system.webapp.repositories.StudentRepository;
 import uni.system.webapp.tables.Student;
 
@@ -23,6 +24,9 @@ public class FeesService {
         } else if(s.getFees_due() == 0) {
             return "You have paid all of your fess!";
         } else {
+            // student paid fees
+            Logging.getInstance().info("Student with id=" + s.getID() + " paid fees=€" + amount + ".");
+
             s.setFees_due(s.getFees_due() - amount);
             s.setFees_paid(s.getFees_paid() + amount);
             studentRepository.save(s);

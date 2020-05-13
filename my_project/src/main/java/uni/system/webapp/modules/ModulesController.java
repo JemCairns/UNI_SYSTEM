@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uni.system.webapp.logger.Logging;
 import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
 
@@ -68,17 +69,25 @@ public class ModulesController {
             if (service.getStudent(userID).getFees_due() > 0) {
                 model.addAttribute("maxStudents", false);
                 model.addAttribute("feesDue", true);
-            } else {
+            }
+            else {
                 if(formType.equals("dropout")) {
                     boolean moduleTerminated = service.removeModuleRegiatration(userID, checkedModule);
 
                     if(!moduleTerminated) {
                         model.addAttribute("dropOut", true);
+                        // student dropped module
+                        Logging.getInstance().info("Student with id=" + userID + " dropped the module with id=" + checkedModule + ".");
                     }
                     model.addAttribute("maxStudents", false);
                     model.addAttribute("feesDue", false);
-                } else {
+                }
+                else {
                     boolean maxStudents = service.addModuleRegistration(userID, checkedModule);
+                    if(!maxStudents){
+                        // student enrolled in module
+                        Logging.getInstance().info("Student with id=" + userID + " enrolled in module with id=" + checkedModule + ".");
+                    }
                     model.addAttribute("maxStudents", maxStudents);
                     model.addAttribute("feesDue", false);
                 }
@@ -93,7 +102,8 @@ public class ModulesController {
 
             if(formType.equals("edit")) {
                 return "redirect:edit_module";
-            } else {
+            }
+            else {
                 return "redirect:grades";
             }
         }

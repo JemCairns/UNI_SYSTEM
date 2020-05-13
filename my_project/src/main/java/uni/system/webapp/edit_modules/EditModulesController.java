@@ -1,11 +1,15 @@
 package uni.system.webapp.edit_modules;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uni.system.webapp.logger.Logging;
 import uni.system.webapp.tables.Module;
 import uni.system.webapp.tables.Topic;
 import javax.servlet.http.HttpSession;
@@ -82,6 +86,10 @@ public class EditModulesController {
                 model.addAttribute("errorMessage", "*Course code is not unique");
                 return "edit_module";
             }
+            else{
+                // staff created module
+                Logging.getInstance().info("Staff with id=" + userID + " created module with id=" + module.getID() + ".");
+            }
 
             if(newIDs != null) {
                 for (int newID : newIDs) {
@@ -96,6 +104,8 @@ public class EditModulesController {
                 return "edit_module";
             }
 
+            Module oldModule = service.getModule(module.getID());
+
             for(Topic prevRegTopic : service.getRegisteredTopics(editModuleID)){
                 boolean unregistered=true;
                 if(prevIDs != null) {
@@ -108,16 +118,30 @@ public class EditModulesController {
                 }
                 if(unregistered){
                     service.unregisterModuleFromTopic(editModuleID, prevRegTopic.getTopic_ID());
+                    // staff removed topic from module
+                    Logging.getInstance().info("Staff with id=" + userID + " removed topic with id=" + prevRegTopic.getTopic_ID()
+                            + " from module with id=" + module.getID() + ".");
                 }
             }
             if(newIDs != null) {
                 for (int newID : newIDs) {
                     service.registerModuleForTopic(editModuleID, newID);
+                    // staff added topic to module
+                    Logging.getInstance().info("Staff with id=" + userID + " added topic with id=" + newID
+                            + " to module with id=" + editModuleID + ".");
                 }
             }
 
+
             service.updateModule(module);
             model.addAttribute("ID", userID);
+            // staff edited module details
+            try {
+                Logging.getInstance().info("Staff with id=" + userID + " edited details of module with id=" + module.getID()
+                        + " from " + new ObjectMapper().writeValueAsString(oldModule) + " to " + new ObjectMapper().writeValueAsString(module) + ".");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
 
         }
         return "redirect:modules";
