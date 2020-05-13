@@ -1,28 +1,64 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>University of Springfield Web Portal</title>
         <link type="text/css" rel="stylesheet" href="css/login.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
         <form class="login" method="post">
-            <h2>Enter registration details below</h2>
+            <h2>Enter your registration details below:</h2>
             <p th:text="${errorMessage}"></p>
-            <input type="text" class="value" name="new_ID" placeholder="student/staff ID" />
-            <input type="password" class="value" name="new_password" placeholder="password" />
-            <input type="text" class="value" name="first_name" placeholder="first name" />
-            <input type="text" class="value" name="last_name" placeholder="last name" />
-            <input type="email" class="value" name="email" placeholder="email" />
-            <input type="text" class="value" name="address" placeholder="address" />
-            <input type="number" class="value" name="phone_number" placeholder="phone number" />
-            <input type="date" class="value" name="date_of_birth" value="1998-12-21" />
+            <input type="text" class="value" name="new_ID" placeholder="student ID" th:value="${new_ID}" onkeypress='validate(event)' />
+            <input type="email" class="value" name="email" placeholder="university email" th:value="${email}" />
+            <input type="password" class="value" id="new_password" name="new_password" placeholder="password"  th:value="${new_password}"/>
+            <input type="password" class="value" name="confirm_password" placeholder="confirm password" th:value="${confirm_password}" />
+            <meter class="password_value" max="4" id="password_strength_meter" th:value="${password_strength}"></meter>
+            <input id="password_strength" name="password_strength" type="hidden" th:value="${password_strength}">
+            <b class="password_value" id="password_strength_text"></b>
+            <script type="text/javascript">
+                var strength = {
+                    0: "Weakest",
+                    1: "Weak",
+                    2: "OK",
+                    3: "Good",
+                    4: "Strong"
+                }
+                var password = document.getElementById('new_password');
+                var meter = document.getElementById('password_strength_meter');
+                var text = document.getElementById('password_strength_text');
+                var password_strength = document.getElementById('password_strength');
+
+                password.addEventListener('input', function() {
+                    var val = password.value;
+                    var result = zxcvbn(val);
+
+                    // This updates the password strength meter
+                    meter.value = result.score;
+
+                    // This updates the password meter text
+                    if (val !== "") {
+                        text.innerHTML = "Password Strength: " + strength[result.score];
+                        password_strength.value = meter.value;
+                    } else {
+                        text.innerHTML = "";
+                        password_strength.value = 0;
+                    }
+                });
+            </script>
+            <input type="text" class="value" name="first_name" placeholder="first name" th:value="${first_name}" />
+            <input type="text" class="value" name="last_name" placeholder="last name" th:value="${last_name}" />
+            <input type="date" class="value" name="date_of_birth" placeholder="yyyy-mm-dd" th:value="${date_of_birth}" />
+            <input type="text" class="value" name="phone_number" placeholder="phone number" th:value="${phone_number}" onkeypress='validate(event)'/>
+            <input type="text" class="value" name="address1" placeholder="address line 1" th:value="${address1}" />
+            <input type="text" class="value" name="address2" placeholder="address line 2" th:value="${address2}" />
             <br/>
-            <select class="value" name="gender">
+            <select class="value" name="gender" th:value="${gender}">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
             </select>
-            <br/>
-            <select class="value" name="stage">
+            <select class="value" name="stage" th:value="${stage}">
                 <option value="Stage 1">Stage 1</option>
                 <option value="Stage 2">Stage 2</option>
                 <option value="Stage 3">Stage 3</option>
@@ -31,7 +67,28 @@
                 <option value="PHD">PHD</option>
             </select>
             <br/>
+            <div class="g-recaptcha" data-sitekey="6LctyPYUAAAAABootUlHCliUmDKMtu-6c8KE9-qv"></div>
+            <br/>
             <button type="submit">Register</button>
         </form>
+        <script type="text/javascript">
+            function validate(evt) {
+                var theEvent = evt || window.event;
+
+                // Handle paste
+                if (theEvent.type === 'paste') {
+                    key = event.clipboardData.getData('text/plain');
+                } else {
+                    // Handle key press
+                    var key = theEvent.keyCode || theEvent.which;
+                    key = String.fromCharCode(key);
+                }
+                var regex = /[0-9]|\./;
+                if( !regex.test(key) ) {
+                    theEvent.returnValue = false;
+                    if(theEvent.preventDefault) theEvent.preventDefault();
+                }
+            }
+        </script>
     </body>
 </html>
