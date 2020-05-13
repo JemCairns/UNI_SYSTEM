@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import uni.system.webapp.captcha.ReCaptchaResponse;
+import uni.system.webapp.logger.Logging;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,6 +83,10 @@ public class RegisterController {
             invalidDetails = true;
         }
         if(invalidDetails){
+
+            // user failed to register
+            Logging.getInstance().warning("Student with id=" + new_ID + " failed to register from IP=" + reCaptchaResponse.getHostname() + ".");
+
             model.addAttribute("new_ID", new_ID);
             model.addAttribute("new_password", new_password);
             model.addAttribute("confirm_password", confirm_password);
@@ -111,6 +116,11 @@ public class RegisterController {
 
         //Check if the student is already registered
         if(!alreadyRegistered) {
+
+            // user already registered
+            Logging.getInstance().warning("Student with id=" + new_ID + " attempted to register from IP="
+                    + reCaptchaResponse.getHostname() + " but was already registered.");
+
             model.addAttribute("errorMessage", "*You have already registered.");
             model.addAttribute("new_ID", new_ID);
             model.addAttribute("new_password", new_password);
@@ -128,6 +138,9 @@ public class RegisterController {
             session.setAttribute("ID", new_ID);
             return "register";
         }
+
+        // user successfully registered
+        Logging.getInstance().info("Student with id=" + new_ID + " successfully registered from IP=" + reCaptchaResponse.getHostname() + ".");
 
         session.setAttribute("ID", new_ID+"STU");
         return "redirect:welcome";

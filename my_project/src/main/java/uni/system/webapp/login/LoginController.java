@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import uni.system.webapp.logger.Logging;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpSession;
@@ -27,14 +28,14 @@ public class LoginController {
         boolean invalidUser = userType.equals("");
 
         if(invalidUser) {
-            // log login failure
-            // id, password, ip address, time
+            // login failure
+            Logging.getInstance().warning("User with id=" + ID+userType + " failed to login from IP=" /*+IP*/ + ".");
             model.addAttribute("errorMessage", "*Invalid credentials");
             return "login";
         }
 
-        // log login success
-        // id, password, ip address, time
+        // login success
+        Logging.getInstance().info("User with id=" + ID+userType + " successfully logged in from IP=" /*+IP*/ + ".");
         session.setAttribute("ID", ID+userType);
         return "redirect:welcome";
     }

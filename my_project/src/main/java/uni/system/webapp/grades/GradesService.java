@@ -2,6 +2,7 @@ package uni.system.webapp.grades;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uni.system.webapp.logger.Logging;
 import uni.system.webapp.repositories.ModuleRegistrationRepository;
 import uni.system.webapp.repositories.StaffRepository;
 import uni.system.webapp.repositories.StudentRepository;
@@ -53,7 +54,7 @@ public class GradesService {
     }
 
     public boolean updateGrades(String moduleID, String[] grades, String[] percents) {
-        List<ModuleRegistration> moduleRegistrations = getAllModuleRegistrations();
+        List<ModuleRegistration> moduleRegistrations = moduleRegistrationRepository.findAll();
 
         List<String> validGradesList = Arrays.asList(validGrades);
         List<Integer> validPercentsList = Arrays.asList(validPercents);
@@ -62,15 +63,26 @@ public class GradesService {
             if(m.getModule_ID().equals(moduleID)) {
 
                 if(validGradesList.contains(grades[i]) && grades[i].equals("NG") && Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i]))) {
+                    String oldGrade = m.getLetterGrade();
+                    double oldPercentage = m.getPercentage();
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));
                     moduleRegistrationRepository.save(m);
                     i++;
-                } else if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i])) && Double.parseDouble(percents[i]) >= validPercentsList.get(validGradesList.indexOf(grades[i])-1))) {
+                    // student paid fees
+                    Logging.getInstance().info("Student with id=" + m.getStudent_ID() + " grade changed from " + oldGrade + ", " + oldPercentage
+                            + "% to " + m.getLetterGrade() + ", " + m.getPercentage() + "% in module with id=" + m.getModule_ID() + ".");
+                }
+                else if(validGradesList.contains(grades[i]) && (Double.parseDouble(percents[i]) < validPercentsList.get(validGradesList.indexOf(grades[i])) && Double.parseDouble(percents[i]) >= validPercentsList.get(validGradesList.indexOf(grades[i])-1))) {
+                    String oldGrade = m.getLetterGrade();
+                    double oldPercentage = m.getPercentage();
                     m.setLetterGrade(grades[i]);
                     m.setPercentage(Double.parseDouble(percents[i]));
                     moduleRegistrationRepository.save(m);
                     i++;
+                    // student paid fees
+                    Logging.getInstance().info("Student with id=" + m.getStudent_ID() + " grade changed from " + oldGrade + ", " + oldPercentage
+                            + "% to " + m.getLetterGrade() + ", " + m.getPercentage() + "% in module with id=" + m.getModule_ID() + ".");
                 } else {
                     return false;
                 }

@@ -2,35 +2,38 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2020-05-12T13:23:35</date>
-  <millis>1589286215616</millis>
+  <date>2020-05-13T22:12:51</date>
+  <millis>1589404371400</millis>
   <sequence>4</sequence>
-  <logger>com.javacodegeeks.snippets.core</logger>
-  <level>SEVERE</level>
-  <class>uni.system.webapp.login.LoginController</class>
-  <method>showWelcomePage</method>
-  <thread>49</thread>
-  <message>severe message</message>
-</record>
-<record>
-  <date>2020-05-12T13:23:35</date>
-  <millis>1589286215617</millis>
-  <sequence>5</sequence>
   <logger>com.javacodegeeks.snippets.core</logger>
   <level>WARNING</level>
   <class>uni.system.webapp.login.LoginController</class>
   <method>showWelcomePage</method>
-  <thread>49</thread>
-  <message>warning message</message>
+  <thread>39</thread>
+  <message>User with id=0000001 failed to login from IP=.</message>
 </record>
 <record>
-  <date>2020-05-12T13:23:35</date>
-  <millis>1589286215618</millis>
-  <sequence>6</sequence>
+  <date>2020-05-13T22:13:04</date>
+  <millis>1589404384472</millis>
+  <sequence>5</sequence>
   <logger>com.javacodegeeks.snippets.core</logger>
   <level>INFO</level>
   <class>uni.system.webapp.login.LoginController</class>
   <method>showWelcomePage</method>
-  <thread>49</thread>
-  <message>info message</message>
+  <thread>41</thread>
+  <message>User with id=0000001STU successfully logged in from IP=.</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-13T22:15:58</date>
+  <millis>1589404558415</millis>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>38</thread>
+  <message>User with id=0000001STU successfully logged in from IP=.</message>
 </record>
