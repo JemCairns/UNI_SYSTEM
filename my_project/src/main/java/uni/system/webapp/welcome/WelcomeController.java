@@ -6,18 +6,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
-import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@CrossOrigin
 public class WelcomeController {
 
     @Autowired
     WelcomeService service;
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String showWelcomePage(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
+    public String showWelcomePage(ModelMap model, HttpServletRequest request) {
+        String userID = service.getID(request);
 
         //If no user ID in session, ask user to log back in
         if(userID == null) {

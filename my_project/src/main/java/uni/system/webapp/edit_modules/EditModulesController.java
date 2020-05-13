@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Module;
 import uni.system.webapp.tables.Topic;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -20,8 +22,8 @@ public class EditModulesController {
     EditModulesService service;
 
     @RequestMapping(value = "/edit_module", method = RequestMethod.GET)
-    public String showEditModulePage(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
+    public String showEditModulePage(ModelMap model, HttpServletRequest request, HttpSession session) {
+        String userID = service.getID(request);
         String editModuleID = (String) session.getAttribute("editModuleID");
 
         //If no user ID in session, ask user to log back in
@@ -54,10 +56,10 @@ public class EditModulesController {
     }
 
     @RequestMapping(path = "/edit_module", method = RequestMethod.POST)
-    public String updateModule(ModelMap model, Module module, HttpSession session,
+    public String updateModule(ModelMap model, Module module, HttpServletRequest request, HttpSession session,
                                @RequestParam(value = "prev_topics", required = false) int[] prevIDs,
                                @RequestParam(value = "new_topics", required = false) int[] newIDs) {
-        String userID = (String) session.getAttribute("ID");
+        String userID = service.getID(request);
         String editModuleID = (String) session.getAttribute("editModuleID");
 
         //If no user ID in session, ask user to log back in

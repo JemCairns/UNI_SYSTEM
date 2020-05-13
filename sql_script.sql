@@ -86,6 +86,14 @@ create table uni_schema.topic_registration
     topic_ID  int         not null
 );
 
+create table uni_schema.users
+(
+    ID int auto_increment primary key,
+    Username varchar(10) not null,
+    Password varchar(60) not null,
+    Role varchar(10) not null
+);
+
 
 
 
@@ -121,6 +129,18 @@ INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number
 INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000006STU', 'Michael', 'Walls', '12 Wall Street, Springfield', '0895563395', 'michaelw@sprinfield.com', 'password6', 3000, 0, 'male', '2001-01-13', 'Stage 3');
 INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000008STU', 'Beyonce', 'NA', '1 Beyonce Street, Beyonce City', '0861296689', 'beyonce@springfield.com', 'password8', 0, 3000, 'female', '1981-11-06', 'Stage 1');
 INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000009STU', 'Harry', 'Brady', '9 Tree Town, Springfield', '0861596735', 'harryb@springfield.com', 'password9', 3000, 0, 'male', '1998-09-25', 'Stage 4');
+
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000001STU', 'password1', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000002STU', 'password2', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000003STU', 'password3', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000004STU', 'password4', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000006STU', 'password6', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000008STU', 'password8', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000009STU', 'password9', 'STUDENT');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000001STA', 'IAmNumber1', 'STAFF');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000002STA', 'IAmNumber2', 'STAFF');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000003STA', 'IAmNumber3', 'STAFF');
+INSERT INTO uni_schema.users (Username, Password, Role) VALUES ('0000004STA', 'IAmNumber4', 'STAFF');
 
 INSERT INTO uni_schema.topic (topic_ID, title, description) VALUES (5, 'Java', 'This topic uses Java.');
 INSERT INTO uni_schema.topic (topic_ID, title, description) VALUES (6, 'Python', 'This topic uses Python.');

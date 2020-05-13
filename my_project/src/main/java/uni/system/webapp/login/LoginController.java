@@ -7,20 +7,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping(value = "/login")
 public class LoginController {
 
     @Autowired
     LoginService service;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping()
     public String showLoginPage() {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String showWelcomePage(ModelMap model, @RequestParam String ID, @RequestParam String password, @RequestParam String user,  HttpSession session) {
+    @PostMapping()
+    public String showWelcomePage(ModelMap model, @RequestParam String username, @RequestParam String password, @RequestParam String user) {
 
-        String userType = service.validateUser(ID, password, user);
+        String userType = service.validateUser(username, password, user);
         boolean invalidUser = userType.equals("");
 
         if(invalidUser) {
@@ -28,7 +29,6 @@ public class LoginController {
             return "login";
         }
 
-        session.setAttribute("ID", ID+userType);
         return "redirect:welcome";
     }
 }

@@ -1,5 +1,7 @@
 package uni.system.webapp.edit_modules;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.*;
@@ -7,9 +9,14 @@ import uni.system.webapp.tables.Module;
 import uni.system.webapp.tables.Topic;
 import uni.system.webapp.tables.TopicRegistration;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static uni.system.webapp.filter.SecurityConstraints.COOKIE_NAME;
+import static uni.system.webapp.filter.SecurityConstraints.SECRET;
 
 @Service
 public class EditModulesService {
@@ -104,5 +111,28 @@ public class EditModulesService {
                 break;
             }
         }
+    }
+
+    public String getID(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String token = null;
+
+
+        if(cookies!=null){
+
+            for(Cookie cookie: cookies){
+                if(cookie.getName().equals(COOKIE_NAME))
+                    token = cookie.getValue();
+            }}
+
+        if (token != null) {
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token)
+                    .getSubject();
+            return user;
+        }
+        else
+            return "";
     }
 }

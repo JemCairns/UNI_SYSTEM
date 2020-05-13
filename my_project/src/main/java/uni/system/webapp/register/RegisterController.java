@@ -31,8 +31,7 @@ public class RegisterController {
                                   @RequestParam String email,
                                   @RequestParam String gender,
                                   @RequestParam Date date_of_birth,
-                                  @RequestParam String stage,
-                                  HttpSession session) {
+                                  @RequestParam String stage) {
 
         if(     new_ID.length()<7 ||
                 new_password.equals("") ||
@@ -46,7 +45,6 @@ public class RegisterController {
                 stage.equals("")){
             model.addAttribute("errorMessage", "*Invalid registration details.");
             System.out.println("added");
-            session.setAttribute("ID", new_ID);
             return "register";
         }
 
@@ -55,11 +53,9 @@ public class RegisterController {
         //Check if the student is already registered
         if(!alreadyRegistered) {
             model.addAttribute("errorMessage", "*You have already registered.");
-            session.setAttribute("ID", new_ID);
             return "register";
         }
 
-        session.setAttribute("ID", new_ID+"STU");
         return "redirect:welcome";
     }
 }

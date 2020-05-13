@@ -1,10 +1,11 @@
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <title>University of Springfield Web Portal</title>
         <link type="text/css" rel="stylesheet" href="css/login.css">
     </head>
     <body>
         <form class="login" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <h2>Enter registration details below</h2>
             <p th:text="${errorMessage}"></p>
             <input type="text" class="value" name="new_ID" placeholder="student/staff ID" />

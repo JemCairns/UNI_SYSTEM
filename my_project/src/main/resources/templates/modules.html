@@ -64,6 +64,7 @@
                                 </div>
                                 <br>
                                 <form class="enrollForm" name="moduleReg" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                     <input name="checkedModule" type="hidden" th:value="${module.ID}" >
                                     <input name="formType" type="hidden" th:value="dropout" >
                                     <input class="dropbtn" type="submit" value="Drop Out">
@@ -99,6 +100,7 @@
                         </div>
                         <br>
                         <form class="enrollForm"method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <input name="formType" type="hidden" th:value="enroll" >
                             <input name="checkedModule" type="hidden" th:value="${module.ID}" >
                             <input class="dropbtn" type="submit" value="Enroll">
@@ -135,11 +137,13 @@
                                 <br>
                                 <div>
                                     <form style="float: left; padding-right: 10px" class="enrollForm" name="moduleEdit" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                         <input name="checkedModule" type="hidden" th:value="${module.ID}" >
                                         <input name="formType" type="hidden" th:value="edit" >
                                         <input class="dropbtn" type="submit" value="Edit">
                                     </form>
                                     <form style="float: left" class="enrollForm" name="assignGrades" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                         <input name="checkedModule" type="hidden" th:value="${module.ID}" >
                                         <input name="formType" type="hidden" th:value="grades" >
                                         <input class="dropbtn" type="submit" value="Grades">
@@ -155,6 +159,7 @@
             </div>
             <br>
             <form class="enrollForm" name="moduleEdit" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <input name="formType" type="hidden" th:value="edit" >
                 <input name="checkedModule" type="hidden" value="new_module" >
                 <input class="dropbtn" type="submit" value="New Module">

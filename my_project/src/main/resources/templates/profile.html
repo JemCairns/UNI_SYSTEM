@@ -75,6 +75,7 @@
                 <a href="/modules" class="button">My Modules</a>
                 <a href="/fees" class="button">My Fees</a>
                 <form style="display: inline-block" class="unRegisterForm" name="unRegister" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <input class="button" type="submit" value="Unregister">
                 </form>
             </div>
