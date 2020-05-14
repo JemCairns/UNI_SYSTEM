@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class BlockController {
 
     @GetMapping()
-    public String showBlockPage(ModelMap model) {
+    public String showBlockPage() {
         return "block";
     }
 }

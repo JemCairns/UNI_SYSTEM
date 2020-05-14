@@ -1,6 +1,5 @@
 package uni.system.webapp.security;
 
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -15,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class LoginAttemptService {
 
-    private int attempts = 3;
     private LoadingCache<String, Integer> cache;
 
     public LoginAttemptService() {
@@ -33,7 +31,7 @@ public class LoginAttemptService {
             response.sendRedirect("/block");
         }
         else {
-            Logging.getInstance().info("User with id=" + key + " successfully logged in from IP=" /*+IP*/ + ".");
+            Logging.getInstance().info("User with IP=" + key + " successfully logged in.");
             cache.invalidate(key);
         }
     }
@@ -47,17 +45,18 @@ public class LoginAttemptService {
 
         n++;
         cache.put(key, n);
-        Logging.getInstance().info("User with id=" + key + " failed to log in from IP=" /*+IP*/ + ".");
+        Logging.getInstance().info("User with IP=" + key + " failed to log in.");
 
 
         if(isBlocked(key)) {
-            Logging.getInstance().warning("User with IP=" /*+IP*/ + " has been blocked.");
+            Logging.getInstance().warning("User with IP=" + key + " has been blocked.");
             response.sendRedirect("/block");
         }
     }
 
     public boolean isBlocked(String key) {
         try {
+            int attempts = 3;
             return cache.get(key) >= attempts;
         } catch (ExecutionException e) {
             return false;

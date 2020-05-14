@@ -6,6 +6,4 @@ public final class SecurityConstraints {
     public static final long EXPIRATION_TIME = 3600000;
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String COOKIE_NAME = "UNISYSTEM";
-    public static final String TOKEN_HEADER = "Authorization";
-    public static final String SIGN_UP_URL = "/register";
 }

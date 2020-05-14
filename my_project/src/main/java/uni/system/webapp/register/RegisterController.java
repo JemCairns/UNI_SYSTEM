@@ -11,8 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import uni.system.webapp.captcha.ReCaptchaResponse;
 import uni.system.webapp.logger.Logging;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,8 +45,7 @@ public class RegisterController {
                                   @RequestParam String date_of_birth,
                                   @RequestParam String stage,
                                   @RequestParam Integer password_strength,
-                                  @RequestParam(name="g-recaptcha-response") String captchaResponse,
-                                  HttpSession session) {
+                                  @RequestParam(name="g-recaptcha-response") String captchaResponse) {
 
         String url = "https://www.google.com/recaptcha/api/siteverify";
         String params = "?secret=6LctyPYUAAAAAM45kposcNT1V-vYiUYhpt98aTsu&response="+captchaResponse;
@@ -100,7 +97,6 @@ public class RegisterController {
             model.addAttribute("date_of_birth", date_of_birth);
             model.addAttribute("stage", stage);
             model.addAttribute("password_strength", password_strength);
-            session.setAttribute("ID", new_ID);
             return "register";
         }
 
@@ -135,14 +131,12 @@ public class RegisterController {
             model.addAttribute("date_of_birth", date_of_birth);
             model.addAttribute("stage", stage);
             model.addAttribute("password_strength", password_strength);
-            session.setAttribute("ID", new_ID);
             return "register";
         }
 
         // user successfully registered
         Logging.getInstance().info("Student with id=" + new_ID + " successfully registered from IP=" + reCaptchaResponse.getHostname() + ".");
 
-        session.setAttribute("ID", new_ID+"STU");
         return "redirect:welcome";
     }
 }

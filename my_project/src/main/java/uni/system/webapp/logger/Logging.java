@@ -21,7 +21,9 @@ public class Logging {
             e.printStackTrace();
         }
         logger = Logger.getLogger("com.javacodegeeks.snippets.core");
-        logger.addHandler(handler);
+        if (handler != null) {
+            logger.addHandler(handler);
+        }
     }
 
 

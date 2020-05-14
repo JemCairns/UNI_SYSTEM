@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class FeesController {

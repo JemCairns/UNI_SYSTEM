@@ -7,16 +7,15 @@ import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.ModuleRegistrationRepository;
 import uni.system.webapp.repositories.StaffRepository;
 import uni.system.webapp.repositories.StudentRepository;
+import uni.system.webapp.repositories.UserRepository;
 import uni.system.webapp.tables.ModuleRegistration;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
-import static uni.system.webapp.filter.SecurityConstraints.COOKIE_NAME;
-import static uni.system.webapp.filter.SecurityConstraints.SECRET;
+import static uni.system.webapp.filter.SecurityConstraints.*;
 
 @Service
 public class ProfileService {
@@ -29,6 +28,9 @@ public class ProfileService {
 
     @Autowired
     ModuleRegistrationRepository moduleRegistrationRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public Student getStudent(String ID) {
         return studentRepository.getOne(ID);
@@ -55,6 +57,7 @@ public class ProfileService {
         }
         Student student = getStudent(id);
         studentRepository.delete(student);
+        userRepository.delete(userRepository.findByUsername(id));
     }
 
     public String getID(HttpServletRequest request) {

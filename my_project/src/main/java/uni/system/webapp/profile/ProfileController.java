@@ -9,7 +9,6 @@ import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class ProfileController {

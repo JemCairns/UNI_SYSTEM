@@ -98,3 +98,175 @@
   <thread>41</thread>
   <message>User with id=0000001STA successfully logged in from IP=.</message>
 </record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T15:56:26.826871Z</date>
+  <millis>1589471786826</millis>
+  <nanos>871000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>43</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 failed to log in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T15:56:38.535101Z</date>
+  <millis>1589471798535</millis>
+  <nanos>101000</nanos>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>46</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 failed to log in from IP=.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T16:08:16.770191Z</date>
+  <millis>1589472496770</millis>
+  <nanos>191000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>48</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 failed to log in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T16:08:37.629588Z</date>
+  <millis>1589472517629</millis>
+  <nanos>588000</nanos>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>51</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 failed to log in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T16:09:03.345257Z</date>
+  <millis>1589472543345</millis>
+  <nanos>257000</nanos>
+  <sequence>6</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>54</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 failed to log in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T16:09:03.346767Z</date>
+  <millis>1589472543346</millis>
+  <nanos>767000</nanos>
+  <sequence>7</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginFail</method>
+  <thread>54</thread>
+  <message>User with IP= has been blocked.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T16:14:41.831845Z</date>
+  <millis>1589472881831</millis>
+  <nanos>845000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>43</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 successfully logged in from IP=.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T16:49:13.085121Z</date>
+  <millis>1589474953085</millis>
+  <nanos>121000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>43</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 successfully logged in from IP=.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T16:54:01.925811Z</date>
+  <millis>1589475241925</millis>
+  <nanos>811000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>43</thread>
+  <message>User with id=0:0:0:0:0:0:0:1 successfully logged in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T16:54:04.206429Z</date>
+  <millis>1589475244206</millis>
+  <nanos>429000</nanos>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.security.CookieLogoutSuccessHandler</class>
+  <method>onLogoutSuccess</method>
+  <thread>46</thread>
+  <message>User with id=0000001STU logged out.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T17:01:59.049377Z</date>
+  <millis>1589475719049</millis>
+  <nanos>377000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>47</thread>
+  <message>User with IP=0:0:0:0:0:0:0:1 successfully logged in.</message>
+</record>
+<record>
+  <date>2020-05-14T17:02:02.318978Z</date>
+  <millis>1589475722318</millis>
+  <nanos>978000</nanos>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.CookieLogoutSuccessHandler</class>
+  <method>onLogoutSuccess</method>
+  <thread>50</thread>
+  <message>User with id=0000001STU logged out.</message>
+</record>
+</log>

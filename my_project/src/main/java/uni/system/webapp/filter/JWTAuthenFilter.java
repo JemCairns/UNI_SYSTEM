@@ -67,21 +67,13 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
             .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
         addCookie(token, response);
-        if(request.getMethod().equals("POST")) {
-            String csrfToken = JWT.create()
-                    .withSubject(((UserInfo) authentication.getPrincipal()).getUsername())
-                    .withExpiresAt(new Date((System.currentTimeMillis() + 30000)))
-                    .sign(Algorithm.HMAC512(SECRET.getBytes()));
-            response.addHeader(TOKEN_HEADER, TOKEN_PREFIX + csrfToken);
-        }
         new DefaultRedirectStrategy().sendRedirect(request, response,"/welcome");
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         SecurityContextHolder.clearContext();
         loginAttemptService.loginFail(request.getRemoteAddr(), response);
-        AuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler();
         if(!response.isCommitted()) {
             Cookie c = new Cookie("INVALID", "TRUE");
             response.addCookie(c);

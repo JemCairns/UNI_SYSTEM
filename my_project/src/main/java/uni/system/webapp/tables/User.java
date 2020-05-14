@@ -18,12 +18,17 @@ public class User {
     @NotBlank
     private String password;
 
+    @NotBlank
     private String role;
 
-    public User(String username, String password, String role) {
+    @NotBlank
+    private String salt;
+
+    public User(String username, String password, String role, String salt) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.salt = salt;
     }
 
     public User() {}
@@ -43,4 +48,6 @@ public class User {
     public String getRole() {
         return role;
     }
+
+    public String getSalt() { return  salt; }
 }
