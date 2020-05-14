@@ -1,5 +1,6 @@
 package uni.system.webapp.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import uni.system.webapp.filter.JWTAuthenFilter;
 import uni.system.webapp.filter.JWTAuthorFilter;
@@ -24,10 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userService;
     private UserRepository userRepository;
+    private LoginAttemptService loginAttemptService;
 
-    public SecurityConfig(UserService userService, UserRepository userRepository) {
+    public SecurityConfig(UserService userService, UserRepository userRepository, LoginAttemptService loginAttemptService) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.loginAttemptService = loginAttemptService;
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -46,14 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
-                .csrf()
-                    .ignoringAntMatchers("/login")
-                    .and()
-                .requiresChannel()
-                    .anyRequest()
-                    .requiresSecure()
-                    .and()
                 .authorizeRequests()
                     .antMatchers("/register", "/error").permitAll()
                     .antMatchers("/fees").hasRole("STUDENT")
@@ -61,9 +57,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/grades").hasRole("STAFF")
                     .anyRequest().authenticated()
                     .and()
+                .csrf()
+                    .ignoringAntMatchers("/login")
+                    .and()
+                .requiresChannel()
+                    .anyRequest()
+                    .requiresSecure()
+                    .and()
                 .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/welcome", true)
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .permitAll()
@@ -77,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                .addFilter(new JWTAuthenFilter(authenticationManager()))
+                .addFilter(new JWTAuthenFilter(authenticationManager(), loginAttemptService))
                 .addFilter(new JWTAuthorFilter(authenticationManager(), userRepository));
     }
 

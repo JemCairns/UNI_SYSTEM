@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -14,21 +18,17 @@ public class LoginController {
     LoginService service;
 
     @GetMapping()
-    public String showLoginPage() {
-        return "login";
-    }
+    public String showLoginPage(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
 
-    @PostMapping()
-    public String showWelcomePage(ModelMap model, @RequestParam String username, @RequestParam String password, @RequestParam String user) {
-
-        String userType = service.validateUser(username, password, user);
-        boolean invalidUser = userType.equals("");
-
-        if(invalidUser) {
-            model.addAttribute("errorMessage", "*Invalid credentials");
-            return "login";
+        for(Cookie c : cookies) {
+            if(c.getName().equals("INVALID")) {
+                model.addAttribute("errorMessage", "*Invalid credentials");
+                response.addCookie(new Cookie("INVALID", null));
+                return "login";
+            }
         }
 
-        return "redirect:welcome";
+        return "login";
     }
 }

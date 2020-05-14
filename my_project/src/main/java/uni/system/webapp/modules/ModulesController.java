@@ -88,7 +88,6 @@ public class ModulesController {
         }
         //Staff
         else{
-            System.out.println("HEY");
             getString(model, userID);
             session.setAttribute("editModuleID", checkedModule);
 

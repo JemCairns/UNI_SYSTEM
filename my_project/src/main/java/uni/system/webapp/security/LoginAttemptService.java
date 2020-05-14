@@ -26,12 +26,10 @@ public class LoginAttemptService {
     }
 
     public void loginSuccess(String key) {
-        System.out.println("SUCCESS");
         cache.invalidate(key);
     }
 
     public void loginFail(String key) {
-        System.out.println("FAIL");
         int n = 0;
         try {
             n = cache.get(key);
@@ -39,6 +37,10 @@ public class LoginAttemptService {
         }
 
         n++;
+
+        if(n > 3) {
+            return;
+        }
         cache.put(key, n);
     }
 

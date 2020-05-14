@@ -7,12 +7,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import uni.system.webapp.security.LoginAttemptService;
 import uni.system.webapp.security.UserInfo;
 import uni.system.webapp.repositories.UserRepository;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +32,11 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
     UserRepository userRepository;
+    private LoginAttemptService loginAttemptService;
 
-    public JWTAuthenFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenFilter(AuthenticationManager authenticationManager, LoginAttemptService loginAttemptService) {
         this.authenticationManager = authenticationManager;
+        this.loginAttemptService = loginAttemptService;
         setFilterProcessesUrl("/login");
 
     }
@@ -53,6 +60,7 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
+        loginAttemptService.loginSuccess(request.getRemoteAddr());
         String token = JWT.create()
             .withSubject(((UserInfo) authentication.getPrincipal()).getUsername())
             .withExpiresAt(new Date((System.currentTimeMillis() + EXPIRATION_TIME)))
@@ -67,6 +75,15 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
             response.addHeader(TOKEN_HEADER, TOKEN_PREFIX + csrfToken);
         }
         new DefaultRedirectStrategy().sendRedirect(request, response,"/welcome");
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        SecurityContextHolder.clearContext();
+        loginAttemptService.loginFail(request.getRemoteAddr());
+        AuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler();
+        response.addCookie(new Cookie("INVALID", "TRUE"));
+        response.sendRedirect("login");
     }
 
     private void addCookie(String token, HttpServletResponse response) {
