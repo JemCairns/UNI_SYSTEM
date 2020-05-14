@@ -28,7 +28,27 @@ public class LoginController {
     RestTemplate restTemplate;
 
     @GetMapping()
-    public String showLoginPage() {
+    public String showLoginPage(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("INVALID")) {
+                    model.addAttribute("errorMessage", "*Invalid credentials");
+                    Cookie cookie = new Cookie("INVALID", null);
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    return "login";
+                }
+                else if(c.getName().equals("NOTFOUND")) {
+                    model.addAttribute("errorMessage", "*Invalid credentials");
+                    Cookie cookie = new Cookie("NOTFOUND", null);
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    return "login";
+                }
+            }
+        }
+
         return "login";
     }
 
@@ -37,35 +57,38 @@ public class LoginController {
                                   @RequestParam String ID,
                                   @RequestParam String password,
                                   @RequestParam String user,
-                                  @RequestParam(name="g-recaptcha-response") String captchaResponse,
+                                  //@RequestParam(name="g-recaptcha-response") String captchaResponse,
                                   HttpSession session
     ) {
-
-        String url = "https://www.google.com/recaptcha/api/siteverify";
-        String params = "?secret=6LctyPYUAAAAAM45kposcNT1V-vYiUYhpt98aTsu&response="+captchaResponse;
-
-        ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
-
-        String userType="";
-        boolean invalidUser = true;
-        if(reCaptchaResponse.isSuccess()) {
-            userType = service.validateUser(ID, password, user);
-            invalidUser = userType.equals("");
-        }
-
-        if(invalidUser) {
-            // login failure
-            Logging.getInstance().warning("User with id=" + ID+userType + " failed to login from IP=" /*+IP*/ + ".");
-            model.addAttribute("errorMessage", "*Invalid credentials");
-            return "login";
-        }
-
-        // login success
-        Logging.getInstance().info("User with id=" + ID+userType + " successfully logged in from IP=" /*+IP*/ + ".");
-        session.setAttribute("ID", ID+userType);
-        return "redirect:welcome";
+        return "welcome";
     }
 }
+
+//        String url = "https://www.google.com/recaptcha/api/siteverify";
+//        String params = "?secret=6LctyPYUAAAAAM45kposcNT1V-vYiUYhpt98aTsu&response="+captchaResponse;
+//
+//        ReCaptchaResponse reCaptchaResponse = restTemplate.exchange(url+params, HttpMethod.POST, null, ReCaptchaResponse.class).getBody();
+//
+//        String userType="";
+//        boolean invalidUser = true;
+//        if(reCaptchaResponse.isSuccess()) {
+//            userType = service.validateUser(ID, password, user);
+//            invalidUser = userType.equals("");
+//        }
+//
+//        if(invalidUser) {
+//            // login failure
+//            Logging.getInstance().warning("User with id=" + ID+userType + " failed to login from IP=" /*+IP*/ + ".");
+//            model.addAttribute("errorMessage", "*Invalid credentials");
+//            return "login";
+//        }
+
+//        // login success
+//        Logging.getInstance().info("User with id=" + ID+userType + " successfully logged in from IP=" /*+IP*/ + ".");
+//        session.setAttribute("ID", ID+userType);
+//        return "redirect:welcome";
+//    }
+//}
 
 //package uni.system.webapp.login;
 //

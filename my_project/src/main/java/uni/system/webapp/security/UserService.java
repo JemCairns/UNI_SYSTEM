@@ -11,6 +11,7 @@ import org.springframework.web.context.request.RequestContextListener;
 import uni.system.webapp.repositories.UserRepository;
 import uni.system.webapp.tables.User;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(s);
+        if(user == null) throw new UsernameNotFoundException(s);
 
         return new UserInfo(user);
     }

@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import uni.system.webapp.filter.JWTAuthenFilter;
 import uni.system.webapp.filter.JWTAuthorFilter;
 import uni.system.webapp.repositories.UserRepository;
@@ -43,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/block")
                 .antMatchers(HttpMethod.GET, "/login")
-                .antMatchers(HttpMethod.GET, "/logout")
                 .antMatchers(HttpMethod.GET, "register")
                 .antMatchers("/css/**");
     }
@@ -72,9 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("login")
                     .deleteCookies(COOKIE_NAME)
+                    .logoutSuccessHandler(logoutSuccessHandler())
                     .permitAll()
                     .and()
                 .sessionManagement()
@@ -91,5 +93,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(this.userService);
 
         return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public LogoutSuccessHandler logoutSuccessHandler() {
+        return new CookieLogoutSuccessHandler();
     }
 }

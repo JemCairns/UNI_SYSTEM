@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import org.springframework.stereotype.Service;
+import uni.system.webapp.logger.Logging;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class LoginAttemptService {
             response.sendRedirect("/block");
         }
         else {
+            Logging.getInstance().info("User with id=" + key + " successfully logged in from IP=" /*+IP*/ + ".");
             cache.invalidate(key);
         }
     }
@@ -45,8 +47,11 @@ public class LoginAttemptService {
 
         n++;
         cache.put(key, n);
+        Logging.getInstance().info("User with id=" + key + " failed to log in from IP=" /*+IP*/ + ".");
+
 
         if(isBlocked(key)) {
+            Logging.getInstance().warning("User with IP=" /*+IP*/ + " has been blocked.");
             response.sendRedirect("/block");
         }
     }

@@ -2,14 +2,12 @@ package uni.system.webapp.register;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uni.system.webapp.security.PasswordUtils;
-import uni.system.webapp.repositories.UserRepository;
-import uni.system.webapp.tables.Student;
 import uni.system.webapp.repositories.StudentRepository;
-import java.util.Date;
+import uni.system.webapp.repositories.UserRepository;
+import uni.system.webapp.security.PasswordUtils;
+import uni.system.webapp.tables.Student;
 import uni.system.webapp.tables.User;
-
-import java.sql.Date;
+import java.util.Date;
 
 @Service
 public class RegisterService {
@@ -32,7 +30,7 @@ public class RegisterService {
         Student student = new Student(ID, securePassword, first_name, last_name, address, phone_number, email, gender, 3000, 0, date_of_birth, stage, salt);
         User user = new User(ID, password, "STUDENT");
         studentRepository.save(student);
-        userRepository.save(user)
+        userRepository.save(user);
         return true;
     }
 }
