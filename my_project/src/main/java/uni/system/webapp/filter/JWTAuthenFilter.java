@@ -60,7 +60,7 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
-        loginAttemptService.loginSuccess(request.getRemoteAddr());
+        loginAttemptService.loginSuccess(request.getRemoteAddr(), response);
         String token = JWT.create()
             .withSubject(((UserInfo) authentication.getPrincipal()).getUsername())
             .withExpiresAt(new Date((System.currentTimeMillis() + EXPIRATION_TIME)))
@@ -80,10 +80,13 @@ public class JWTAuthenFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         SecurityContextHolder.clearContext();
-        loginAttemptService.loginFail(request.getRemoteAddr());
+        loginAttemptService.loginFail(request.getRemoteAddr(), response);
         AuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler();
-        response.addCookie(new Cookie("INVALID", "TRUE"));
-        response.sendRedirect("login");
+        if(!response.isCommitted()) {
+            Cookie c = new Cookie("INVALID", "TRUE");
+            response.addCookie(c);
+            response.sendRedirect("login");
+        }
     }
 
     private void addCookie(String token, HttpServletResponse response) {

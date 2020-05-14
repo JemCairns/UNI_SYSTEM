@@ -6,6 +6,8 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -25,11 +27,16 @@ public class LoginAttemptService {
                 });
     }
 
-    public void loginSuccess(String key) {
-        cache.invalidate(key);
+    public void loginSuccess(String key, HttpServletResponse response) throws IOException {
+        if(isBlocked(key)) {
+            response.sendRedirect("/block");
+        }
+        else {
+            cache.invalidate(key);
+        }
     }
 
-    public void loginFail(String key) {
+    public void loginFail(String key, HttpServletResponse response) throws IOException {
         int n = 0;
         try {
             n = cache.get(key);
@@ -37,11 +44,11 @@ public class LoginAttemptService {
         }
 
         n++;
-
-        if(n > 3) {
-            return;
-        }
         cache.put(key, n);
+
+        if(isBlocked(key)) {
+            response.sendRedirect("/block");
+        }
     }
 
     public boolean isBlocked(String key) {

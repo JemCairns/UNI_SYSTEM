@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
+                .antMatchers("/block")
                 .antMatchers(HttpMethod.GET, "/login")
                 .antMatchers(HttpMethod.GET, "/logout")
                 .antMatchers(HttpMethod.GET, "register")

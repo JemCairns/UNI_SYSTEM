@@ -29,22 +29,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        String ip = getIP();
         User user = userRepository.findByUsername(s);
-
-        if(loginAttemptService.isBlocked(ip)) {
-
-        }
 
         return new UserInfo(user);
     }
-
-    private String getIP() {
-        String header = request.getHeader("X-Forwarded-For");
-        if(header == null) {
-            return request.getRemoteAddr();
-        }
-        return header.split(",")[0];
-    }
-
 }

@@ -24,7 +24,9 @@ public class LoginController {
         for(Cookie c : cookies) {
             if(c.getName().equals("INVALID")) {
                 model.addAttribute("errorMessage", "*Invalid credentials");
-                response.addCookie(new Cookie("INVALID", null));
+                Cookie cookie = new Cookie("INVALID", null);
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
                 return "login";
             }
         }
