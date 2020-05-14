@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.Student;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -16,8 +18,8 @@ public class FeesController {
     FeesService service;
 
     @RequestMapping(path = "/fees", method = RequestMethod.GET)
-    public String showModulePage(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
+    public String showModulePage(ModelMap model, HttpServletRequest request) {
+        String userID = service.getID(request);
 
         //If no user ID in session, ask user to log back in
         if(userID == null) {
@@ -38,8 +40,8 @@ public class FeesController {
     }
 
     @RequestMapping(path = "/fees", method = RequestMethod.POST)
-    public String updateFees(ModelMap model, HttpSession session, @RequestParam String amount) {
-        String userID = (String) session.getAttribute("ID");
+    public String updateFees(ModelMap model, HttpServletRequest request, @RequestParam String amount) {
+        String userID = service.getID(request);
 
         double fees_amount=0;
         if(amount.length()!=0){

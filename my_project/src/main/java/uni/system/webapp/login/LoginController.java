@@ -10,10 +10,15 @@ import uni.system.webapp.captcha.ReCaptchaResponse;
 import uni.system.webapp.logger.Logging;
 import uni.system.webapp.tables.Student;
 
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
+@RequestMapping(value = "/login")
 public class LoginController {
 
     @Autowired
@@ -22,12 +27,12 @@ public class LoginController {
     @Autowired
     RestTemplate restTemplate;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping()
     public String showLoginPage() {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping()
     public String showWelcomePage(ModelMap model,
                                   @RequestParam String ID,
                                   @RequestParam String password,
@@ -61,3 +66,40 @@ public class LoginController {
         return "redirect:welcome";
     }
 }
+
+//package uni.system.webapp.login;
+//
+//        import org.springframework.beans.factory.annotation.Autowired;
+//        import org.springframework.stereotype.Controller;
+//        import org.springframework.ui.ModelMap;
+//        import org.springframework.web.bind.annotation.*;
+//
+//        import javax.servlet.http.Cookie;
+//        import javax.servlet.http.HttpServletRequest;
+//        import javax.servlet.http.HttpServletResponse;
+//        import javax.servlet.http.HttpSession;
+//
+//@Controller
+//@RequestMapping(value = "/login")
+//public class LoginController {
+//
+//    @Autowired
+//    LoginService service;
+//
+//    @GetMapping()
+//    public String showLoginPage(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+//        Cookie[] cookies = request.getCookies();
+//
+//        for(Cookie c : cookies) {
+//            if(c.getName().equals("INVALID")) {
+//                model.addAttribute("errorMessage", "*Invalid credentials");
+//                Cookie cookie = new Cookie("INVALID", null);
+//                cookie.setMaxAge(0);
+//                response.addCookie(cookie);
+//                return "login";
+//            }
+//        }
+//
+//        return "login";
+//    }
+//}

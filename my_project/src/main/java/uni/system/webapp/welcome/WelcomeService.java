@@ -1,11 +1,18 @@
 package uni.system.webapp.welcome;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uni.system.webapp.repositories.*;
 import uni.system.webapp.tables.*;
 import uni.system.webapp.tables.Module;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import static uni.system.webapp.filter.SecurityConstraints.*;
 
 @Service
 public class WelcomeService {
@@ -24,6 +31,9 @@ public class WelcomeService {
 
     @Autowired
     StaffRepository staffRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public List<Module> getAllModules() {
         return moduleRepository.findAll();
@@ -45,5 +55,27 @@ public class WelcomeService {
     }
     public List<TopicRegistration> getAllTopicRegistrations() {
         return topicRegistrationRepository.findAll();
+    }
+    public String getID(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String token = null;
+
+
+        if(cookies!=null){
+
+            for(Cookie cookie: cookies){
+                if(cookie.getName().equals(COOKIE_NAME))
+                    token = cookie.getValue();
+            }}
+
+        if (token != null) {
+            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                    .build()
+                    .verify(token)
+                    .getSubject();
+            return user;
+        }
+        else
+            return "";
     }
 }

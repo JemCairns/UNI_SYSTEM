@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uni.system.webapp.tables.ModuleRegistration;
 import uni.system.webapp.tables.Student;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class GradesController {
     GradesService service;
 
     @RequestMapping(value = "/grades", method = RequestMethod.GET)
-    public String showGradesPage(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
+    public String showGradesPage(ModelMap model, HttpSession session, HttpServletRequest request) {
+        String userID = service.getID(request);
         String moduleID = (String) session.getAttribute("editModuleID");
 
         //If no user ID in session, ask user to log back in
@@ -44,8 +45,8 @@ public class GradesController {
     }
 
     @RequestMapping(value = "/grades", method = RequestMethod.POST)
-    public String updateGrades(ModelMap model, HttpSession session, @RequestParam("grades") String[] grades, @RequestParam("percents") String[] percents) {
-        String userID = (String) session.getAttribute("ID");
+    public String updateGrades(ModelMap model, HttpSession session, HttpServletRequest request, @RequestParam("grades") String[] grades, @RequestParam("percents") String[] percents) {
+        String userID = service.getID(request);
         String moduleID = (String) session.getAttribute("editModuleID");
 
         //If no user ID in session, ask user to log back in
