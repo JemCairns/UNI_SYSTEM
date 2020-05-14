@@ -37,3 +37,64 @@
   <thread>38</thread>
   <message>User with id=0000001STU successfully logged in from IP=.</message>
 </record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T11:01:33</date>
+  <millis>1589450493302</millis>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>40</thread>
+  <message>User with id=0000001 successfully logged in from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T11:22:08</date>
+  <millis>1589451728890</millis>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>44</thread>
+  <message>User with id=0000001 successfully logged in from IP=.</message>
+</record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T11:25:37</date>
+  <millis>1589451937413</millis>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>40</thread>
+  <message>User with id=0000001 failed to login from IP=.</message>
+</record>
+<record>
+  <date>2020-05-14T11:25:48</date>
+  <millis>1589451948085</millis>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.register.RegisterController</class>
+  <method>showWelcomePage</method>
+  <thread>45</thread>
+  <message>Student with id=555 failed to register from IP=null.</message>
+</record>
+<record>
+  <date>2020-05-14T11:26:43</date>
+  <millis>1589452003746</millis>
+  <sequence>6</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.login.LoginController</class>
+  <method>showWelcomePage</method>
+  <thread>41</thread>
+  <message>User with id=0000001STA successfully logged in from IP=.</message>
+</record>
