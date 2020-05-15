@@ -270,3 +270,35 @@
   <message>User with id=0000001STU logged out.</message>
 </record>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-14T18:43:52.418172Z</date>
+  <millis>1589481832418</millis>
+  <nanos>172000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>44</thread>
+  <message>User with IP=0:0:0:0:0:0:0:1 successfully logged in.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-15T09:48:37.550497Z</date>
+  <millis>1589536117550</millis>
+  <nanos>497000</nanos>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.security.LoginAttemptService</class>
+  <method>loginSuccess</method>
+  <thread>52</thread>
+  <message>User with IP=127.0.0.1 successfully logged in.</message>
+</record>
+</log>

@@ -51,20 +51,27 @@ public class JWTAuthorFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
+        UsernamePasswordAuthenticationToken authentication = getAuthentication(token, response);
 
+        if(authentication == null) {
+            return;
+        }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 
 
-    private UsernamePasswordAuthenticationToken getAuthentication(String token) throws TokenExpiredException
-    {
+    private UsernamePasswordAuthenticationToken getAuthentication(String token, HttpServletResponse response) throws IOException {
         if (token != null) {
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+            String user = null;
+            try {
+                 user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
+                        .build()
+                        .verify(token.replace(TOKEN_PREFIX, ""))
+                        .getSubject();
+            } catch (TokenExpiredException e) {
+                response.sendRedirect("/login");
+            }
 
             if (user != null) {
                 User u = userRepository.findByUsername(user);
