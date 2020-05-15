@@ -63,6 +63,7 @@ public class RegisterController {
                 phone_number.equals("") ||
                 email.equals("") ||
                 date_of_birth.equals("") ||
+                reCaptchaResponse == null ||
                 !reCaptchaResponse.isSuccess()){
             model.addAttribute("errorMessage", "*Please fill out all fields");
             invalidDetails = true;
@@ -82,7 +83,12 @@ public class RegisterController {
         if(invalidDetails){
 
             // user failed to register
-            Logging.getInstance().warning("Student with id=" + new_ID + " failed to register from IP=" + reCaptchaResponse.getHostname() + ".");
+            if(reCaptchaResponse == null){
+                Logging.getInstance().warning("Student with id=" + new_ID + " failed to register.");
+            }
+            else {
+                Logging.getInstance().warning("Student with id=" + new_ID + " failed to register from IP=" + reCaptchaResponse.getHostname() + ".");
+            }
 
             model.addAttribute("new_ID", new_ID);
             model.addAttribute("new_password", new_password);
