@@ -2,7 +2,7 @@
 
 Open a MySQL terminal and run all SQL code within the sql_script.sql file in the Github repository.
 
-Enable Chrome to accept a Self-Signed Certificate on localhost
+Enable Chrome to accept a Self-Signed Certificate on localhost<br>
 Open a new Chrome tab.
 Enter the following into the address bar: chrome://flags/#allow-insecure-localhost and enable the highlighted option.
 Click the three dots in the top-right hand corner of another tab.
