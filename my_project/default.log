@@ -89,3 +89,39 @@
   <thread>40</thread>
   <message>User with IP=0:0:0:0:0:0:0:1 has been blocked.</message>
 </record>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-05-15T15:40:48</date>
+  <millis>1589553648105</millis>
+  <sequence>4</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>INFO</level>
+  <class>uni.system.webapp.register.RegisterController</class>
+  <method>showWelcomePage</method>
+  <thread>45</thread>
+  <message>Student with id=0000015 successfully registered from IP=localhost.</message>
+</record>
+<record>
+  <date>2020-05-15T15:45:30</date>
+  <millis>1589553930966</millis>
+  <sequence>5</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.register.RegisterController</class>
+  <method>showWelcomePage</method>
+  <thread>39</thread>
+  <message>Student with id=2366436 failed to register from IP=null.</message>
+</record>
+<record>
+  <date>2020-05-15T15:45:38</date>
+  <millis>1589553938522</millis>
+  <sequence>6</sequence>
+  <logger>com.javacodegeeks.snippets.core</logger>
+  <level>WARNING</level>
+  <class>uni.system.webapp.register.RegisterController</class>
+  <method>showWelcomePage</method>
+  <thread>46</thread>
+  <message>Student with id=2366436 failed to register from IP=null.</message>
+</record>

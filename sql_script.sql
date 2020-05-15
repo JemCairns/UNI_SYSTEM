@@ -36,13 +36,11 @@ create table uni_schema.module_registration
 create table uni_schema.staff
 (
     ID varchar(10) not null,
-    password varchar(255) null,
     prefix varchar(35) null,
     first_name varchar(35) not null,
     last_name varchar(35) not null,
     date_of_birth date not null,
     gender varchar(35) not null,
-    salt varchar(255) null,
     constraint staff_ID_uindex
         unique (ID)
 );
@@ -58,13 +56,11 @@ create table uni_schema.student
     address varchar(60) not null,
     phone_number varchar(15) null,
     email varchar(60) not null,
-    password varchar(255) null,
     fees_due int default 0 not null,
     fees_paid int default 0 not null,
     gender varchar(35) not null,
     date_of_birth date not null,
     stage varchar(35) not null,
-    salt varchar(255) not null,
     constraint USER_ID_uindex
         unique (ID)
 );
@@ -100,19 +96,19 @@ create table uni_schema.users
 
 INSERT INTO uni_schema.hibernate_sequence (next_val) VALUES (40);
 
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000001STU', 'Jack', 'Byrne', '4 Lynch Road, Calafornia', '0870000001', 'jack@springfield.com', 'lMQpiEs7OdvbNKxJ7pcqzgWR2zltzKaAwVA5Ytown6w=', 0, 3000, 'male', '1996-08-07', 'Stage 3', 'WGvRGvBrtVfqcF1G0KYWO5oGh13QiZ');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000002STU', 'Joe', 'Partridge', '92 Stellar Ave, Springfield', '0871496385', 'joe@springfield.com', 'BDfCbCTUAWk/c5TwTKI9giVhWpZTMNbFcoGzr8ZhCRo=', 500, 2500, 'male', '2000-09-20', 'Stage 2', 'BhLzvDlNlILo5FnpMpQM7VfOIwyoAi');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000003STU', 'Mary', 'Foley', 'Apartment 42, Springfield Campus', '0865341295', 'maryf@springfield.com', 'Ch8+nAYF1ifRGbHxv8ajPLTWygZ4bBLqZVYq4VHn70s=', 0, 3000, 'female', '1995-10-08', 'Masters', 'ajwVf9RoiY5MeZcTcL6aGEijCw7QT9');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000004STU', 'Patrick', 'Stewart', '12 Fortune Street, Enterprise', '0895649537', 'patrick@springfield.com', 'oeZBWHilL+4VFvrGR7bwDgNgfq1JKI43I+39tUGDijI=', 0, 3000, 'male', '1980-12-31', 'PHD', 'vcXTNnuzViBJdRZaecldONVr1e8C3R');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000006STU', 'Michael', 'Walls', '12 Wall Street, Springfield', '0895563395', 'michaelw@sprinfield.com', 'u4Ma2hAQ6hRxqg1i2XYtXfL+rRuuYVQbvrJUaMw2Swg=', 3000, 0, 'male', '2001-01-13', 'Stage 3', 'EJvjU62DlCCR3G6O3zNG6teObZVUY9');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000008STU', 'Beyonce', 'NA', '1 Beyonce Street, Beyonce City', '0861296689', 'beyonce@springfield.com', 'XaxAVzp0wzXpIc2Ys2nJRfwJ6a7CGqF5iDKB2NQx3wc=', 0, 3000, 'female', '1981-11-06', 'Stage 1', 'B0kFJEI5AZqd2TYcIxEJYYVfp9laWF');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000009STU', 'Harry', 'Brady', '9 Tree Town, Springfield', '0861596735', 'harryb@springfield.com', 'ScwCuS3NqS2W8iiPPI0dLChrgug8R9aFQuXd7hNtw6U=', 3000, 0, 'male', '1998-09-25', 'Stage 4', 'aqvcEtQJZyTAt15kzyWz2u59ifdpeR');
-INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, password, fees_due, fees_paid, gender, date_of_birth, stage, salt) VALUES ('0000010STU', 'Jonathan', 'Ross', '7 Lyon Street, CastleKnock', '0831010101', 'jRoss@springfield.com', 'hIuRVAoXW+xDt2WB/tD4PEXX+3y3ge9iIaLpBRmZ08s=', 3000, 0, 'male', '1998-12-21', 'Stage 2', 'OhtokzMdyzmzuRr5hxpXJrrErdH4uG');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000001STU', 'Jack', 'Byrne', '4 Lynch Road, Calafornia', '0870000001', 'jack@springfield.com', 0, 3000, 'male', '1996-08-07', 'Stage 3');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000002STU', 'Joe', 'Partridge', '92 Stellar Ave, Springfield', '0871496385', 'joe@springfield.com', 500, 2500, 'male', '2000-09-20', 'Stage 2');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000003STU', 'Mary', 'Foley', 'Apartment 42, Springfield Campus', '0865341295', 'maryf@springfield.com', 0, 3000, 'female', '1995-10-08', 'Masters');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000004STU', 'Patrick', 'Stewart', '12 Fortune Street, Enterprise', '0895649537', 'patrick@springfield.com', 0, 3000, 'male', '1980-12-31', 'PHD');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000006STU', 'Michael', 'Walls', '12 Wall Street, Springfield', '0895563395', 'michaelw@sprinfield.com', 3000, 0, 'male', '2001-01-13', 'Stage 3');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000008STU', 'Beyonce', 'NA', '1 Beyonce Street, Beyonce City', '0861296689', 'beyonce@springfield.com', 0, 3000, 'female', '1981-11-06', 'Stage 1');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000009STU', 'Harry', 'Brady', '9 Tree Town, Springfield', '0861596735', 'harryb@springfield.com', 3000, 0, 'male', '1998-09-25', 'Stage 4');
+INSERT INTO uni_schema.student (ID, first_name, last_name, address, phone_number, email, fees_due, fees_paid, gender, date_of_birth, stage) VALUES ('0000010STU', 'Jonathan', 'Ross', '7 Lyon Street, CastleKnock', '0831010101', 'jRoss@springfield.com', 3000, 0, 'male', '1998-12-21', 'Stage 2');
 
-INSERT INTO uni_schema.staff (ID, password, prefix, first_name, last_name, date_of_birth, gender, salt) VALUES ('0000001STA', '3odeRjXQN0sq1Nmb+jeHv5qyOafJ6AlK4eFMUKXOiZw=', 'Mr', 'Tom', 'Clarke', '1963-08-23', 'Male', 'eWj6JEx16xgo8yKu4ZAUVQZ2TiBlud');
-INSERT INTO uni_schema.staff (ID, password, prefix, first_name, last_name, date_of_birth, gender, salt) VALUES ('0000002STA', 'S81c7aN4eHR6vpOXcPmvac9qmpyBN7smG45Wd2l+ngY=', 'Mrs', 'Michelle', 'Brophy', '1975-01-14', 'Female', 'rozr3ix6HZokUusYzZhi4ogGRa8bFc');
-INSERT INTO uni_schema.staff (ID, password, prefix, first_name, last_name, date_of_birth, gender, salt) VALUES ('0000003STA', 'llFfqzNuyIFRBSsogn73V+E0T/9mzQTgNlRSYTPtB7k=', 'Ms', 'Emma', 'Stone', '1980-10-03', 'Female', 'bFGGdMlfDAKhNSl6BuIU6QBAmXG7L8');
-INSERT INTO uni_schema.staff (ID, password, prefix, first_name, last_name, date_of_birth, gender, salt) VALUES ('0000004STA', 'A89fatoYRXn8W+7+HyBKqDVWUmTwUHhNFJ/HFL1cPOA=', 'Mr', 'Fred', 'Michaels', '1991-07-30', 'Male', 'cxk9mW3WHgFDKMOkGhm82Ell1lClAG');
+INSERT INTO uni_schema.staff (ID, prefix, first_name, last_name, date_of_birth, gender) VALUES ('0000001STA', 'Mr', 'Tom', 'Clarke', '1963-08-23', 'Male');
+INSERT INTO uni_schema.staff (ID, prefix, first_name, last_name, date_of_birth, gender) VALUES ('0000002STA', 'Mrs', 'Michelle', 'Brophy', '1975-01-14', 'Female');
+INSERT INTO uni_schema.staff (ID, prefix, first_name, last_name, date_of_birth, gender) VALUES ('0000003STA', 'Ms', 'Emma', 'Stone', '1980-10-03', 'Female');
+INSERT INTO uni_schema.staff (ID, prefix, first_name, last_name, date_of_birth, gender) VALUES ('0000004STA', 'Mr', 'Fred', 'Michaels', '1991-07-30', 'Male');
 
 INSERT INTO uni_schema.users (ID, Username, Password, Salt, Role) VALUES (1, '0000001STU', 'lMQpiEs7OdvbNKxJ7pcqzgWR2zltzKaAwVA5Ytown6w=', 'WGvRGvBrtVfqcF1G0KYWO5oGh13QiZ', 'STUDENT');
 INSERT INTO uni_schema.users (ID, Username, Password, Salt, Role) VALUES (2, '0000002STU', 'BDfCbCTUAWk/c5TwTKI9giVhWpZTMNbFcoGzr8ZhCRo=', 'BhLzvDlNlILo5FnpMpQM7VfOIwyoAi', 'STUDENT');

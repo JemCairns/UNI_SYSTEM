@@ -13,8 +13,6 @@ public class Student {
     @Id
     private String ID;
     @NotBlank
-    private String password;
-    @NotBlank
     private String first_name;
     @NotBlank
     private String last_name;
@@ -34,18 +32,15 @@ public class Student {
     private Date date_of_birth;
     @NotNull
     private String stage;
-    @NotNull
-    private String salt;
 
     public Student() {
         super();
     }
 
-    public Student(String ID, String password, String first_name, String last_name, String address,
+    public Student(String ID, String first_name, String last_name, String address,
                    String phone_number, String email, String gender, double fees_due, double fees_paid,
-                   Date date_of_birth, String stage, String salt) {
+                   Date date_of_birth, String stage) {
         this.ID = ID;
-        this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.address = address;
@@ -56,7 +51,6 @@ public class Student {
         this.fees_due = fees_due;
         this.date_of_birth = date_of_birth;
         this.stage = stage;
-        this.salt = salt;
     }
 
     public String getID() {
@@ -65,14 +59,6 @@ public class Student {
 
     public void setID(String ID) {
         this.ID = ID;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
@@ -153,13 +139,5 @@ public class Student {
 
     public void setStage(String stage) {
         this.stage = stage;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 }

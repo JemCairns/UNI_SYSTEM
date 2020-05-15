@@ -13,8 +13,6 @@ public class Staff {
     @Id
     private String ID;
     @NotBlank
-    private String password;
-    @NotBlank
     private String first_name;
     @NotBlank
     private String last_name;
@@ -24,23 +22,19 @@ public class Staff {
     private Date date_of_birth;
     @NotBlank
     private String gender;
-    @NotBlank
-    private String salt;
 
     public Staff() {
         super();
     }
 
-    public Staff(String ID, String password, String first_name, String last_name, String prefix,
-                 Date date_of_birth, String gender, String salt) {
+    public Staff(String ID, String first_name, String last_name, String prefix,
+                 Date date_of_birth, String gender) {
         this.ID = ID;
-        this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.prefix = prefix;
         this.date_of_birth = date_of_birth;
         this.gender = gender;
-        this.salt = salt;
     }
 
     public String getID() {
@@ -49,14 +43,6 @@ public class Staff {
 
     public void setID(String ID) {
         this.ID = ID;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
@@ -97,13 +83,5 @@ public class Staff {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 }
