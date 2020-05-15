@@ -83,7 +83,7 @@ public class RegisterController {
         if(invalidDetails){
 
             // user failed to register
-            if(reCaptchaResponse == null){
+            if(reCaptchaResponse == null || reCaptchaResponse.getHostname() == null){
                 Logging.getInstance().warning("Student with id=" + new_ID + " failed to register.");
             }
             else {
