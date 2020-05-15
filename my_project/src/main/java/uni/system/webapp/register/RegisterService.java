@@ -31,6 +31,7 @@ public class RegisterService {
         User user = new User(ID, securePassword, "STUDENT", salt);
         studentRepository.save(student);
         userRepository.save(user);
+
         return true;
     }
 }

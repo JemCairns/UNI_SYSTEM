@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import uni.system.webapp.security.LoginAttemptService;
 import uni.system.webapp.security.UserInfo;
 import uni.system.webapp.repositories.UserRepository;
 import uni.system.webapp.tables.User;
@@ -26,10 +27,12 @@ import static uni.system.webapp.filter.SecurityConstraints.*;
 public class JWTAuthorFilter extends BasicAuthenticationFilter {
 
     private UserRepository userRepository;
+    private LoginAttemptService loginAttemptService;
 
-    public JWTAuthorFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    public JWTAuthorFilter(AuthenticationManager authenticationManager, UserRepository userRepository, LoginAttemptService loginAttemptService) {
         super(authenticationManager);
         this.userRepository = userRepository;
+        this.loginAttemptService = loginAttemptService;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class JWTAuthorFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(token, response);
+        UsernamePasswordAuthenticationToken authentication = getAuthentication(token, request, response);
 
         if(authentication == null) {
             return;
@@ -61,7 +64,7 @@ public class JWTAuthorFilter extends BasicAuthenticationFilter {
     }
 
 
-    private UsernamePasswordAuthenticationToken getAuthentication(String token, HttpServletResponse response) throws IOException {
+    private UsernamePasswordAuthenticationToken getAuthentication(String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (token != null) {
             String user = null;
             try {
@@ -70,7 +73,14 @@ public class JWTAuthorFilter extends BasicAuthenticationFilter {
                         .verify(token.replace(TOKEN_PREFIX, ""))
                         .getSubject();
             } catch (TokenExpiredException e) {
-                response.sendRedirect("/login");
+                SecurityContextHolder.clearContext();
+                loginAttemptService.loginFail(request.getRemoteAddr(), response);
+                if(!response.isCommitted()) {
+                    Cookie c = new Cookie(COOKIE_NAME, null);
+                    c.setMaxAge(0);
+                    response.addCookie(c);
+                    response.sendRedirect("/login");
+                }
             }
 
             if (user != null) {

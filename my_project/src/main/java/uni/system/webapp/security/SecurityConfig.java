@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/block")
                 .antMatchers(HttpMethod.GET, "/login")
-                .antMatchers(HttpMethod.GET, "register")
+                .antMatchers(HttpMethod.GET, "/register")
                 .antMatchers("/css/**");
     }
 
@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf()
                     .ignoringAntMatchers("/login")
+                    .ignoringAntMatchers("/register")
                     .and()
                 .requiresChannel()
                     .anyRequest()
@@ -81,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .addFilter(new JWTAuthenFilter(authenticationManager(), loginAttemptService))
-                .addFilter(new JWTAuthorFilter(authenticationManager(), userRepository));
+                .addFilter(new JWTAuthorFilter(authenticationManager(), userRepository, loginAttemptService));
     }
 
     @Bean
