@@ -28,7 +28,7 @@ public class RegisterService {
         String salt = PasswordUtils.getSalt(30);
         String securePassword = PasswordUtils.generateSecurePassword(password, salt);
         Student student = new Student(ID, securePassword, first_name, last_name, address, phone_number, email, gender, 3000, 0, date_of_birth, stage, salt);
-        User user = new User(ID, password, "STUDENT", salt);
+        User user = new User(ID, securePassword, "STUDENT", salt);
         studentRepository.save(student);
         userRepository.save(user);
         return true;
