@@ -40,7 +40,7 @@
     <div th:if="${error != 'ok'}">
         <p style="color: red" th:text="${error}"></p>
     </div>
-    <form method="post" style="padding-left: 10px">
+    <form method="POST" style="padding-left: 10px">
         <table style="border: solid black;">
             <tr>
                 <td class="fees">Total Fees</td>
@@ -63,6 +63,7 @@
             </tr>
         </table>
         <br>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <input class="button" type="submit">
     </form>
     <script type="text/javascript">

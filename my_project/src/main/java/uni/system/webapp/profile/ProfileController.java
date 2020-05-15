@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uni.system.webapp.tables.Staff;
 import uni.system.webapp.tables.Student;
-import javax.servlet.http.HttpSession;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ProfileController {
@@ -17,9 +18,8 @@ public class ProfileController {
 
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public String showProfilePage(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
-
+    public String showProfilePage(ModelMap model, HttpServletRequest request) {
+        String userID = service.getID(request);
         //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";
@@ -49,9 +49,8 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String unRegister(ModelMap model, HttpSession session) {
-        String userID = (String) session.getAttribute("ID");
-
+    public String unRegister(ModelMap model, HttpServletRequest request) {
+        String userID = service.getID(request);
         //If no user ID in session, ask user to log back in
         if(userID == null) {
             return "redirect:login";

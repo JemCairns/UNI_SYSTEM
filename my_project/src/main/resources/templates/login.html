@@ -2,14 +2,13 @@
     <head>
         <title>University of Springfield Web Portal</title>
         <link type="text/css" rel="stylesheet" href="css/login.css">
-        <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body>
-        <form class="login" method="post">
+        <form class="login" method="POST" th:action="@{/login}">
             <h2>Please login</h2>
             <p th:text="${errorMessage}"></p>
             <input type="hidden" name="playerId" value="${ID}"/>
-            <input type="text" class="value" name="ID" placeholder="student/staff ID" />
+            <input type="text" class="value" name="username" placeholder="student/staff ID" />
             <input type="password" class="value" name="password" placeholder="password" />
             <br>
             <select class="value" name="user">
@@ -17,7 +16,6 @@
                 <option value="staff">Staff</option>
             </select>
             <br/>
-            <div class="g-recaptcha" data-sitekey="6LctyPYUAAAAABootUlHCliUmDKMtu-6c8KE9-qv"></div>
             <br/>
             <button type="submit">Login</button>
             <br/><br/>
